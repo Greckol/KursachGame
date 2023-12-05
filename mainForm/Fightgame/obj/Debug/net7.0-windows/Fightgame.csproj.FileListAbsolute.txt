@@ -1,0 +1,17 @@
+D:\Kursach\mainForm\Fightgame\bin\Debug\net7.0-windows\Fightgame.exe
+D:\Kursach\mainForm\Fightgame\bin\Debug\net7.0-windows\Fightgame.deps.json
+D:\Kursach\mainForm\Fightgame\bin\Debug\net7.0-windows\Fightgame.runtimeconfig.json
+D:\Kursach\mainForm\Fightgame\bin\Debug\net7.0-windows\Fightgame.dll
+D:\Kursach\mainForm\Fightgame\bin\Debug\net7.0-windows\Fightgame.pdb
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.csproj.AssemblyReference.cache
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.Form1.resources
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.csproj.GenerateResource.cache
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.GeneratedMSBuildEditorConfig.editorconfig
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.AssemblyInfoInputs.cache
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.AssemblyInfo.cs
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.csproj.CoreCompileInputs.cache
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.dll
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\refint\Fightgame.dll
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.pdb
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.genruntimeconfig.cache
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\ref\Fightgame.dll
