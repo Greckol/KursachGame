@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 
@@ -5,54 +6,50 @@ namespace Fightgame
 {
     public partial class Form1 : Form
     {
-        const string name = "Genry";
-        List<List<Unit>> matrix = new List<List<Unit>>();
+        Matrix matrix;
         List<Unit> units = new List<Unit>();
-        List<List<Unit>> FreeMatrix = new List<List<Unit>>();
-        const int cellSize = 70;    //70
+        const int cellSize = 70; 
         const int matrixRowsSize = 9, matrixColumsSize = 9;
-        Player player = Player.GetInstance(name, matrixRowsSize/2, matrixColumsSize/2);
+        Player player = Player.GetInstance("Genry", matrixRowsSize/2, matrixColumsSize/2);
 
         public Form1()
         {
+            matrix = new Matrix(matrixRowsSize, matrixColumsSize);
+            addPerson();
+
             InitializeComponent();
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             this.MouseClick += new MouseEventHandler(Form1_MouseClick);
-            fieldMatrix(matrix, matrixRowsSize, matrixColumsSize);  // 9 9
         }
 
         private void addPerson()
         {
             Random rand = new Random();
             Unit unit = new Slime();
-            int cordColums, cordRows;
+            int cordRows, cordColums;
             do
             {
-                cordColums = rand.Next(0, matrix.Count);
-                cordRows = rand.Next(0, matrix[0].Count);
-            } while (!matrix[cordRows][cordColums].Invulnerable || matrix[cordRows][cordColums] == player); // возможно заполнение и вылет
+                cordRows = rand.Next(0, matrix.Rows);
+                cordColums = rand.Next(0, matrix.Colums);
+            } while (!matrix[cordRows,cordColums].Invulnerable || matrix[cordRows,cordColums] == player); // возможно заполнение и вылет
             unit.cordRows = cordRows;
             unit.cordColums = cordColums;
             units.Add(unit);
         }
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            int x = e.X / cellSize;
-            int y = e.Y / cellSize;
+            int row = e.Y / cellSize;
+            int colum = e.X / cellSize;
 
-            if (x >= 0 && x < matrix.Count && y >= 0 && y < matrix[x].Count)
+            if (colum >= 0 && colum < matrix.Rows && row >= 0 && row < matrix.Colums)
             {
-                char cellContent = matrix[x][y].Simvol; // Получаем содержимое клетки
+                char cellContent = matrix[row,colum].Simvol; // Получаем содержимое клетки
                 label1.Text = "Содержимое клетки: " + cellContent; // Отображаем информацию в Label
             }
         }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            fieldMatrix(FreeMatrix, matrixRowsSize, matrixColumsSize);
-            addPerson();
-        }
+        
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -62,13 +59,13 @@ namespace Fightgame
                     if (player.cordRows > 0) player.cordRows--;
                     break;
                 case Keys.S:
-                    if (player.cordRows < matrix.Count - 1) player.cordRows++;
+                    if (player.cordRows < matrix.Rows - 1) player.cordRows++;
                     break;
                 case Keys.A:
                     if (player.cordColums > 0) player.cordColums--;
                     break;
                 case Keys.D:
-                    if (player.cordColums < matrix[0].Count - 1) player.cordColums++;
+                    if (player.cordColums < matrix.Colums - 1) player.cordColums++;
                     break;
             }
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.S ||
@@ -77,73 +74,25 @@ namespace Fightgame
             };
             this.Invalidate(); // Перерисовка формы
         }
-        private void fieldMatrix(List<List<Unit>> matrix, int sizeRows, int sizeColums)
-        {
-            for (int i = 0; i < sizeRows; i++)
-            {
-                List<Unit> row = new List<Unit>();
-                for (int j = 0; j < sizeColums; j++)
-                {
-                    row.Add(new FreeCell());
-                }
-                matrix.Add(row);
-            }
-        }
-
-        private void moveMatrix()
-        {
-            for (int i = 0; i < matrix.Count; i++)
-            {
-                for (int j = 0; j < matrix[0].Count; j++)
-                {
-
-                    matrix[i][j] = FreeMatrix[i][j];
-                }
-            }
-            matrix[player.cordRows][player.cordColums] = player;
-            foreach (var i in units)
-            {
-                matrix[i.cordRows][i.cordColums] = i;
-            }
-        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             Graphics g = e.Graphics;
+            matrix.moveMatrix(player, units);
 
-
-
-            moveMatrix();
-            for (var i = 0; i < matrix.Count; i++)
+            for (var i = 0; i < matrix.Rows; i++)
             {
-                for (var b = 0; b < matrix[0].Count; b++)
+                for (var b = 0; b < matrix.Colums; b++)
                 {
-                    bool isNeighbor = Math.Abs(player.cordRows - i) + Math.Abs(player.cordColums - b) < (player.RangeAtack + 1);   // область возле игрока
-                    if (isNeighbor) g.FillRectangle(Brushes.DarkRed, b * cellSize, i * cellSize, cellSize, cellSize);
-
-                    if (matrix[i][b] == player)
-                    {
-                        g.FillRectangle(Brushes.Green, b * cellSize, i * cellSize, cellSize, cellSize);
-                    }
-
-                    if (matrix[i][b].Simvol == 'S')
-                    {
-                        g.FillRectangle(Brushes.Yellow, b * cellSize, i * cellSize, cellSize, cellSize);
-                    }
-
-                    g.DrawRectangle(Pens.Black, b * cellSize, i * cellSize, cellSize, cellSize);
-
-                    string value = matrix[i][b].Simvol.ToString();
-                    PointF textPosition = new PointF(b * cellSize + (cellSize / 4), i * cellSize + (cellSize / 4));
-                    g.DrawString(value, this.Font, Brushes.Black, textPosition);
+                    matrix.DrawAll(g, this, player, i, b);
                 }
             }
         }
 
         private void buttonAtack_Click(object sender, EventArgs e)
         {
-            player.atack(matrix, units);
+            player.atack(matrix.matrix, units);
             this.Invalidate();
         }
     }
