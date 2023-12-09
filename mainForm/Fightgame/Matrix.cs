@@ -43,13 +43,13 @@ namespace Fightgame
             matrix[player.cordRows][player.cordColums] = player;
             foreach (var i in units)
             {
-                matrix[i.cordRows][i.cordColums] = i;
+                matrix[i.CordRows][i.CordColums] = i;
             }
         }
 
         private void ColorDrow(Graphics g, Player player, int row, int colum)
         {
-            bool isNeighbor = Math.Abs(player.cordRows - row) + Math.Abs(player.cordColums - colum) < (player.RangeAtack + 1);   // область возле игрока
+            bool isNeighbor = Math.Abs(player.cordRows - row) + Math.Abs(player.cordColums - colum) <= (player.RangeAtack);   // область возле игрока
             if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * cellSize, row * cellSize, cellSize, cellSize);
 
             if (matrix[row][colum] == player)

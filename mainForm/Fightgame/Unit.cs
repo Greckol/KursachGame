@@ -12,6 +12,7 @@ namespace Fightgame
         public int cordRows;
         public int damage;
         public int health;
+        public int healthMax;
         public int armor;
         public int evasion;
         public int rangeAtack;
@@ -25,14 +26,15 @@ namespace Fightgame
 
         public bool invulnerable;
 
-        public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, int health = 5,
-            int armor = 0, int evasion = 0, string name = "", int rangeAtack = 1,
+        public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, int health = 5, int helthMax = 5,
+            int armor = 0, int evasion = 0, string name = "undef", int rangeAtack = 1,
             bool invulnerable = false) 
         {
             CordColums = cordColums;
             CordRows = cordRows;
             Damage = damage;
             Health = health;
+            HealthMax = helthMax;
             Armor = armor;
             Evasion = evasion;
             Name = name;
@@ -63,6 +65,12 @@ namespace Fightgame
         {
             get { return health; }
             set { health = value; }
+        }
+
+        public int HealthMax
+        {
+            get { return healthMax; }
+            set { healthMax = value; }
         }
         public int Armor
         {

@@ -15,3 +15,4 @@ D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\refint\Fightgame.dll
 D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.pdb
 D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.genruntimeconfig.cache
 D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\ref\Fightgame.dll
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.Form2.resources

@@ -1,78 +1,146 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Fightgame
 {
     public partial class Form1 : Form
     {
+        const int matrixRowsSize = 9;
+        const int matrixColumsSize = 9;
+        Random rand = new Random();
+
         Matrix matrix;
         List<Unit> units = new List<Unit>();
-        const int cellSize = 70; 
-        const int matrixRowsSize = 9, matrixColumsSize = 9;
-        Player player = Player.GetInstance("Genry", matrixRowsSize/2, matrixColumsSize/2);
+        Player player = Player.GetInstance("Genry", matrixRowsSize / 2, matrixColumsSize / 2);
 
         public Form1()
         {
             matrix = new Matrix(matrixRowsSize, matrixColumsSize);
-            addPerson();
-
             InitializeComponent();
+            ProgressB.refreshProgress(progressBarPlayer, player);
+            matrix.moveMatrix(player, units);
+            addPerson(5, "slime");
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             this.MouseClick += new MouseEventHandler(Form1_MouseClick);
         }
 
-        private void addPerson()
+        private void addPerson(int count, string title)
         {
-            Random rand = new Random();
-            Unit unit = new Slime();
-            int cordRows, cordColums;
-            do
+            Unit unit;
+            for (int i = 0; i < count; i++)
             {
-                cordRows = rand.Next(0, matrix.Rows);
-                cordColums = rand.Next(0, matrix.Colums);
-            } while (!matrix[cordRows,cordColums].Invulnerable || matrix[cordRows,cordColums] == player); // возможно заполнение и вылет
-            unit.cordRows = cordRows;
-            unit.cordColums = cordColums;
-            units.Add(unit);
+                switch (title)
+                {
+                    case "slime":
+                        unit = new Slime();
+                        break;
+                    default:
+                        unit = new Slime();
+                        break;
+                }
+                do
+                {
+                    unit.cordRows = rand.Next(0, matrix.Rows);
+                    unit.cordColums = rand.Next(0, matrix.Colums);
+                } while (!matrix[unit.cordRows, unit.cordColums].Invulnerable || matrix[unit.cordRows, unit.cordColums] == player); // возможно заполнение и вылет
+                units.Add(unit);
+            }
         }
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            int row = e.Y / cellSize;
-            int colum = e.X / cellSize;
+            int row = e.Y / matrix.CellSize;
+            int colum = e.X / matrix.CellSize;
 
             if (colum >= 0 && colum < matrix.Rows && row >= 0 && row < matrix.Colums)
             {
-                char cellContent = matrix[row,colum].Simvol; // Получаем содержимое клетки
+                char cellContent = matrix[row, colum].Simvol; // Получаем содержимое клетки
                 label1.Text = "Содержимое клетки: " + cellContent; // Отображаем информацию в Label
+                ProgressB.refreshProgress(progressBarEnemy, matrix[row, colum]);
             }
         }
-        
+
+
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
-
                 case Keys.W:
-                    if (player.cordRows > 0) player.cordRows--;
+                    if (player.CordRows > 0) player.cordRows--;
                     break;
                 case Keys.S:
-                    if (player.cordRows < matrix.Rows - 1) player.cordRows++;
+                    if (player.CordRows < matrix.Rows - 1) player.CordRows++;
                     break;
                 case Keys.A:
-                    if (player.cordColums > 0) player.cordColums--;
+                    if (player.CordColums > 0) player.CordColums--;
                     break;
                 case Keys.D:
-                    if (player.cordColums < matrix.Colums - 1) player.cordColums++;
+                    if (player.CordColums < matrix.Colums - 1) player.CordColums++;
                     break;
             }
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.S ||
                 e.KeyCode == Keys.A || e.KeyCode == Keys.D)
             {
+                matrix.moveMatrix(player, units);
+                Move(units);
             };
             this.Invalidate(); // Перерисовка формы
+        }
+
+        Keys toKeys(int number)
+        {
+            switch (number)
+            {
+                case 1:
+                    return Keys.W;
+                case 2:
+                    return Keys.S;
+                case 3:
+                    return Keys.A;
+                case 4:
+                    return Keys.D;
+                default:
+                    return Keys.D;
+            }
+        }
+        private void Move(List<Unit> unit)
+        {
+            foreach (var i in unit)
+            {
+                int key = rand.Next(1, 5);
+                switch (toKeys(key))
+                {
+                    case Keys.W:
+                        if (i.CordRows > 0)
+                        {
+                            if (matrix[i.CordRows - 1, i.CordColums].Invulnerable) i.CordRows--;
+                        }
+                        break;
+                    case Keys.S:
+                        if (i.CordRows < matrix.Rows - 1)
+                        {
+                            if (matrix[i.CordRows + 1, i.CordColums].Invulnerable) i.CordRows++;
+                        }
+                        break;
+                    case Keys.A:
+                        if (i.cordColums > 0)
+
+                        {
+                            if (matrix[i.CordRows, i.CordColums - 1].Invulnerable) i.CordColums--;
+                        }
+                        break;
+                    case Keys.D:
+                        if (i.cordColums < matrix.Colums - 1)
+                        {
+                            if (matrix[i.CordRows, i.CordColums + 1].Invulnerable) i.CordColums++;
+                        }
+                        break;
+                }
+                matrix.moveMatrix(player, units);
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -92,7 +160,7 @@ namespace Fightgame
 
         private void buttonAtack_Click(object sender, EventArgs e)
         {
-            player.atack(matrix.matrix, units);
+            player.atack(matrix, units, progressBarPlayer);
             this.Invalidate();
         }
     }
