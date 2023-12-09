@@ -17,7 +17,7 @@ namespace Fightgame
 
         public Form1()
         {
-            matrix = new Matrix(matrixRowsSize, matrixColumsSize);
+            matrix = new Matrix(matrixRowsSize, matrixColumsSize, 70);
             InitializeComponent();
             ProgressB.refreshProgress(progressBarPlayer, player);
             matrix.moveMatrix(player, units);
@@ -162,6 +162,12 @@ namespace Fightgame
         {
             player.atack(matrix, units, progressBarPlayer);
             this.Invalidate();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form form2 = new Form2();
+            form2.Show();
         }
     }
 }

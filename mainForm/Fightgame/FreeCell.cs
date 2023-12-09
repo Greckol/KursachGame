@@ -8,9 +8,9 @@ namespace Fightgame
 {
     internal class FreeCell : Unit
     {
-        public FreeCell(): base() 
+        public FreeCell(char simvol = '#'): base() 
         {
-            Simvol = '#';
+            Simvol = simvol;
             Invulnerable = true;
         }
         

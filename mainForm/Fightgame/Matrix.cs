@@ -10,9 +10,9 @@ namespace Fightgame
 {
     internal class Matrix
     {
-        public Matrix(int rows, int columns)
+        public Matrix(int rows, int columns, int cellSize)
         {
-            CellSize = 70;
+            CellSize = cellSize;
             Rows = rows;
             Colums = columns;
 
@@ -47,35 +47,35 @@ namespace Fightgame
             }
         }
 
-        private void ColorDrow(Graphics g, Player player, int row, int colum)
+        protected virtual void ColorDrow(Graphics g, Player player, int row, int colum)
         {
             bool isNeighbor = Math.Abs(player.cordRows - row) + Math.Abs(player.cordColums - colum) <= (player.RangeAtack);   // область возле игрока
-            if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * cellSize, row * cellSize, cellSize, cellSize);
+            if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSize, row * CellSize, CellSize, CellSize);
 
             if (matrix[row][colum] == player)
             {
-                g.FillRectangle(Brushes.Green, colum * cellSize, row * cellSize, cellSize, cellSize);
+                g.FillRectangle(Brushes.Green, colum * CellSize, row * CellSize, CellSize, CellSize);
             }
 
             if (matrix[row][colum].Simvol == 'S')
             {
-                g.FillRectangle(Brushes.Yellow, colum * cellSize, row * cellSize, cellSize, cellSize);
+                g.FillRectangle(Brushes.Yellow, colum * CellSize, row * CellSize, CellSize, CellSize);
             }
         }
 
         private void TextDrow(Form f, Graphics g, int row, int colum)
         {
             string value = matrix[row][colum].Simvol.ToString();
-            PointF textPosition = new PointF(colum * cellSize + (cellSize / 4), row * cellSize + (cellSize / 4));
+            PointF textPosition = new PointF(colum * CellSize + (CellSize / 4), row * CellSize + (CellSize / 4));
             g.DrawString(value, f.Font, Brushes.Black, textPosition);
         }
 
-        private void RectangleDrow(Graphics g, int row, int colum)
+        protected void RectangleDrow(Graphics g, int row, int colum)
         {
-            g.DrawRectangle(Pens.Black, colum * cellSize, row * cellSize, cellSize, cellSize);
+            g.DrawRectangle(Pens.Black, colum * CellSize, row * CellSize, CellSize, CellSize);
         }
 
-        public void DrawAll(Graphics g, Form f, Player player, int row, int colum)
+        public virtual void DrawAll(Graphics g, Form f, Player player, int row, int colum)
         {
             ColorDrow(g, player, row, colum);
             RectangleDrow(g, row, colum);

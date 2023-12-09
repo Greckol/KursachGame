@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,18 +18,15 @@ namespace Fightgame
         public Form2()
         {
             InitializeComponent();
-            //paint();
-            //panel2.Paint += new PaintEventHandler(Panel2_Paint);
-
             panel1.Paint += new PaintEventHandler(Panel1_Paint);
-            this.DoubleBuffered = true;
+            panel2.Paint += new PaintEventHandler(matrixVisuble);
             timer1.Interval = 40;
             timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
+            this.DoubleBuffered = true;
         }
 
         protected void timer1_Tick(object sender, EventArgs e)
-
         {
             x += speed;
             if (x >= panel1.ClientSize.Width - mainBorderWidth - atackLineWidth || x <= 0)
@@ -45,7 +43,6 @@ namespace Fightgame
         int mainBorderWidth = 24; // только четное
         int atackLineWidth = 5;
         SolidBrush color = new SolidBrush(Color.Red);
-
 
         protected void Panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -72,7 +69,23 @@ namespace Fightgame
             {
                 MessageBox.Show("No");
             }
+            panel1.Visible = false;
+        }
 
+        void matrixVisuble(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            Player player = Player.GetInstance();
+            List<Unit> units = new List<Unit>();
+            Matrix matrix = new Matrix(panel2.Height / 40, panel2.Width / 40, 40);
+            matrix.moveMatrix(player, units);
+            for (var i = 0; i < matrix.Rows; i++)
+            {
+                for (var b = 0; b < matrix.Colums; b++)
+                {
+                    matrix.DrawAll(g, this, player, i, b);
+                }
+            }
 
         }
     }

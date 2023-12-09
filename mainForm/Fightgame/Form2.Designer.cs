@@ -32,11 +32,12 @@
             timer1 = new System.Windows.Forms.Timer(components);
             panel1 = new Panel();
             buttonHit = new Button();
+            panel2 = new Panel();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Location = new Point(469, 227);
+            panel1.Location = new Point(469, 47);
             panel1.Name = "panel1";
             panel1.Size = new Size(969, 200);
             panel1.TabIndex = 0;
@@ -51,11 +52,19 @@
             buttonHit.UseVisualStyleBackColor = true;
             buttonHit.Click += buttonHit_Click;
             // 
+            // panel2
+            // 
+            panel2.Location = new Point(785, 270);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(310, 220);
+            panel2.TabIndex = 2;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(panel2);
             Controls.Add(buttonHit);
             Controls.Add(panel1);
             Name = "Form2";
@@ -68,5 +77,6 @@
         private System.Windows.Forms.Timer timer1;
         private Panel panel1;
         private Button buttonHit;
+        private Panel panel2;
     }
 }
