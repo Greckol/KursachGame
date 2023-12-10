@@ -8,14 +8,10 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal class Matrix
+    internal class Matrix: MatrixBase
     {
-        public Matrix(int rows, int columns, int cellSize)
+        public Matrix(int rows, int columns, int cellSize): base(rows, columns, cellSize)
         {
-            CellSize = cellSize;
-            Rows = rows;
-            Colums = columns;
-
             matrix = new List<List<Unit>>();
             freeMatrix = new List<List<Unit>>();
             for (int i = 0; i < Rows; i++)
@@ -30,7 +26,7 @@ namespace Fightgame
             }
         }
 
-        public void moveMatrix(Player player, List<Unit> units)
+        public virtual void moveMatrix(Player player, List<Unit> units)
         {
             for (int i = 0; i < matrix.Count; i++)
             {
@@ -70,10 +66,7 @@ namespace Fightgame
             g.DrawString(value, f.Font, Brushes.Black, textPosition);
         }
 
-        protected void RectangleDrow(Graphics g, int row, int colum)
-        {
-            g.DrawRectangle(Pens.Black, colum * CellSize, row * CellSize, CellSize, CellSize);
-        }
+        
 
         public virtual void DrawAll(Graphics g, Form f, Player player, int row, int colum)
         {
@@ -102,26 +95,8 @@ namespace Fightgame
             }
         }
 
-        public List<List<Unit>> matrix;
-        List<List<Unit>> freeMatrix;
-        int cellSize;
-        int matrixRows;
-        int matrixColumns;
-
-        public int CellSize
-        {
-            get { return cellSize; }
-            set { cellSize = value; }
-        }
-        public int Rows
-        {
-            get { return matrixRows; }
-            set {  matrixRows = value; }
-        }
-        public int Colums
-        {
-            get { return matrixColumns; }
-            set { matrixColumns = value; }
-        }
+        public  List<List<Unit>> matrix;
+        protected List<List<Unit>> freeMatrix;
+        
     }
 }

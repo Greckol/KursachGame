@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -15,15 +16,26 @@ namespace Fightgame
     {
         Rectangle rectTarget;
         Rectangle rectSmall;
+        Unit enemy;
+        public Unit Enemy
+        {
+            get {return enemy; }
+            set { enemy = value; }
+        }
+
         public Form2()
         {
             InitializeComponent();
+            this.KeyPreview = true;
+            this.DoubleBuffered = true;
+            matrixD = new MatrixDef(panel2.Height / 40, panel2.Width / 40, 40);
             panel1.Paint += new PaintEventHandler(Panel1_Paint);
             panel2.Paint += new PaintEventHandler(matrixVisuble);
+            panel2.Hide();
             timer1.Interval = 40;
             timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
-            this.DoubleBuffered = true;
+            timer2.Tick += timer2_Tick;
         }
 
         protected void timer1_Tick(object sender, EventArgs e)
@@ -38,6 +50,22 @@ namespace Fightgame
             panel1.Invalidate(new Rectangle(x + mainBorderWidth / 2 - speed, mainBorderWidth / 2, atackLineWidth, panel1.Height - mainBorderWidth - 1));
         }
 
+        protected void timer2_Tick(object sender, EventArgs e)
+        {
+            Graphics g;
+            if (timer2TickCount < matrixD.Rows)
+            {
+                for (int i = 0; i < matrixD.Colums; i++)
+                {
+                    matrixD.addEnemy(timer2TickCount, i);
+                }
+            }
+
+            timer2TickCount++;
+            panel2.Invalidate();
+        }
+        MatrixDef matrixD;
+        int timer2TickCount;
         int x = 0;
         int speed = 5;
         int mainBorderWidth = 24; // только четное
@@ -70,23 +98,46 @@ namespace Fightgame
                 MessageBox.Show("No");
             }
             panel1.Visible = false;
+            panel2.Visible = true;
+            timer1.Stop();
+            timer2.Enabled = true;
+            timer2.Interval = 1000;
+            timer2TickCount = 0;
+            this.KeyDown += new KeyEventHandler(Form2_KeyDown);
+        }
+
+        private void Form2_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.W:
+                    if (matrixD.CordRowPlayer > 0) matrixD.CordRowPlayer--;
+                    break;
+                case Keys.S:
+                    if (matrixD.CordRowPlayer < matrixD.Rows - 1) matrixD.CordRowPlayer++;
+                    break;
+                case Keys.A:
+                    if (matrixD.CordColumnPlayer > 0) matrixD.CordColumnPlayer--;
+                    break;
+                case Keys.D:
+                    if (matrixD.CordColumnPlayer < matrixD.Colums - 1) matrixD.CordColumnPlayer++;
+                    break;
+            }
+            matrixD.moveMatrix();
+            panel2.Invalidate();
         }
 
         void matrixVisuble(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            Player player = Player.GetInstance();
-            List<Unit> units = new List<Unit>();
-            Matrix matrix = new Matrix(panel2.Height / 40, panel2.Width / 40, 40);
-            matrix.moveMatrix(player, units);
-            for (var i = 0; i < matrix.Rows; i++)
+            matrixD.moveMatrix();
+            for (var i = 0; i < matrixD.Rows; i++)
             {
-                for (var b = 0; b < matrix.Colums; b++)
+                for (var b = 0; b < matrixD.Colums; b++)
                 {
-                    matrix.DrawAll(g, this, player, i, b);
+                    matrixD.DrawAll(g, this, i, b);
                 }
             }
-
         }
     }
 }

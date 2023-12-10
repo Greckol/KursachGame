@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal abstract class Unit
+    public abstract class Unit
     {
         public int cordColums;
         public int cordRows;

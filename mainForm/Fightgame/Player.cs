@@ -39,16 +39,10 @@ namespace Fightgame
                     bool isNeighbor = Math.Abs(cordRows - i) + Math.Abs(cordColums - b) <= (RangeAtack);
                     if (!matrix[i, b].Invulnerable && matrix[i, b] != player && isNeighbor)
                     {
-                        fightLogic(matrix, i, b, units);
-                        ProgressB.refreshProgress(healthBarPlayer, player);
-                        /*while (matrix[i, b].Health > 0)
-                        {
-                            matrix[i, b].Health -= Damage;
-                            if (matrix[i, b].Health <= 0)
-                            {
-                                units.Remove(matrix[i, b]);
-                            }
-                        }*/
+                        Form form2 = new Form2();
+                        form2.Show();
+                        //fightLogic(matrix, i, b, units);
+                        //ProgressB.refreshProgress(healthBarPlayer, player);
                     }
                 }
             }

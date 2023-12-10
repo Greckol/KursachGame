@@ -166,8 +166,9 @@ namespace Fightgame
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form form2 = new Form2();
-            form2.Show();
+            //Form form2 = new Form2();
+            //form2.Show();
+            player.atack(matrix, units, progressBarPlayer);
         }
     }
 }
