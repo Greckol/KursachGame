@@ -13,18 +13,12 @@ namespace Fightgame
             Simvol = simvol;
             Invulnerable = true;
         }
+
+        public override void AtackPattern(MatrixDef matrix)
+        {
+            throw new NotImplementedException();
+        }
+
         
-
-        public override bool checkAtackRange(List<List<char>> matrix)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool checkVision()
-        {
-            throw new NotImplementedException();
-        }
-
-
     }
 }

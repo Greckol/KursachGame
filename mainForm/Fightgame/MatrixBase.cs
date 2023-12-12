@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal class MatrixBase
+    public class MatrixBase
     {
         public MatrixBase(int matrixRows, int matrixColumns, int cellsize )
         {

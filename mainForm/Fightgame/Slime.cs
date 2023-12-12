@@ -11,16 +11,28 @@ namespace Fightgame
         public Slime(): base(name: "Slime")
         {
             simvol = 'S';
-        }
-        public override bool checkAtackRange(List<List<char>> matrix)
-        {
-            throw new NotImplementedException();
+            atackCount = 10;
+            cellAtackCount = 15;
         }
 
-        public override bool checkVision()
+        public override void AtackPattern(MatrixDef matrix)
         {
-            throw new NotImplementedException();
+            Random rnd = new Random();
+            int cordRowRand = new int();
+            int cordColumnRand = new int();
+            for (int i = 0; i < cellAtackCount; i++)
+            {
+                do
+                {
+                    cordRowRand = rnd.Next(0, matrix.Rows);
+                    cordColumnRand = rnd.Next(0, matrix.Colums);
+                } while (matrix.matrix[cordRowRand][cordColumnRand] == 'E');
+                /*matrix.matrix[cordRowRand][cordColumnRand] == 'E' || 
+                matrix.matrix[cordRowRand][cordColumnRand] == 'P'*/
+                matrix.addEnemy(cordRowRand, cordColumnRand);
+            }
         }
 
+        
     }
 }

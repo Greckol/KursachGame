@@ -17,10 +17,10 @@ namespace Fightgame
         Rectangle rectTarget;
         Rectangle rectSmall;
         Unit enemy;
-        public Unit Enemy
+        Player player = Player.GetInstance();
+        public void setEnemy(Unit unit)
         {
-            get {return enemy; }
-            set { enemy = value; }
+            enemy = unit;
         }
 
         public Form2()
@@ -36,6 +36,7 @@ namespace Fightgame
             timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
             timer2.Tick += timer2_Tick;
+            this.KeyDown += new KeyEventHandler(Form2_KeyDown);
         }
 
         protected void timer1_Tick(object sender, EventArgs e)
@@ -53,16 +54,39 @@ namespace Fightgame
         protected void timer2_Tick(object sender, EventArgs e)
         {
             Graphics g;
-            if (timer2TickCount < matrixD.Rows)
-            {
-                for (int i = 0; i < matrixD.Colums; i++)
-                {
-                    matrixD.addEnemy(timer2TickCount, i);
-                }
-            }
+            bool flag = false;
 
-            timer2TickCount++;
+            if (player.Health <= 0)
+            {
+                player.Die();
+            }
+            if (timer2TickCount % 2 == 0)
+            {
+                enemy.AtackPattern(matrixD);
+            }
+            else
+            {
+                flag = true;
+            }
+            matrixD.moveMatrix(flag);
             panel2.Invalidate();
+            if(matrixD.matrix[matrixD.CordRowPlayer][matrixD.CordColumnPlayer] == 'T')
+            {
+                player.Health -= enemy.damage;
+                ProgressB.refreshProgress(hpBarPlayer, player);
+            }
+            if (flag) matrixD.enemys.Clear();
+            timer2TickCount++;
+            if (enemy.AtackCount <= timer2TickCount)
+            {
+                timer2.Stop();
+                panel2.Visible = false;
+                panel1.Visible = true;
+                x = 0;
+                matrixD.enemys.Clear();
+                matrixD.moveMatrix();
+                timer1.Enabled = true;
+            }
         }
         MatrixDef matrixD;
         int timer2TickCount;
@@ -74,6 +98,7 @@ namespace Fightgame
 
         protected void Panel1_Paint(object sender, PaintEventArgs e)
         {
+
             Graphics g = e.Graphics;
             rectTarget = new Rectangle(panel1.Width / 2, mainBorderWidth / 2, 100, panel1.Height);
             rectSmall = new Rectangle(x + mainBorderWidth / 2, mainBorderWidth / 2, atackLineWidth, panel1.ClientSize.Height - mainBorderWidth - 1);
@@ -91,21 +116,27 @@ namespace Fightgame
         {
             if (rectTarget.Contains(rectSmall))
             {
-                MessageBox.Show("YES");
+                labelInfo.Text = '-' + player.Hit(enemy).ToString();
+                ProgressB.refreshProgress(hpBarEnemy, enemy);
+                if (enemy.Health <= 0)
+                {
+                    enemy.Die();
+
+                    this.Close();
+                }
             }
             else
             {
-                MessageBox.Show("No");
+                labelInfo.Text = "Miss";
             }
             panel1.Visible = false;
+            matrixD.moveMatrix();
             panel2.Visible = true;
             timer1.Stop();
             timer2.Enabled = true;
-            timer2.Interval = 1000;
+            timer2.Interval = 700;
             timer2TickCount = 0;
-            this.KeyDown += new KeyEventHandler(Form2_KeyDown);
         }
-
         private void Form2_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -126,11 +157,9 @@ namespace Fightgame
             matrixD.moveMatrix();
             panel2.Invalidate();
         }
-
         void matrixVisuble(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            matrixD.moveMatrix();
             for (var i = 0; i < matrixD.Rows; i++)
             {
                 for (var b = 0; b < matrixD.Colums; b++)
@@ -138,6 +167,12 @@ namespace Fightgame
                     matrixD.DrawAll(g, this, i, b);
                 }
             }
+        }
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            labelEnemyName.Text = enemy.Name;
+            ProgressB.refreshProgress(hpBarEnemy, enemy);
+            ProgressB.refreshProgress(hpBarPlayer, player);
         }
     }
 }

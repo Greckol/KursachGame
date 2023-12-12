@@ -19,6 +19,7 @@ namespace Fightgame
         {
             matrix = new Matrix(matrixRowsSize, matrixColumsSize, 70);
             InitializeComponent();
+            buttonAtack.Enabled = false;
             ProgressB.refreshProgress(progressBarPlayer, player);
             matrix.moveMatrix(player, units);
             addPerson(5, "slime");
@@ -50,22 +51,32 @@ namespace Fightgame
                 units.Add(unit);
             }
         }
+        int rowMouseClick;
+        int columnMouseClick;
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            int row = e.Y / matrix.CellSize;
-            int colum = e.X / matrix.CellSize;
+            rowMouseClick = e.Y / matrix.CellSize;
+            columnMouseClick = e.X / matrix.CellSize;
 
-            if (colum >= 0 && colum < matrix.Rows && row >= 0 && row < matrix.Colums)
+            if (columnMouseClick >= 0 && columnMouseClick < matrix.Rows && rowMouseClick >= 0 && rowMouseClick < matrix.Colums)
             {
-                char cellContent = matrix[row, colum].Simvol; // Получаем содержимое клетки
-                label1.Text = "Содержимое клетки: " + cellContent; // Отображаем информацию в Label
-                ProgressB.refreshProgress(progressBarEnemy, matrix[row, colum]);
+                refreshInformationEnemy(rowMouseClick, columnMouseClick);
             }
+        }
+
+        void refreshInformationEnemy(int row, int column)
+        {
+            label1.Text = "Содержимое клетки: " + matrix[rowMouseClick, columnMouseClick].Name;
+            ProgressB.refreshProgress(progressBarEnemy, matrix[rowMouseClick, columnMouseClick]);
+            bool isNeighbor = Math.Abs(player.cordRows - rowMouseClick) + Math.Abs(player.cordColums - columnMouseClick) <= (player.RangeAtack);
+            if (isNeighbor && !matrix[rowMouseClick, columnMouseClick].Invulnerable && matrix[rowMouseClick, columnMouseClick] != player) buttonAtack.Enabled = true;
+            else buttonAtack.Enabled = false;
         }
 
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            buttonAtack.Enabled = false;
             switch (e.KeyCode)
             {
                 case Keys.W:
@@ -160,15 +171,25 @@ namespace Fightgame
 
         private void buttonAtack_Click(object sender, EventArgs e)
         {
-            player.atack(matrix, units, progressBarPlayer);
+            player.atack(matrix, matrix[rowMouseClick, columnMouseClick], progressBarPlayer);
+            if (matrix[rowMouseClick, columnMouseClick].Health <= 0)
+            {
+                units.Remove(matrix[rowMouseClick, columnMouseClick]);
+                ProgressB.refreshExpBar(progressBarExp, player);
+                matrix.moveMatrix(player, units);
+                refreshInformationEnemy(rowMouseClick, columnMouseClick);
+            }
             this.Invalidate();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Form form2 = new Form2();
-            //form2.Show();
-            player.atack(matrix, units, progressBarPlayer);
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ProgressB.refreshExpBar(progressBarExp, player);
         }
     }
 }

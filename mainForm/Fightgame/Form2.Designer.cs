@@ -33,8 +33,11 @@
             panel1 = new Panel();
             buttonHit = new Button();
             panel2 = new Panel();
+            labelInfo = new Label();
             timer2 = new System.Windows.Forms.Timer(components);
             labelEnemyName = new Label();
+            hpBarPlayer = new ProgressBar();
+            hpBarEnemy = new ProgressBar();
             SuspendLayout();
             // 
             // panel1
@@ -48,7 +51,7 @@
             // 
             buttonHit.Location = new Point(469, 520);
             buttonHit.Name = "buttonHit";
-            buttonHit.Size = new Size(492, 144);
+            buttonHit.Size = new Size(421, 144);
             buttonHit.TabIndex = 1;
             buttonHit.Text = "Hit";
             buttonHit.UseVisualStyleBackColor = true;
@@ -56,10 +59,20 @@
             // 
             // panel2
             // 
-            panel2.Location = new Point(788, 153);
+            panel2.Location = new Point(805, 107);
             panel2.Name = "panel2";
-            panel2.Size = new Size(310, 220);
+            panel2.Size = new Size(300, 300);
             panel2.TabIndex = 2;
+            // 
+            // labelInfo
+            // 
+            labelInfo.AutoSize = true;
+            labelInfo.BackColor = Color.Transparent;
+            labelInfo.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            labelInfo.Location = new Point(917, 386);
+            labelInfo.Name = "labelInfo";
+            labelInfo.Size = new Size(0, 41);
+            labelInfo.TabIndex = 0;
             // 
             // labelEnemyName
             // 
@@ -71,17 +84,35 @@
             labelEnemyName.TabIndex = 3;
             labelEnemyName.Text = "label1";
             // 
+            // hpBarPlayer
+            // 
+            hpBarPlayer.Location = new Point(468, 793);
+            hpBarPlayer.Name = "hpBarPlayer";
+            hpBarPlayer.Size = new Size(970, 60);
+            hpBarPlayer.TabIndex = 4;
+            // 
+            // hpBarEnemy
+            // 
+            hpBarEnemy.Location = new Point(468, 430);
+            hpBarEnemy.Name = "hpBarEnemy";
+            hpBarEnemy.Size = new Size(970, 74);
+            hpBarEnemy.TabIndex = 5;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(labelInfo);
+            Controls.Add(hpBarEnemy);
+            Controls.Add(hpBarPlayer);
             Controls.Add(labelEnemyName);
             Controls.Add(panel2);
             Controls.Add(buttonHit);
             Controls.Add(panel1);
             Name = "Form2";
             Text = "Form2";
+            Load += Form2_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -94,5 +125,9 @@
         private Panel panel2;
         private System.Windows.Forms.Timer timer2;
         private Label labelEnemyName;
+        private ProgressBar hpBarPlayer;
+        private ProgressBar hpBarEnemy;
+        private Label labelInfo;
+
     }
 }

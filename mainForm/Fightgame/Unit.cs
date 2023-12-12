@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ namespace Fightgame
         public int healthMax;
         public int armor;
         public int evasion;
+        public int lvl;
+        public int exp;
+        public int expMax;
         public int rangeAtack;
         public char simvol;
         public char Simvol
@@ -27,7 +31,7 @@ namespace Fightgame
         public bool invulnerable;
 
         public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, int health = 5, int helthMax = 5,
-            int armor = 0, int evasion = 0, string name = "undef", int rangeAtack = 1,
+            int armor = 0, int evasion = 0, int lvl = 1, string name = "undef", int rangeAtack = 1,
             bool invulnerable = false) 
         {
             CordColums = cordColums;
@@ -37,6 +41,7 @@ namespace Fightgame
             HealthMax = helthMax;
             Armor = armor;
             Evasion = evasion;
+            Lvl = lvl;
             Name = name;
             RangeAtack = rangeAtack;
             Invulnerable = invulnerable;
@@ -46,6 +51,12 @@ namespace Fightgame
             get { return invulnerable; }
             set { invulnerable = value; }
         }
+        public int Lvl
+        {
+            get { return lvl; }
+            set { lvl = value; }
+        }
+        
         public int CordColums
         {
             get { return cordColums; }
@@ -95,7 +106,17 @@ namespace Fightgame
             get { return rangeAtack; }
             set { rangeAtack = value; }
         }
-        public abstract bool checkVision();
-        public abstract bool checkAtackRange(List<List<char>> matrix);
+
+        protected int atackCount = 5;
+        protected int cellAtackCount = 6;
+        public int AtackCount
+        {
+            get { return atackCount; }
+        }
+        public abstract void AtackPattern(MatrixDef matrix);
+        public virtual void Die() 
+        {
+            Player.GetInstance().Exp += 5;
+        }
     }
 }

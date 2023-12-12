@@ -9,11 +9,13 @@ namespace Fightgame
     internal class Goblin : Unit
     {
         public Goblin():base(name: "Goblin") { }
-        public override bool checkAtackRange(List<List<char>> matrix)
+
+        public override void AtackPattern(MatrixDef matrix)
         {
             throw new NotImplementedException();
         }
-        public override bool checkVision()
+
+        public override void Die()
         {
             throw new NotImplementedException();
         }

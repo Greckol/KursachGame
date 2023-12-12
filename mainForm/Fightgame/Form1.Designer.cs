@@ -42,9 +42,9 @@
             // 
             // buttonAtack
             // 
-            buttonAtack.Location = new Point(879, 598);
+            buttonAtack.Location = new Point(879, 209);
             buttonAtack.Name = "buttonAtack";
-            buttonAtack.Size = new Size(310, 140);
+            buttonAtack.Size = new Size(324, 59);
             buttonAtack.TabIndex = 1;
             buttonAtack.Text = "Atack";
             buttonAtack.UseVisualStyleBackColor = true;
@@ -52,7 +52,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(1287, 596);
+            button1.Location = new Point(879, 583);
             button1.Name = "button1";
             button1.Size = new Size(345, 142);
             button1.TabIndex = 2;
@@ -95,6 +95,7 @@
             Controls.Add(label1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }

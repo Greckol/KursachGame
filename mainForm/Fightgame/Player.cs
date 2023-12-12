@@ -12,85 +12,56 @@ namespace Fightgame
     {
         private static Player player;
 
-        public override bool checkVision()
+        
+        public void atack(Matrix matrix, Unit unit, ProgressBar healthBarPlayer)
         {
-            throw new NotImplementedException();
+            Form2 form2 = new Form2();
+            form2.setEnemy(unit);
+            form2.ShowDialog();
         }
-
-        public override bool checkAtackRange(List<List<char>> matrix)
+        public int Exp
         {
-            for (var i = 0; i < matrix.Count; i++)
+            get
             {
-                for (var b = 0; b < matrix[i].Count; b++)
+                while (exp >= expMax)
                 {
-                    bool isNeighbor = Math.Abs(player.cordColums - i) + Math.Abs(player.cordRows - b) <= (player.RangeAtack);
-                    if (isNeighbor && matrix[i][b] != '#' && matrix[i][b] != 'P') return true;
+                    exp -= expMax;
+                    expMax += Convert.ToInt32(Convert.ToDouble(expMax) * 0.5);
+                    LvlUp();
                 }
+                return exp;
             }
-            return false;
+            set { exp = value; }
         }
-
-        public void atack(Matrix matrix, List<Unit> units, ProgressBar healthBarPlayer)
+        public int ExpMax
         {
-            for (int i = cordRows-RangeAtack; i <= cordRows + RangeAtack && i >= 0 &&  i < matrix.Rows; i++)
+            get
             {
-                for (int b = cordColums-rangeAtack; b <= cordColums + RangeAtack && b >= 0 && b < matrix.Colums; b++)
+                while (exp >= expMax)
                 {
-                    bool isNeighbor = Math.Abs(cordRows - i) + Math.Abs(cordColums - b) <= (RangeAtack);
-                    if (!matrix[i, b].Invulnerable && matrix[i, b] != player && isNeighbor)
-                    {
-                        Form form2 = new Form2();
-                        form2.Show();
-                        //fightLogic(matrix, i, b, units);
-                        //ProgressB.refreshProgress(healthBarPlayer, player);
-                    }
+                    exp -= expMax;
+                    expMax += Convert.ToInt32(Convert.ToDouble(expMax) * 0.5);
+                    LvlUp();
                 }
+                return expMax;
             }
+            set { expMax = value; }
         }
 
-        private void fightLogic(Matrix matrix, int row, int col, List<Unit> units)
+        public int Hit(Unit u)
         {
-            if (checkDie(player)) 
-            { 
-                PlayerDie(); 
-                return; 
-            };
-
-            if (checkDie(matrix[row, col]))
+            int hit = Damage;
+            u.health -= hit;
+            if (u.health < 0)
             {
-                units.Remove(matrix[row, col]); 
-                return;
+                u.health = 0;
             }
-
-            matrix[row, col].Health -= Damage;
-
-            if (checkDie(matrix[row, col]))
-            {
-                units.Remove(matrix[row, col]);
-                return;
-            }
-
-            Health -= matrix[row, col].Damage;
-
-            if (checkDie(player))
-            {
-                PlayerDie();
-                return;
-            };
+           return hit;
         }
 
-        void PlayerDie()
+        public void LvlUp()
         {
-            ///
-        }
-
-        private bool checkDie(Unit unit)
-        {
-            if (unit.Health < 1)
-            {
-                return true;
-            }
-            return false;
+            Lvl += 1;
         }
 
         private Player(string name, int cordRows, int cordColums) : base()
@@ -99,6 +70,9 @@ namespace Fightgame
             CordRows = cordRows;
             CordColums = cordColums;
             Simvol = 'P';
+            Damage = 5;
+            Exp = 0;
+            ExpMax = 10;
         }
 
         public static Player GetInstance(string name = "", int cordRows = 0, int cordColums = 0)
@@ -109,5 +83,12 @@ namespace Fightgame
             }
             return player;
         }
+
+        public override void AtackPattern(MatrixDef matrix)
+        {
+            throw new NotImplementedException();
+        }
+
+        
     }
 }

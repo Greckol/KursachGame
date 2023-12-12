@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal class MatrixDef: MatrixBase
+    public class MatrixDef: MatrixBase
     {
         public MatrixDef(int rows, int colums, int cellSize): base(rows, colums, cellSize)
         {
@@ -28,7 +28,7 @@ namespace Fightgame
             CordColumnPlayer = colums / 2;
         }
 
-        public void moveMatrix()
+        public void moveMatrix(bool flag = false)
         {
             for (int i = 0; i < matrix.Count; i++)
             {
@@ -41,7 +41,14 @@ namespace Fightgame
             matrix[CordRowPlayer][cordColumnPlayer] = 'P';
             foreach (var i in enemys)
             {
-                matrix[i.cordRow][i.CordColumn] = 'E';
+                if (!flag)
+                {
+                    matrix[i.cordRow][i.CordColumn] = 'E';
+                }
+                else
+                {
+                    matrix[i.cordRow][i.CordColumn] = 'T';
+                }
             }
         }
 
@@ -56,7 +63,11 @@ namespace Fightgame
             {
                 g.FillRectangle(Brushes.Green, colum * CellSize, row * CellSize, CellSize, CellSize);
             }
-            if (matrix[row][colum] == 'E')
+            else if (matrix[row][colum] == 'T')
+            {
+                g.FillRectangle(Brushes.Blue, colum * CellSize, row * CellSize, CellSize, CellSize);
+            }
+            else if (matrix[row][colum] == 'E')
             {
                 g.FillRectangle(Brushes.Red, colum * CellSize, row * CellSize, CellSize, CellSize);
             }
@@ -74,8 +85,8 @@ namespace Fightgame
 
         public List<List<char>> matrix;
         List<List<char>> freeMatrix;
-        List<Enemy> enemys;
-        struct Enemy
+        public List<Enemy> enemys;
+        public struct Enemy
         {
             public int cordRow;
             public int CordColumn;
@@ -86,7 +97,7 @@ namespace Fightgame
                 CordColumn = colum;
             }
         }
-
+        
         public int CordRowPlayer
         {
             get { return cordRowPlayer; }
