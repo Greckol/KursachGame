@@ -9,8 +9,9 @@ namespace Fightgame
 {
     public class MatrixDef: MatrixBase
     {
-        public MatrixDef(int rows, int colums, int cellSize): base(rows, colums, cellSize)
+        public MatrixDef(int rows, int colums, Panel panel): base(rows, colums, panel)
         {
+            
             matrix = new List<List<char>>();
             freeMatrix = new List<List<char>>();
             enemys = new List<Enemy>();
@@ -61,19 +62,19 @@ namespace Fightgame
         {
             if (matrix[row][colum] == 'P')
             {
-                g.FillRectangle(Brushes.Green, colum * CellSize, row * CellSize, CellSize, CellSize);
+                g.FillRectangle(Brushes.Green, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
             else if (matrix[row][colum] == 'T')
             {
-                g.FillRectangle(Brushes.Blue, colum * CellSize, row * CellSize, CellSize, CellSize);
+                g.FillRectangle(Brushes.Blue, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
             else if (matrix[row][colum] == 'E')
             {
-                g.FillRectangle(Brushes.Red, colum * CellSize, row * CellSize, CellSize, CellSize);
+                g.FillRectangle(Brushes.Red, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
         }
 
-        public void DrawAll(Graphics g, Form f, int row, int colum)
+        public void DrawAll(Graphics g, int row, int colum)
         {
             RectangleDrow(g, row, colum);
             ColorDrow(g, row, colum);

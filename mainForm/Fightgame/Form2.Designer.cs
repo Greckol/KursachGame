@@ -30,9 +30,9 @@
         {
             components = new System.ComponentModel.Container();
             timer1 = new System.Windows.Forms.Timer(components);
-            panel1 = new Panel();
+            panel1 = new BufferedPanel();
             buttonHit = new Button();
-            panel2 = new Panel();
+            panel2 = new BufferedPanel();
             labelInfo = new Label();
             timer2 = new System.Windows.Forms.Timer(components);
             labelEnemyName = new Label();
@@ -49,7 +49,7 @@
             // 
             // buttonHit
             // 
-            buttonHit.Location = new Point(469, 520);
+            buttonHit.Location = new Point(469, 548);
             buttonHit.Name = "buttonHit";
             buttonHit.Size = new Size(421, 144);
             buttonHit.TabIndex = 1;
@@ -68,10 +68,10 @@
             // 
             labelInfo.AutoSize = true;
             labelInfo.BackColor = Color.Transparent;
-            labelInfo.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            labelInfo.Location = new Point(917, 386);
+            labelInfo.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            labelInfo.Location = new Point(940, 414);
             labelInfo.Name = "labelInfo";
-            labelInfo.Size = new Size(0, 41);
+            labelInfo.Size = new Size(0, 37);
             labelInfo.TabIndex = 0;
             // 
             // labelEnemyName
@@ -93,7 +93,7 @@
             // 
             // hpBarEnemy
             // 
-            hpBarEnemy.Location = new Point(468, 430);
+            hpBarEnemy.Location = new Point(469, 454);
             hpBarEnemy.Name = "hpBarEnemy";
             hpBarEnemy.Size = new Size(970, 74);
             hpBarEnemy.TabIndex = 5;
@@ -120,9 +120,9 @@
         #endregion
 
         private System.Windows.Forms.Timer timer1;
-        private Panel panel1;
+        private BufferedPanel panel1;
         private Button buttonHit;
-        private Panel panel2;
+        private BufferedPanel panel2;
         private System.Windows.Forms.Timer timer2;
         private Label labelEnemyName;
         private ProgressBar hpBarPlayer;

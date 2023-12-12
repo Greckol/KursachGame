@@ -12,11 +12,13 @@ namespace Fightgame
     {
         private static Player player;
 
-        
-        public void atack(Matrix matrix, Unit unit, ProgressBar healthBarPlayer)
+        public int exp;
+        public int expMax;
+
+        public void atack(Matrix matrix, Enemy enemy, ProgressBar healthBarPlayer)
         {
             Form2 form2 = new Form2();
-            form2.setEnemy(unit);
+            form2.setEnemy(enemy);
             form2.ShowDialog();
         }
         public int Exp
@@ -69,7 +71,6 @@ namespace Fightgame
             Name = name;
             CordRows = cordRows;
             CordColums = cordColums;
-            Simvol = 'P';
             Damage = 5;
             Exp = 0;
             ExpMax = 10;
@@ -82,11 +83,6 @@ namespace Fightgame
                 player = new Player(name, cordRows, cordColums);
             }
             return player;
-        }
-
-        public override void AtackPattern(MatrixDef matrix)
-        {
-            throw new NotImplementedException();
         }
 
         

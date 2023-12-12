@@ -1,5 +1,6 @@
-using System.Drawing;
+п»їusing System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
@@ -7,69 +8,70 @@ namespace Fightgame
 {
     public partial class Form1 : Form
     {
-        const int matrixRowsSize = 9;
-        const int matrixColumsSize = 9;
+        const int matrixRowsSize = 20;
+        const int matrixColumsSize = 20;
         Random rand = new Random();
-
         Matrix matrix;
         List<Unit> units = new List<Unit>();
         Player player = Player.GetInstance("Genry", matrixRowsSize / 2, matrixColumsSize / 2);
 
         public Form1()
         {
-            matrix = new Matrix(matrixRowsSize, matrixColumsSize, 70);
             InitializeComponent();
+            matrix = new Matrix(matrixRowsSize, matrixColumsSize, panelMain);
+            panelMain.Paint += new PaintEventHandler(DrowMainMatrix);
             buttonAtack.Enabled = false;
-            ProgressB.refreshProgress(progressBarPlayer, player);
             matrix.moveMatrix(player, units);
             addPerson(5, "slime");
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
-            this.MouseClick += new MouseEventHandler(Form1_MouseClick);
+            panelMain.MouseClick += new MouseEventHandler(Form1_MouseClick);
         }
 
-        private void addPerson(int count, string title)
+        private void addPerson(int count, string type)
         {
-            Unit unit;
+            Enemy enemy;
             for (int i = 0; i < count; i++)
             {
-                switch (title)
+                switch (type)
                 {
                     case "slime":
-                        unit = new Slime();
+                        enemy = new Slime();
                         break;
                     default:
-                        unit = new Slime();
+                        enemy = new Slime();
                         break;
                 }
                 do
                 {
-                    unit.cordRows = rand.Next(0, matrix.Rows);
-                    unit.cordColums = rand.Next(0, matrix.Colums);
-                } while (!matrix[unit.cordRows, unit.cordColums].Invulnerable || matrix[unit.cordRows, unit.cordColums] == player); // возможно заполнение и вылет
-                units.Add(unit);
+                    enemy.cordRows = rand.Next(0, matrix.Rows);
+                    enemy.cordColums = rand.Next(0, matrix.Colums);
+                } while (matrix[enemy.cordRows, enemy.cordColums] is not FreeCell || matrix[enemy.cordRows, enemy.cordColums] is Player);
+                units.Add(enemy);
             }
         }
+
         int rowMouseClick;
         int columnMouseClick;
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            rowMouseClick = e.Y / matrix.CellSize;
-            columnMouseClick = e.X / matrix.CellSize;
 
-            if (columnMouseClick >= 0 && columnMouseClick < matrix.Rows && rowMouseClick >= 0 && rowMouseClick < matrix.Colums)
-            {
-                refreshInformationEnemy(rowMouseClick, columnMouseClick);
-            }
+            rowMouseClick = e.Y / matrix.CellSizeColum;
+            columnMouseClick = e.X / matrix.CellSizeRow;
+
+            //if (columnMouseClick >= 0 && columnMouseClick < matrix.Rows && rowMouseClick >= 0 && rowMouseClick < matrix.Colums)
+            //{
+            refreshInformationEnemy(rowMouseClick, columnMouseClick);
+            //}
         }
 
         void refreshInformationEnemy(int row, int column)
         {
-            label1.Text = "Содержимое клетки: " + matrix[rowMouseClick, columnMouseClick].Name;
-            ProgressB.refreshProgress(progressBarEnemy, matrix[rowMouseClick, columnMouseClick]);
+            label1.Text = "РЎРѕРґРµСЂР¶РёРјРѕРµ РєР»РµС‚РєРё: " + matrix[rowMouseClick, columnMouseClick].Name;
+            ProgressB.refreshProgress(hpBarEnemy, matrix[rowMouseClick, columnMouseClick]);
             bool isNeighbor = Math.Abs(player.cordRows - rowMouseClick) + Math.Abs(player.cordColums - columnMouseClick) <= (player.RangeAtack);
-            if (isNeighbor && !matrix[rowMouseClick, columnMouseClick].Invulnerable && matrix[rowMouseClick, columnMouseClick] != player) buttonAtack.Enabled = true;
+            if (isNeighbor && matrix[rowMouseClick, columnMouseClick] is not FreeCell && matrix[rowMouseClick, columnMouseClick] != player) buttonAtack.Enabled = true;
             else buttonAtack.Enabled = false;
         }
 
@@ -80,25 +82,25 @@ namespace Fightgame
             switch (e.KeyCode)
             {
                 case Keys.W:
-                    if (player.CordRows > 0) player.cordRows--;
+                    if (player.CordRows > 0 && matrix[player.cordRows - 1, player.cordColums] is FreeCell) player.cordRows--;
                     break;
                 case Keys.S:
-                    if (player.CordRows < matrix.Rows - 1) player.CordRows++;
+                    if (player.CordRows < matrix.Rows - 1 && matrix[player.cordRows + 1, player.cordColums] is FreeCell) player.CordRows++;
                     break;
                 case Keys.A:
-                    if (player.CordColums > 0) player.CordColums--;
+                    if (player.CordColums > 0 && matrix[player.cordRows, player.cordColums - 1] is FreeCell) player.CordColums--;
                     break;
                 case Keys.D:
-                    if (player.CordColums < matrix.Colums - 1) player.CordColums++;
+                    if (player.CordColums < matrix.Colums - 1 && matrix[player.cordRows, player.cordColums + 1] is FreeCell) player.CordColums++;
                     break;
             }
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.S ||
                 e.KeyCode == Keys.A || e.KeyCode == Keys.D)
             {
-                matrix.moveMatrix(player, units);
                 Move(units);
+                matrix.moveMatrix(player, units);
             };
-            this.Invalidate(); // Перерисовка формы
+            panelMain.Invalidate();
         }
 
         Keys toKeys(int number)
@@ -127,26 +129,26 @@ namespace Fightgame
                     case Keys.W:
                         if (i.CordRows > 0)
                         {
-                            if (matrix[i.CordRows - 1, i.CordColums].Invulnerable) i.CordRows--;
+                            if (matrix[i.CordRows - 1, i.CordColums] is FreeCell) i.CordRows--;
                         }
                         break;
                     case Keys.S:
                         if (i.CordRows < matrix.Rows - 1)
                         {
-                            if (matrix[i.CordRows + 1, i.CordColums].Invulnerable) i.CordRows++;
+                            if (matrix[i.CordRows + 1, i.CordColums] is FreeCell) i.CordRows++;
                         }
                         break;
                     case Keys.A:
                         if (i.cordColums > 0)
 
                         {
-                            if (matrix[i.CordRows, i.CordColums - 1].Invulnerable) i.CordColums--;
+                            if (matrix[i.CordRows, i.CordColums - 1] is FreeCell) i.CordColums--;
                         }
                         break;
                     case Keys.D:
                         if (i.cordColums < matrix.Colums - 1)
                         {
-                            if (matrix[i.CordRows, i.CordColums + 1].Invulnerable) i.CordColums++;
+                            if (matrix[i.CordRows, i.CordColums + 1] is FreeCell) i.CordColums++;
                         }
                         break;
                 }
@@ -154,9 +156,12 @@ namespace Fightgame
             }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+
+        private void DrowMainMatrix(object sender, PaintEventArgs e)
         {
-            base.OnPaint(e);
+
+            ProgressB.refreshExpBar(progressBarExp, player);
+            ProgressB.refreshProgress(hpBarPlayer, player);
             Graphics g = e.Graphics;
             matrix.moveMatrix(player, units);
 
@@ -169,9 +174,13 @@ namespace Fightgame
             }
         }
 
+
         private void buttonAtack_Click(object sender, EventArgs e)
         {
-            player.atack(matrix, matrix[rowMouseClick, columnMouseClick], progressBarPlayer);
+            if (matrix[rowMouseClick, columnMouseClick] is Enemy enemy)
+            {
+                player.atack(matrix, enemy, hpBarPlayer);
+            }
             if (matrix[rowMouseClick, columnMouseClick].Health <= 0)
             {
                 units.Remove(matrix[rowMouseClick, columnMouseClick]);
@@ -179,7 +188,7 @@ namespace Fightgame
                 matrix.moveMatrix(player, units);
                 refreshInformationEnemy(rowMouseClick, columnMouseClick);
             }
-            this.Invalidate();
+            panelMain.Invalidate();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -189,7 +198,7 @@ namespace Fightgame
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ProgressB.refreshExpBar(progressBarExp, player);
+
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -16,11 +17,11 @@ namespace Fightgame
     {
         Rectangle rectTarget;
         Rectangle rectSmall;
-        Unit enemy;
+        Enemy enemy;
         Player player = Player.GetInstance();
-        public void setEnemy(Unit unit)
+        public void setEnemy(Enemy enemy)
         {
-            enemy = unit;
+            this.enemy = enemy;
         }
 
         public Form2()
@@ -28,7 +29,7 @@ namespace Fightgame
             InitializeComponent();
             this.KeyPreview = true;
             this.DoubleBuffered = true;
-            matrixD = new MatrixDef(panel2.Height / 40, panel2.Width / 40, 40);
+            matrixD = new MatrixDef(6, 6, panel2);
             panel1.Paint += new PaintEventHandler(Panel1_Paint);
             panel2.Paint += new PaintEventHandler(matrixVisuble);
             panel2.Hide();
@@ -53,7 +54,6 @@ namespace Fightgame
 
         protected void timer2_Tick(object sender, EventArgs e)
         {
-            Graphics g;
             bool flag = false;
 
             if (player.Health <= 0)
@@ -70,7 +70,7 @@ namespace Fightgame
             }
             matrixD.moveMatrix(flag);
             panel2.Invalidate();
-            if(matrixD.matrix[matrixD.CordRowPlayer][matrixD.CordColumnPlayer] == 'T')
+            if (matrixD.matrix[matrixD.CordRowPlayer][matrixD.CordColumnPlayer] == 'T')
             {
                 player.Health -= enemy.damage;
                 ProgressB.refreshProgress(hpBarPlayer, player);
@@ -164,7 +164,7 @@ namespace Fightgame
             {
                 for (var b = 0; b < matrixD.Colums; b++)
                 {
-                    matrixD.DrawAll(g, this, i, b);
+                    matrixD.DrawAll(g, i, b);
                 }
             }
         }

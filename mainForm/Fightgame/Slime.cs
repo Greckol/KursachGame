@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal class Slime : Unit
+    internal class Slime : Enemy
     {
-        public Slime(): base(name: "Slime")
+        public Slime(): base()
         {
-            simvol = 'S';
+            Name = "Slime";
             atackCount = 10;
             cellAtackCount = 15;
         }
@@ -27,8 +27,6 @@ namespace Fightgame
                     cordRowRand = rnd.Next(0, matrix.Rows);
                     cordColumnRand = rnd.Next(0, matrix.Colums);
                 } while (matrix.matrix[cordRowRand][cordColumnRand] == 'E');
-                /*matrix.matrix[cordRowRand][cordColumnRand] == 'E' || 
-                matrix.matrix[cordRowRand][cordColumnRand] == 'P'*/
                 matrix.addEnemy(cordRowRand, cordColumnRand);
             }
         }

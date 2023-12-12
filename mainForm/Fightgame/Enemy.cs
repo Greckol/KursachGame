@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal class FreeCell : Unit
+    public abstract class Enemy : Unit
     {
-        
-        public FreeCell(): base() 
-        {
-            Name = "#";
-        }
+        public abstract void AtackPattern(MatrixDef matrix);
     }
 }

@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal class Goblin : Unit
+    internal class Goblin : Enemy
     {
-        public Goblin():base(name: "Goblin") { }
+        public Goblin():base() 
+        { 
+            Name = "Goblin"; 
+        }
 
         public override void AtackPattern(MatrixDef matrix)
         {

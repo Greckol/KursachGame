@@ -17,22 +17,12 @@ namespace Fightgame
         public int armor;
         public int evasion;
         public int lvl;
-        public int exp;
-        public int expMax;
         public int rangeAtack;
-        public char simvol;
-        public char Simvol
-        {
-            get { return simvol; }
-            set { simvol = value; }
-        }
         public string name;
-
-        public bool invulnerable;
+        
 
         public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, int health = 5, int helthMax = 5,
-            int armor = 0, int evasion = 0, int lvl = 1, string name = "undef", int rangeAtack = 1,
-            bool invulnerable = false) 
+            int armor = 0, int evasion = 0, int lvl = 1, string name = "undef", int rangeAtack = 1) 
         {
             CordColums = cordColums;
             CordRows = cordRows;
@@ -44,13 +34,8 @@ namespace Fightgame
             Lvl = lvl;
             Name = name;
             RangeAtack = rangeAtack;
-            Invulnerable = invulnerable;
         }
-        public bool Invulnerable
-        {
-            get { return invulnerable; }
-            set { invulnerable = value; }
-        }
+        
         public int Lvl
         {
             get { return lvl; }
@@ -113,7 +98,6 @@ namespace Fightgame
         {
             get { return atackCount; }
         }
-        public abstract void AtackPattern(MatrixDef matrix);
         public virtual void Die() 
         {
             Player.GetInstance().Exp += 5;

@@ -1,33 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fightgame
+﻿namespace Fightgame
 {
     public class MatrixBase
     {
-        public MatrixBase(int matrixRows, int matrixColumns, int cellsize )
+        public MatrixBase(int matrixRows, int matrixColumns, Panel panel)
         {
             Rows = matrixRows;
             Colums = matrixColumns;
-            CellSize = cellsize;
+            CellSizeRow = (panel.Width / matrixColumns) - 1;
+            CellSizeColum = (panel.Height / matrixRows) - 1;
         }
 
         protected void RectangleDrow(Graphics g, int row, int colum)
         {
-            g.DrawRectangle(Pens.Black, colum * CellSize, row * CellSize, CellSize, CellSize);
+            g.DrawRectangle(Pens.Black, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
         }
 
-        int cellSize;
+        int cellSizeX;
+        int cellSizeY;
         int matrixRows;
         int matrixColumns;
 
-        public int CellSize
+        public int CellSizeRow
         {
-            get { return cellSize; }
-            set { cellSize = value; }
+            get { return cellSizeX; }
+            set { cellSizeX = value; }
+        }
+        public int CellSizeColum
+        {
+            get { return cellSizeY; }
+            set { cellSizeY = value; }
         }
         public int Rows
         {

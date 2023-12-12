@@ -10,7 +10,7 @@ namespace Fightgame
 {
     internal class Matrix: MatrixBase
     {
-        public Matrix(int rows, int columns, int cellSize): base(rows, columns, cellSize)
+        public Matrix(int rows, int columns, Panel panel): base(rows, columns, panel)
         {
             matrix = new List<List<Unit>>();
             freeMatrix = new List<List<Unit>>();
@@ -46,23 +46,23 @@ namespace Fightgame
         protected virtual void ColorDrow(Graphics g, Player player, int row, int colum)
         {
             bool isNeighbor = Math.Abs(player.cordRows - row) + Math.Abs(player.cordColums - colum) <= (player.RangeAtack);   // область возле игрока
-            if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSize, row * CellSize, CellSize, CellSize);
+            if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
 
             if (matrix[row][colum] == player)
             {
-                g.FillRectangle(Brushes.Green, colum * CellSize, row * CellSize, CellSize, CellSize);
+                g.FillRectangle(Brushes.Green, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
 
-            if (matrix[row][colum].Simvol == 'S')
+            if (matrix[row][colum].Name == "Slime")
             {
-                g.FillRectangle(Brushes.Yellow, colum * CellSize, row * CellSize, CellSize, CellSize);
+                g.FillRectangle(Brushes.Yellow, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
         }
 
         private void TextDrow(Form f, Graphics g, int row, int colum)
         {
-            string value = matrix[row][colum].Simvol.ToString();
-            PointF textPosition = new PointF(colum * CellSize + (CellSize / 4), row * CellSize + (CellSize / 4));
+            string value = matrix[row][colum].Name[0].ToString();
+            PointF textPosition = new PointF(colum * CellSizeRow + (CellSizeRow / 4), row * CellSizeColum + (CellSizeColum / 4));
             g.DrawString(value, f.Font, Brushes.Black, textPosition);
         }
 
