@@ -12,6 +12,7 @@ namespace Fightgame
         public FreeCell(): base() 
         {
             Name = "#";
+            Health = 0;
         }
     }
 }

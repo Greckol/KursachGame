@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static Fightgame.MatrixDef;
 
 namespace Fightgame
 {
@@ -15,11 +16,20 @@ namespace Fightgame
         public int exp;
         public int expMax;
 
-        public void atack(Matrix matrix, Enemy enemy, ProgressBar healthBarPlayer)
+        public bool atack(Enemy enemy, List<Enemy> enemys, Matrix matrix, ProgressBar progressBarExp, ProgressBar hpBarEnemy, ProgressBar hpBarPlayer)
         {
             Form2 form2 = new Form2();
             form2.setEnemy(enemy);
             form2.ShowDialog();
+            ProgressB.refreshProgress(hpBarEnemy, enemy);
+            ProgressB.refreshProgress(hpBarPlayer, player);
+
+            if (enemy.Health <= 0)
+            {
+                ProgressB.refreshExpBar(progressBarExp, player);
+                return true;
+            }
+            return false;
         }
         public int Exp
         {
@@ -74,6 +84,7 @@ namespace Fightgame
             Damage = 5;
             Exp = 0;
             ExpMax = 10;
+            RangeAtack = 2;
         }
 
         public static Player GetInstance(string name = "", int cordRows = 0, int cordColums = 0)

@@ -121,8 +121,8 @@ namespace Fightgame
                 if (enemy.Health <= 0)
                 {
                     enemy.Die();
-
                     this.Close();
+                    return;
                 }
             }
             else

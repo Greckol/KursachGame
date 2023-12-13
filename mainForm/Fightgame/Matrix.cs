@@ -26,7 +26,7 @@ namespace Fightgame
             }
         }
 
-        public virtual void moveMatrix(Player player, List<Unit> units)
+        public virtual void moveMatrix(Player player, List<Enemy> units)
         {
             for (int i = 0; i < matrix.Count; i++)
             {

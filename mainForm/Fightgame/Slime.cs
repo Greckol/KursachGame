@@ -13,6 +13,7 @@ namespace Fightgame
             Name = "Slime";
             atackCount = 10;
             cellAtackCount = 15;
+            DangerProcent = 10;
         }
 
         public override void AtackPattern(MatrixDef matrix)
