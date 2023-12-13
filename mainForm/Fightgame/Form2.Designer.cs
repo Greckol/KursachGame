@@ -38,6 +38,7 @@
             labelEnemyName = new Label();
             hpBarPlayer = new ProgressBar();
             hpBarEnemy = new ProgressBar();
+            buttonEscape = new Button();
             SuspendLayout();
             // 
             // panel1
@@ -49,7 +50,8 @@
             // 
             // buttonHit
             // 
-            buttonHit.Location = new Point(469, 548);
+            buttonHit.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonHit.Location = new Point(469, 574);
             buttonHit.Name = "buttonHit";
             buttonHit.Size = new Size(421, 144);
             buttonHit.TabIndex = 1;
@@ -98,11 +100,23 @@
             hpBarEnemy.Size = new Size(970, 74);
             hpBarEnemy.TabIndex = 5;
             // 
+            // buttonEscape
+            // 
+            buttonEscape.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonEscape.Location = new Point(1015, 574);
+            buttonEscape.Name = "buttonEscape";
+            buttonEscape.Size = new Size(409, 142);
+            buttonEscape.TabIndex = 6;
+            buttonEscape.Text = "Escape";
+            buttonEscape.UseVisualStyleBackColor = true;
+            buttonEscape.Click += buttonEscape_Click;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(buttonEscape);
             Controls.Add(labelInfo);
             Controls.Add(hpBarEnemy);
             Controls.Add(hpBarPlayer);
@@ -128,6 +142,6 @@
         private ProgressBar hpBarPlayer;
         private ProgressBar hpBarEnemy;
         private Label labelInfo;
-
+        private Button buttonEscape;
     }
 }

@@ -18,8 +18,7 @@ namespace Fightgame
 
         public bool atack(Enemy enemy, List<Enemy> enemys, Matrix matrix, ProgressBar progressBarExp, ProgressBar hpBarEnemy, ProgressBar hpBarPlayer)
         {
-            Form2 form2 = new Form2();
-            form2.setEnemy(enemy);
+            Form2 form2 = new Form2(enemy);
             form2.ShowDialog();
             ProgressB.refreshProgress(hpBarEnemy, enemy);
             ProgressB.refreshProgress(hpBarPlayer, player);
@@ -81,7 +80,7 @@ namespace Fightgame
             Name = name;
             CordRows = cordRows;
             CordColums = cordColums;
-            Damage = 5;
+            Damage = 2;
             Exp = 0;
             ExpMax = 10;
             RangeAtack = 2;

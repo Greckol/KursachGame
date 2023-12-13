@@ -92,12 +92,6 @@ namespace Fightgame
             set { rangeAtack = value; }
         }
 
-        protected int atackCount = 5;
-        protected int cellAtackCount = 6;
-        public int AtackCount
-        {
-            get { return atackCount; }
-        }
         public virtual void Die() 
         {
             Player.GetInstance().Exp += 5;

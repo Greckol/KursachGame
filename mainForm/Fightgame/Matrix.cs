@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -48,31 +49,53 @@ namespace Fightgame
             bool isNeighbor = Math.Abs(player.cordRows - row) + Math.Abs(player.cordColums - colum) <= (player.RangeAtack);   // область возле игрока
             if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
 
-            if (matrix[row][colum] == player)
+            ColorUnits(g, row, colum);
+        }
+
+        protected virtual void ColorDrow(Graphics g, Player player, List<Enemy> enemys, int row, int colum)
+        {
+            bool isNeighbor = Math.Abs(player.cordRows - row) + Math.Abs(player.cordColums - colum) <= (player.RangeAtack);   // область возле игрока
+            if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+
+            foreach (var i in enemys)
+            {
+                bool isNei = Math.Abs(i.cordRows - row) + Math.Abs(i.cordColums - colum) <= (i.RangeAtack);
+                if (isNei) g.FillRectangle(Brushes.Yellow, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+            }
+
+            ColorUnits(g, row, colum);
+        }
+
+        private void ColorUnits(Graphics g, int row, int colum)
+        {
+            if (matrix[row][colum] is Player)
             {
                 g.FillRectangle(Brushes.Green, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
-
-            if (matrix[row][colum].Name == "Slime")
+            if (matrix[row][colum] is Slime)
             {
-                g.FillRectangle(Brushes.Yellow, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+                g.FillRectangle(Brushes.GreenYellow, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
         }
 
-        private void TextDrow(Form f, Graphics g, int row, int colum)
+        /*private void TextDrow(Form f, Graphics g, int row, int colum)
         {
             string value = matrix[row][colum].Name[0].ToString();
             PointF textPosition = new PointF(colum * CellSizeRow + (CellSizeRow / 4), row * CellSizeColum + (CellSizeColum / 4));
             g.DrawString(value, f.Font, Brushes.Black, textPosition);
+        }*/
+
+        public virtual void DrawAll(Graphics g, Player player, List<Enemy> enemys, int row, int colum)
+        {
+            ColorDrow(g, player, enemys, row, colum);
+            RectangleDrow(g, row, colum);
+            //TextDrow(f, g, row, colum);
         }
-
-        
-
-        public virtual void DrawAll(Graphics g, Form f, Player player, int row, int colum)
+        public virtual void DrawAll(Graphics g, Player player, int row, int colum)
         {
             ColorDrow(g, player, row, colum);
             RectangleDrow(g, row, colum);
-            TextDrow(f, g, row, colum);
+            //TextDrow(f, g, row, colum);
         }
 
         public Unit this[int row, int colum]

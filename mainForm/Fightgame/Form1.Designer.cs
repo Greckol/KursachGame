@@ -31,6 +31,8 @@
             panelMain = new BufferedPanel();
             checkBoxMain = new CheckBox();
             checkBoxSide = new CheckBox();
+            buttonStats = new Button();
+            checkBoxRangeEnemys = new CheckBox();
             SuspendLayout();
             // 
             // label1
@@ -45,6 +47,7 @@
             // 
             // buttonAtack
             // 
+            buttonAtack.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonAtack.Location = new Point(1140, 585);
             buttonAtack.Name = "buttonAtack";
             buttonAtack.Size = new Size(365, 95);
@@ -55,6 +58,7 @@
             // 
             // buttonNextTurn
             // 
+            buttonNextTurn.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonNextTurn.Location = new Point(1570, 585);
             buttonNextTurn.Name = "buttonNextTurn";
             buttonNextTurn.Size = new Size(323, 95);
@@ -116,11 +120,35 @@
             checkBoxSide.Text = "Side";
             checkBoxSide.UseVisualStyleBackColor = true;
             // 
+            // buttonStats
+            // 
+            buttonStats.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonStats.Location = new Point(1140, 718);
+            buttonStats.Name = "buttonStats";
+            buttonStats.Size = new Size(365, 102);
+            buttonStats.TabIndex = 10;
+            buttonStats.Text = "Stats";
+            buttonStats.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRangeEnemys
+            // 
+            checkBoxRangeEnemys.AutoSize = true;
+            checkBoxRangeEnemys.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBoxRangeEnemys.Location = new Point(1140, 200);
+            checkBoxRangeEnemys.Name = "checkBoxRangeEnemys";
+            checkBoxRangeEnemys.Size = new Size(89, 32);
+            checkBoxRangeEnemys.TabIndex = 11;
+            checkBoxRangeEnemys.Text = "Range";
+            checkBoxRangeEnemys.UseVisualStyleBackColor = true;
+            checkBoxRangeEnemys.CheckedChanged += checkBoxRangeEnemys_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(checkBoxRangeEnemys);
+            Controls.Add(buttonStats);
             Controls.Add(checkBoxSide);
             Controls.Add(checkBoxMain);
             Controls.Add(panelMain);
@@ -148,5 +176,7 @@
         private BufferedPanel panelMain;
         private CheckBox checkBoxMain;
         private CheckBox checkBoxSide;
+        private Button buttonStats;
+        private CheckBox checkBoxRangeEnemys;
     }
 }

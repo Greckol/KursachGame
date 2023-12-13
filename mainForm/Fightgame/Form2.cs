@@ -19,22 +19,21 @@ namespace Fightgame
         Rectangle rectSmall;
         Enemy enemy;
         Player player = Player.GetInstance();
-        public void setEnemy(Enemy enemy)
+
+        public Form2(Enemy enemy)
         {
             this.enemy = enemy;
-        }
-
-        public Form2()
-        {
             InitializeComponent();
+            this.ControlBox = false;
             this.KeyPreview = true;
             this.DoubleBuffered = true;
-            matrixD = new MatrixDef(6, 6, panel2);
+            matrixD = new MatrixDef(enemy.MatrixDefRows, enemy.MatrixDefColumns, panel2);
             panel1.Paint += new PaintEventHandler(Panel1_Paint);
             panel2.Paint += new PaintEventHandler(matrixVisuble);
             panel2.Hide();
+            panel1.Hide();
             timer1.Interval = 40;
-            timer1.Enabled = true;
+            //timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
             timer2.Tick += timer2_Tick;
             this.KeyDown += new KeyEventHandler(Form2_KeyDown);
@@ -79,13 +78,12 @@ namespace Fightgame
             timer2TickCount++;
             if (enemy.AtackCount <= timer2TickCount)
             {
+                buttonEscape.Enabled = true;
                 timer2.Stop();
                 panel2.Visible = false;
-                panel1.Visible = true;
                 x = 0;
                 matrixD.enemys.Clear();
                 matrixD.moveMatrix();
-                timer1.Enabled = true;
             }
         }
         MatrixDef matrixD;
@@ -112,9 +110,19 @@ namespace Fightgame
             g.DrawRectangle(p, rect);
         }
 
+        bool flag = true;
         private void buttonHit_Click(object sender, EventArgs e)
         {
-            if (rectTarget.Contains(rectSmall))
+            if (flag)
+            {
+                flag = false;
+                buttonEscape.Enabled = false;
+                panel1.Visible = true;
+                timer1.Enabled = true;
+                return;
+            }
+
+            else if (rectTarget.Contains(rectSmall))
             {
                 labelInfo.Text = '-' + player.Hit(enemy).ToString();
                 ProgressB.refreshProgress(hpBarEnemy, enemy);
@@ -129,6 +137,7 @@ namespace Fightgame
             {
                 labelInfo.Text = "Miss";
             }
+            flag = true;
             panel1.Visible = false;
             matrixD.moveMatrix();
             panel2.Visible = true;
@@ -173,6 +182,14 @@ namespace Fightgame
             labelEnemyName.Text = enemy.Name;
             ProgressB.refreshProgress(hpBarEnemy, enemy);
             ProgressB.refreshProgress(hpBarPlayer, player);
+        }
+
+        private void buttonEscape_Click(object sender, EventArgs e)
+        {
+            player.Health -= enemy.damage;
+            ProgressB.refreshProgress(hpBarPlayer, player);
+            this.Close();
+            return;
         }
     }
 }

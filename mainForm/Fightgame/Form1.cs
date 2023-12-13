@@ -19,6 +19,7 @@ namespace Fightgame
         public Form1()
         {
             InitializeComponent();
+
             matrix = new Matrix(matrixRowsSize, matrixColumsSize, panelMain);
             panelMain.Paint += new PaintEventHandler(DrowMainMatrix);
             buttonAtack.Enabled = false;
@@ -61,7 +62,7 @@ namespace Fightgame
             label1.Text = "Содержимое клетки: " + targetSearch.Name;
             ProgressB.refreshProgress(hpBarEnemy, targetSearch);
             refreshStatus();
-            
+
         }
         void refreshStatus()
         {
@@ -71,9 +72,12 @@ namespace Fightgame
             if (isNeighbor && targetSearch is not FreeCell && targetSearch != player) buttonAtack.Enabled = true;
             else buttonAtack.Enabled = false;
         }
+
+        bool mainActiv;
+        bool sideActiv;
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            buttonAtack.Enabled = false;
+            if (checkBoxMain.Checked) return;
             switch (e.KeyCode)
             {
                 case Keys.W:
@@ -92,9 +96,11 @@ namespace Fightgame
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.S ||
                 e.KeyCode == Keys.A || e.KeyCode == Keys.D)
             {
+                checkBoxMain.Checked = true;
+
                 matrix.moveMatrix(player, units);
                 panelMain.Invalidate();
-               
+
             };
         }
 
@@ -149,7 +155,8 @@ namespace Fightgame
             {
                 for (var b = 0; b < matrix.Colums; b++)
                 {
-                    matrix.DrawAll(g, this, player, i, b);
+                    if (checkBoxRangeEnemys.Checked) matrix.DrawAll(g, player, units, i, b);
+                    else matrix.DrawAll(g, player, i, b);
                 }
             }
         }
@@ -174,6 +181,8 @@ namespace Fightgame
 
         private void buttonNextTurn_Click(object sender, EventArgs e)
         {
+            checkBoxMain.Checked = false;
+            checkBoxSide.Checked = false;
             List<Enemy> temp = new List<Enemy>();
             foreach (var i in units)
             {
@@ -190,6 +199,11 @@ namespace Fightgame
                 units.Remove(t);
             }
             Move(units);
+            panelMain.Invalidate();
+        }
+
+        private void checkBoxRangeEnemys_CheckedChanged(object sender, EventArgs e)
+        {
             panelMain.Invalidate();
         }
     }
