@@ -11,8 +11,8 @@ namespace Fightgame
         static public void refreshProgress(ProgressBar progressB, Unit u)
         {
             progressB.Minimum = 0;
-            progressB.Maximum = u.HealthMax;
-            progressB.Value = u.Health;
+            progressB.Maximum = u.getHealthMax();
+            progressB.Value = u.getHealth();
         }
 
         static public void refreshExpBar(ProgressBar expBar, Player player)

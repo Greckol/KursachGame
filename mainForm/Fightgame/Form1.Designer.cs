@@ -33,6 +33,7 @@
             checkBoxSide = new CheckBox();
             buttonStats = new Button();
             checkBoxRangeEnemys = new CheckBox();
+            button1 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -142,11 +143,22 @@
             checkBoxRangeEnemys.UseVisualStyleBackColor = true;
             checkBoxRangeEnemys.CheckedChanged += checkBoxRangeEnemys_CheckedChanged;
             // 
+            // button1
+            // 
+            button1.Location = new Point(1113, 346);
+            button1.Name = "button1";
+            button1.Size = new Size(125, 40);
+            button1.TabIndex = 12;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(button1);
             Controls.Add(checkBoxRangeEnemys);
             Controls.Add(buttonStats);
             Controls.Add(checkBoxSide);
@@ -178,5 +190,6 @@
         private CheckBox checkBoxSide;
         private Button buttonStats;
         private CheckBox checkBoxRangeEnemys;
+        private Button button1;
     }
 }

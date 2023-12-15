@@ -19,12 +19,11 @@ namespace Fightgame
         public Form1()
         {
             InitializeComponent();
-
             matrix = new Matrix(matrixRowsSize, matrixColumsSize, panelMain);
             panelMain.Paint += new PaintEventHandler(DrowMainMatrix);
             buttonAtack.Enabled = false;
             matrix.moveMatrix(player, units);
-            addPerson(6, "slime");
+            addPerson(1, "slime");
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
@@ -40,6 +39,8 @@ namespace Fightgame
                 {
                     case "slime":
                         enemy = new Slime();
+                        enemy = new Vampire(enemy);
+                        enemy = new Mega(enemy);
                         break;
                     default:
                         enemy = new Slime();
@@ -47,9 +48,9 @@ namespace Fightgame
                 }
                 do
                 {
-                    enemy.cordRows = rand.Next(0, matrix.Rows);
-                    enemy.cordColums = rand.Next(0, matrix.Colums);
-                } while (matrix[enemy.cordRows, enemy.cordColums] is not FreeCell || matrix[enemy.cordRows, enemy.cordColums] is Player);
+                    enemy.CordRows = rand.Next(0, matrix.Rows);
+                    enemy.CordColums = rand.Next(0, matrix.Colums);
+                } while (matrix[enemy.CordRows, enemy.CordColums] is not FreeCell || matrix[enemy.CordRows, enemy.CordColums] is Player);
                 units.Add(enemy);
             }
         }
@@ -66,9 +67,9 @@ namespace Fightgame
         }
         void refreshStatus()
         {
-            if (targetSearch.Health <= 0) targetSearch = player;
-            bool isNeighbor = Math.Abs(player.cordRows - targetSearch.CordRows) +
-                Math.Abs(player.cordColums - targetSearch.CordColums) <= (player.RangeAtack);
+            if (targetSearch.getHealth() <= 0) targetSearch = player;
+            bool isNeighbor = Math.Abs(player.CordRows - targetSearch.CordRows) +
+                Math.Abs(player.CordColums - targetSearch.CordColums) <= (player.getRangeAtack());
             if (isNeighbor && targetSearch is not FreeCell && targetSearch != player) buttonAtack.Enabled = true;
             else buttonAtack.Enabled = false;
         }
@@ -81,16 +82,16 @@ namespace Fightgame
             switch (e.KeyCode)
             {
                 case Keys.W:
-                    if (player.CordRows > 0 && matrix[player.cordRows - 1, player.cordColums] is FreeCell) player.cordRows--;
+                    if (player.CordRows > 0 && matrix[player.CordRows - 1, player.CordColums] is FreeCell) player.CordRows--;
                     break;
                 case Keys.S:
-                    if (player.CordRows < matrix.Rows - 1 && matrix[player.cordRows + 1, player.cordColums] is FreeCell) player.CordRows++;
+                    if (player.CordRows < matrix.Rows - 1 && matrix[player.CordRows + 1, player.CordColums] is FreeCell) player.CordRows++;
                     break;
                 case Keys.A:
-                    if (player.CordColums > 0 && matrix[player.cordRows, player.cordColums - 1] is FreeCell) player.CordColums--;
+                    if (player.CordColums > 0 && matrix[player.CordRows, player.CordColums - 1] is FreeCell) player.CordColums--;
                     break;
                 case Keys.D:
-                    if (player.CordColums < matrix.Colums - 1 && matrix[player.cordRows, player.cordColums + 1] is FreeCell) player.CordColums++;
+                    if (player.CordColums < matrix.Colums - 1 && matrix[player.CordRows, player.CordColums + 1] is FreeCell) player.CordColums++;
                     break;
             }
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.S ||
@@ -134,10 +135,10 @@ namespace Fightgame
                         if (i.CordRows < matrix.Rows - 1 && matrix[i.CordRows + 1, i.CordColums] is FreeCell) i.CordRows++;
                         break;
                     case Keys.A:
-                        if (i.cordColums > 0 && matrix[i.CordRows, i.CordColums - 1] is FreeCell) i.CordColums--;
+                        if (i.CordColums > 0 && matrix[i.CordRows, i.CordColums - 1] is FreeCell) i.CordColums--;
                         break;
                     case Keys.D:
-                        if (i.cordColums < matrix.Colums - 1 && matrix[i.CordRows, i.CordColums + 1] is FreeCell) i.CordColums++;
+                        if (i.CordColums < matrix.Colums - 1 && matrix[i.CordRows, i.CordColums + 1] is FreeCell) i.CordColums++;
                         break;
                 }
                 matrix.moveMatrix(player, units);
@@ -166,8 +167,8 @@ namespace Fightgame
         {
             if (targetSearch is Enemy enemy)
             {
-                player.atack(enemy, units, matrix, progressBarExp, hpBarEnemy, hpBarPlayer);
-                if (enemy.Health <= 0) units.Remove(enemy);
+                player.atack(enemy, false, progressBarExp, hpBarEnemy, hpBarPlayer);
+                if (enemy.getHealth() <= 0) units.Remove(enemy);
             }
             buttonAtack.Enabled = false;
             panelMain.Invalidate();
@@ -188,7 +189,7 @@ namespace Fightgame
             {
                 if (i.checkRangeToPlayer() && i.tryToAtackPlayer())
                 {
-                    if (player.atack(i, units, matrix, progressBarExp, hpBarEnemy, hpBarPlayer))
+                    if (player.atack(i, true, progressBarExp, hpBarEnemy, hpBarPlayer))
                     {
                         temp.Add(i);
                     }
@@ -205,6 +206,12 @@ namespace Fightgame
         private void checkBoxRangeEnemys_CheckedChanged(object sender, EventArgs e)
         {
             panelMain.Invalidate();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Date formDate = new Date(targetSearch);
+            formDate.Show();
         }
     }
 }

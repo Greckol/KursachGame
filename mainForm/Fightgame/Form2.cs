@@ -20,14 +20,16 @@ namespace Fightgame
         Enemy enemy;
         Player player = Player.GetInstance();
 
-        public Form2(Enemy enemy)
+        public Form2(Enemy enemy, bool enemyAtack)
         {
             this.enemy = enemy;
             InitializeComponent();
+            if (enemyAtack) labelEnemyName.Text = "you are being attacked\n" + enemy.Name;
+            else labelEnemyName.Text = enemy.Name;
             this.ControlBox = false;
             this.KeyPreview = true;
             this.DoubleBuffered = true;
-            matrixD = new MatrixDef(enemy.MatrixDefRows, enemy.MatrixDefColumns, panel2);
+            matrixD = new MatrixDef(enemy.getMatrixDefRows(), enemy.getMatrixDefColumns(), panel2);
             panel1.Paint += new PaintEventHandler(Panel1_Paint);
             panel2.Paint += new PaintEventHandler(matrixVisuble);
             panel2.Hide();
@@ -55,7 +57,7 @@ namespace Fightgame
         {
             bool flag = false;
 
-            if (player.Health <= 0)
+            if (player.getHealth() <= 0)
             {
                 player.Die();
             }
@@ -71,12 +73,13 @@ namespace Fightgame
             panel2.Invalidate();
             if (matrixD.matrix[matrixD.CordRowPlayer][matrixD.CordColumnPlayer] == 'T')
             {
-                player.Health -= enemy.damage;
+                //player.Health -= enemy.getDamage();
+                player.takedamage(enemy.getDamage());
                 ProgressB.refreshProgress(hpBarPlayer, player);
             }
             if (flag) matrixD.enemys.Clear();
             timer2TickCount++;
-            if (enemy.AtackCount <= timer2TickCount)
+            if (enemy.getAtackCount() <= timer2TickCount)
             {
                 buttonEscape.Enabled = true;
                 timer2.Stop();
@@ -124,9 +127,10 @@ namespace Fightgame
 
             else if (rectTarget.Contains(rectSmall))
             {
-                labelInfo.Text = '-' + player.Hit(enemy).ToString();
+                enemy.takedamage(player.getDamage());
+                labelInfo.Text = '-' + player.getDamage().ToString();
                 ProgressB.refreshProgress(hpBarEnemy, enemy);
-                if (enemy.Health <= 0)
+                if (enemy.getHealth() <= 0)
                 {
                     enemy.Die();
                     this.Close();
@@ -179,17 +183,27 @@ namespace Fightgame
         }
         private void Form2_Load(object sender, EventArgs e)
         {
-            labelEnemyName.Text = enemy.Name;
             ProgressB.refreshProgress(hpBarEnemy, enemy);
             ProgressB.refreshProgress(hpBarPlayer, player);
         }
 
         private void buttonEscape_Click(object sender, EventArgs e)
         {
-            player.Health -= enemy.damage;
+            //player.Health -= enemy.getDamage();
+            player.takedamage(enemy.getDamage());
             ProgressB.refreshProgress(hpBarPlayer, player);
             this.Close();
             return;
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

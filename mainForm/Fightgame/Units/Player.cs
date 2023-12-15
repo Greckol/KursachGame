@@ -9,21 +9,28 @@ using static Fightgame.MatrixDef;
 
 namespace Fightgame
 {
-    internal class Player: Unit
+    internal class Player : Unit
     {
         private static Player player;
 
         public int exp;
         public int expMax;
-
-        public bool atack(Enemy enemy, List<Enemy> enemys, Matrix matrix, ProgressBar progressBarExp, ProgressBar hpBarEnemy, ProgressBar hpBarPlayer)
+        public int lvl;
+        public int Lvl
         {
-            Form2 form2 = new Form2(enemy);
+            get
+            { return lvl; }
+            protected set
+            { lvl = value; }
+        }
+        public bool atack(Enemy enemy, bool enemyAtack, ProgressBar progressBarExp, ProgressBar hpBarEnemy, ProgressBar hpBarPlayer)
+        {
+            Form2 form2 = new Form2(enemy, enemyAtack);
             form2.ShowDialog();
             ProgressB.refreshProgress(hpBarEnemy, enemy);
             ProgressB.refreshProgress(hpBarPlayer, player);
 
-            if (enemy.Health <= 0)
+            if (enemy.getHealth() <= 0)
             {
                 ProgressB.refreshExpBar(progressBarExp, player);
                 return true;
@@ -56,18 +63,10 @@ namespace Fightgame
                 }
                 return expMax;
             }
-            set { expMax = value; }
-        }
-
-        public int Hit(Unit u)
-        {
-            int hit = Damage;
-            u.health -= hit;
-            if (u.health < 0)
+            set
             {
-                u.health = 0;
+                expMax = value;
             }
-           return hit;
         }
 
         public void LvlUp()
@@ -75,15 +74,11 @@ namespace Fightgame
             Lvl += 1;
         }
 
-        private Player(string name, int cordRows, int cordColums) : base()
+        private Player(string name, int cordRows, int cordColums) : base(damage: 5, rangeAtack: 2, name: name, cordRows: cordRows,
+            cordColums: cordColums)
         {
-            Name = name;
-            CordRows = cordRows;
-            CordColums = cordColums;
-            Damage = 2;
             Exp = 0;
             ExpMax = 10;
-            RangeAtack = 2;
         }
 
         public static Player GetInstance(string name = "", int cordRows = 0, int cordColums = 0)
@@ -95,6 +90,23 @@ namespace Fightgame
             return player;
         }
 
-        
+        public override int getDamage()
+        {
+            return damage;
+        }
+
+        public override int getArmor()
+        {
+            return armor;
+        }
+        public override int getRangeAtack()
+        {
+            return rangeAtack;
+        }
+
+        public override void Die()
+        {
+            MessageBox.Show("Yor Die");
+        }
     }
 }

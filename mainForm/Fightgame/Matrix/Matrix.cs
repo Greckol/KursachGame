@@ -37,7 +37,7 @@ namespace Fightgame
                     matrix[i][j] = freeMatrix[i][j];
                 }
             }
-            matrix[player.cordRows][player.cordColums] = player;
+            matrix[player.CordRows][player.CordColums] = player;
             foreach (var i in units)
             {
                 matrix[i.CordRows][i.CordColums] = i;
@@ -46,7 +46,7 @@ namespace Fightgame
 
         protected virtual void ColorDrow(Graphics g, Player player, int row, int colum)
         {
-            bool isNeighbor = Math.Abs(player.cordRows - row) + Math.Abs(player.cordColums - colum) <= (player.RangeAtack);   // область возле игрока
+            bool isNeighbor = Math.Abs(player.CordRows - row) + Math.Abs(player.CordColums - colum) <= (player.getRangeAtack());   // область возле игрока
             if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
 
             ColorUnits(g, row, colum);
@@ -54,12 +54,12 @@ namespace Fightgame
 
         protected virtual void ColorDrow(Graphics g, Player player, List<Enemy> enemys, int row, int colum)
         {
-            bool isNeighbor = Math.Abs(player.cordRows - row) + Math.Abs(player.cordColums - colum) <= (player.RangeAtack);   // область возле игрока
+            bool isNeighbor = Math.Abs(player.CordRows - row) + Math.Abs(player.CordColums - colum) <= (player.getRangeAtack());   // область возле игрока
             if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
 
             foreach (var i in enemys)
             {
-                bool isNei = Math.Abs(i.cordRows - row) + Math.Abs(i.cordColums - colum) <= (i.RangeAtack);
+                bool isNei = Math.Abs(i.CordRows - row) + Math.Abs(i.CordColums - colum) <= (i.getRangeAtack());
                 if (isNei) g.FillRectangle(Brushes.Yellow, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
 
@@ -72,10 +72,11 @@ namespace Fightgame
             {
                 g.FillRectangle(Brushes.Green, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
-            if (matrix[row][colum] is Slime)
+            if (matrix[row][colum] is Enemy enemy && enemy.GetBaseComponent() is Slime)
             {
                 g.FillRectangle(Brushes.GreenYellow, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
+            
         }
 
         /*private void TextDrow(Form f, Graphics g, int row, int colum)
