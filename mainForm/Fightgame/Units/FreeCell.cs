@@ -28,6 +28,11 @@ namespace Fightgame
             return damage;
         }
 
+        public override int getHealthRegeneration()
+        {
+            return hpRegeneration;
+        }
+
         public override int getRangeAtack()
         {
             return rangeAtack;

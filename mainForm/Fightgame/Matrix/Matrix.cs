@@ -79,24 +79,27 @@ namespace Fightgame
             
         }
 
-        /*private void TextDrow(Form f, Graphics g, int row, int colum)
+        private void TextDrow(Form f, Graphics g, int row, int colum)
         {
             string value = matrix[row][colum].Name[0].ToString();
             PointF textPosition = new PointF(colum * CellSizeRow + (CellSizeRow / 4), row * CellSizeColum + (CellSizeColum / 4));
-            g.DrawString(value, f.Font, Brushes.Black, textPosition);
-        }*/
+            if (matrix[row][colum] is not FreeCell)
+            {
+                g.DrawString(value, f.Font, Brushes.Black, textPosition);
+            }
+        }
 
-        public virtual void DrawAll(Graphics g, Player player, List<Enemy> enemys, int row, int colum)
+        public virtual void DrawAll(Graphics g, Form f, Player player, List<Enemy> enemys, int row, int colum)
         {
             ColorDrow(g, player, enemys, row, colum);
             RectangleDrow(g, row, colum);
-            //TextDrow(f, g, row, colum);
+            TextDrow(f, g, row, colum);
         }
-        public virtual void DrawAll(Graphics g, Player player, int row, int colum)
+        public virtual void DrawAll(Graphics g, Form f, Player player, int row, int colum)
         {
             ColorDrow(g, player, row, colum);
             RectangleDrow(g, row, colum);
-            //TextDrow(f, g, row, colum);
+            TextDrow(f, g, row, colum);
         }
 
         public Unit this[int row, int colum]

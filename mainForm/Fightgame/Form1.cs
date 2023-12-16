@@ -15,10 +15,17 @@ namespace Fightgame
         Matrix matrix;
         List<Enemy> units = new List<Enemy>();
         Player player = Player.GetInstance("Genry", matrixRowsSize / 2, matrixColumsSize / 2);
-
+        Shop shop;
         public Form1()
         {
             InitializeComponent();
+            shop = new Shop(listView1);
+
+            
+            shop.refresh(listView1);
+            listView1.SelectedIndexChanged += listView_SelectedIndexChanged;
+
+            labelLVL.Text = player.Lvl.ToString();
             matrix = new Matrix(matrixRowsSize, matrixColumsSize, panelMain);
             panelMain.Paint += new PaintEventHandler(DrowMainMatrix);
             buttonAtack.Enabled = false;
@@ -30,6 +37,23 @@ namespace Fightgame
             panelMain.MouseClick += new MouseEventHandler(Form1_MouseClick);
         }
 
+        ListViewItem selectedItem;
+        private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count == 0)
+                return;
+
+            // Получение выбранного элемента
+            selectedItem = listView1.SelectedItems[0];
+
+            // Получение ключа из текста элемента
+            //string selectedKey = selectedItem.Text;
+
+            // Действия с выбранным ключом
+            //MessageBox.Show($"Выбран ключ: {selectedKey}");
+        }
+
+
         private void addPerson(int count, string type)
         {
             Enemy enemy;
@@ -40,7 +64,7 @@ namespace Fightgame
                     case "slime":
                         enemy = new Slime();
                         enemy = new Vampire(enemy);
-                        enemy = new Mega(enemy);
+                        //enemy = new Mega(enemy);
                         break;
                     default:
                         enemy = new Slime();
@@ -74,8 +98,6 @@ namespace Fightgame
             else buttonAtack.Enabled = false;
         }
 
-        bool mainActiv;
-        bool sideActiv;
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (checkBoxMain.Checked) return;
@@ -98,6 +120,9 @@ namespace Fightgame
                 e.KeyCode == Keys.A || e.KeyCode == Keys.D)
             {
                 checkBoxMain.Checked = true;
+
+                player.healthRegen();
+                ProgressB.refreshProgress(hpBarPlayer, player);
 
                 matrix.moveMatrix(player, units);
                 panelMain.Invalidate();
@@ -156,8 +181,8 @@ namespace Fightgame
             {
                 for (var b = 0; b < matrix.Colums; b++)
                 {
-                    if (checkBoxRangeEnemys.Checked) matrix.DrawAll(g, player, units, i, b);
-                    else matrix.DrawAll(g, player, i, b);
+                    if (checkBoxRangeEnemys.Checked) matrix.DrawAll(g, this, player, units, i, b);
+                    else matrix.DrawAll(g, this, player, i, b);
                 }
             }
         }
@@ -167,8 +192,11 @@ namespace Fightgame
         {
             if (targetSearch is Enemy enemy)
             {
-                player.atack(enemy, false, progressBarExp, hpBarEnemy, hpBarPlayer);
-                if (enemy.getHealth() <= 0) units.Remove(enemy);
+                if (player.atack(enemy, false, progressBarExp, hpBarEnemy, hpBarPlayer))
+                {
+                    labelLVL.Text = player.Lvl.ToString();
+                    units.Remove(enemy);
+                };
             }
             buttonAtack.Enabled = false;
             panelMain.Invalidate();
@@ -191,6 +219,7 @@ namespace Fightgame
                 {
                     if (player.atack(i, true, progressBarExp, hpBarEnemy, hpBarPlayer))
                     {
+                        labelLVL.Text = player.Lvl.ToString();
                         temp.Add(i);
                     }
                 }
@@ -212,6 +241,12 @@ namespace Fightgame
         {
             Date formDate = new Date(targetSearch);
             formDate.Show();
+        }
+
+        private void buttonEnterUp_Click(object sender, EventArgs e)
+        {
+            player.update(selectedItem);
+            shop.refreshCost(listView1 ,selectedItem);
         }
     }
 }

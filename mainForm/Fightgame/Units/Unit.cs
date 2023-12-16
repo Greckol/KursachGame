@@ -13,6 +13,7 @@ namespace Fightgame
         protected int cordRows;
         protected int damage;
         protected int health;
+        protected int hpRegeneration;
         protected int healthMax;
         protected int armor;
         protected int rangeAtack;
@@ -20,13 +21,14 @@ namespace Fightgame
 
 
         public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, int health = 5, int healthMax = 5,
-            int armor = 0, string name = "undef", int rangeAtack = 1)
+            int armor = 0, string name = "undef", int rangeAtack = 1, int hpRegeneration = 1)
         {
             CordColums = cordColums;
             CordRows = cordRows;
             Name = name;
             this.damage = damage;
             this.health = health;
+            this.hpRegeneration = hpRegeneration;
             this.healthMax = healthMax;
             this.armor = armor;
             this.rangeAtack = rangeAtack;
@@ -46,7 +48,15 @@ namespace Fightgame
         
         public abstract int getArmor();
         public abstract int getRangeAtack();
-
+        public abstract int getHealthRegeneration();
+        public void healthRegen()
+        {
+            if (getHealth() + getHealthRegeneration() < getHealthMax())
+            {
+                health += getHealthRegeneration();
+            }
+            else health = healthMax;
+        }
         public int getHealth()
         {
             return health;

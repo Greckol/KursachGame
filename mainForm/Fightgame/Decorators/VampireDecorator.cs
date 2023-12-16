@@ -10,8 +10,8 @@ namespace Fightgame
     {
         public Vampire(Enemy enemy) : base(enemy, enemy.Name + " Vampire")
         {
-            health *= 2;
             healthMax *= 2;
+            health *= 2;
         }
 
         public override int getArmor()
@@ -37,6 +37,21 @@ namespace Fightgame
         public override int getDanegerProcent()
         {
             return enemy.getDanegerProcent();
+        }
+
+        public override int getExpReward()
+        {
+            return enemy.getExpReward();
+        }
+
+        public override int getGoldReward()
+        {
+            return enemy.getGoldReward();
+        }
+
+        public override int getHealthRegeneration()
+        {
+            return enemy.getHealthRegeneration();
         }
 
         public override int getMatrixDefColumns()

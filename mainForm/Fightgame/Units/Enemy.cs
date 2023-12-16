@@ -9,10 +9,13 @@ namespace Fightgame
     public abstract class Enemy : Unit
     {
         public Enemy(int cordColums = 0, int cordRows = 0, int damage = 1, int health = 5, int healthMax = 5,
-            int armor = 0, string name = "undef", int rangeAtack = 1,
-            int dangerProcent = 10, int atackCount = 5, int cellAtackCount = 5, int matrixDefRows = 6, int matrixDefColumns = 6): 
+            int armor = 0, int expReward = 5, int goldReward = 5, string name = "undef", int rangeAtack = 1,
+            int dangerProcent = 10, int atackCount = 5, int cellAtackCount = 5, int matrixDefRows = 6, int matrixDefColumns = 6):
+            
             base(cordColums, cordRows, damage, health, healthMax, armor, name, rangeAtack)
         {
+            this.expReward = expReward;
+            this.goldReward = goldReward;
             this.dangerProcent = dangerProcent;
             this.atackCount = atackCount;
             this.cellAtackCount = cellAtackCount;
@@ -25,17 +28,22 @@ namespace Fightgame
         protected int cellAtackCount;
         protected int matrixDefRows;
         protected int matrixDefColumns;
-        
+        protected int expReward;
+        protected int goldReward;
+
+        public abstract int getExpReward();
+        public abstract int getGoldReward();
         public abstract int getDanegerProcent();
         public abstract int getAtackCount();
         public abstract int getCellAtackCount();
         public abstract int getMatrixDefRows();
         public abstract int getMatrixDefColumns();
+        public abstract Enemy GetBaseComponent();
+
         public override void Die()
         {
-            Player.GetInstance().Exp += 5;
+            Player.GetInstance().Exp += getExpReward();
         }
-        public abstract Enemy GetBaseComponent();
 
         public bool tryToAtackPlayer()
         {

@@ -34,6 +34,9 @@
             buttonStats = new Button();
             checkBoxRangeEnemys = new CheckBox();
             button1 = new Button();
+            labelLVL = new Label();
+            listView1 = new ListView();
+            buttonEnterUp = new Button();
             SuspendLayout();
             // 
             // label1
@@ -153,11 +156,42 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // labelLVL
+            // 
+            labelLVL.AutoSize = true;
+            labelLVL.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            labelLVL.Location = new Point(2, 965);
+            labelLVL.Name = "labelLVL";
+            labelLVL.Size = new Size(54, 35);
+            labelLVL.TabIndex = 13;
+            labelLVL.Text = "LVL";
+            // 
+            // listView1
+            // 
+            listView1.Location = new Point(1354, 228);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(239, 222);
+            listView1.TabIndex = 14;
+            listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // buttonEnterUp
+            // 
+            buttonEnterUp.Location = new Point(1599, 312);
+            buttonEnterUp.Name = "buttonEnterUp";
+            buttonEnterUp.Size = new Size(171, 55);
+            buttonEnterUp.TabIndex = 15;
+            buttonEnterUp.Text = "enter";
+            buttonEnterUp.UseVisualStyleBackColor = true;
+            buttonEnterUp.Click += buttonEnterUp_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(buttonEnterUp);
+            Controls.Add(listView1);
+            Controls.Add(labelLVL);
             Controls.Add(button1);
             Controls.Add(checkBoxRangeEnemys);
             Controls.Add(buttonStats);
@@ -191,5 +225,8 @@
         private Button buttonStats;
         private CheckBox checkBoxRangeEnemys;
         private Button button1;
+        private Label labelLVL;
+        private ListView listView1;
+        private Button buttonEnterUp;
     }
 }

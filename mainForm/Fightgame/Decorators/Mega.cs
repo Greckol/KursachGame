@@ -37,6 +37,20 @@ namespace Fightgame
             return enemy.getDanegerProcent();
         }
 
+        public override int getExpReward()
+        {
+            return enemy.getExpReward();
+        }
+
+        public override int getGoldReward()
+        {
+            return enemy.getGoldReward();
+        }
+
+        public override int getHealthRegeneration()
+        {
+            return enemy.getHealthRegeneration(); 
+        }
 
         public override int getMatrixDefColumns()
         {

@@ -13,9 +13,12 @@ namespace Fightgame
     {
         private static Player player;
 
-        public int exp;
-        public int expMax;
-        public int lvl;
+        private int exp;
+        private int expMax;
+        private int lvl;
+        private int critChance;
+        private int gold;
+
         public int Lvl
         {
             get
@@ -79,6 +82,8 @@ namespace Fightgame
         {
             Exp = 0;
             ExpMax = 10;
+            Lvl = 1;
+            critChance = 5;
         }
 
         public static Player GetInstance(string name = "", int cordRows = 0, int cordColums = 0)
@@ -92,6 +97,11 @@ namespace Fightgame
 
         public override int getDamage()
         {
+            Random random = new Random();
+            if (critChance >= random.Next(1, 101)) 
+            {
+                return damage * 2;
+            };
             return damage;
         }
 
@@ -104,9 +114,27 @@ namespace Fightgame
             return rangeAtack;
         }
 
+        public int getGold()
+        {
+            return gold;
+        }
+
         public override void Die()
         {
             MessageBox.Show("Yor Die");
+        }
+
+        public void update(ListViewItem listViewItem)
+        {
+            if (listViewItem.Text == "Damage")
+            {
+                damage += 1;
+            }
+        }
+
+        public override int getHealthRegeneration()
+        {
+            return hpRegeneration;
         }
     }
 }
