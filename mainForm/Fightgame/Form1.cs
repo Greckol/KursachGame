@@ -1,4 +1,5 @@
-﻿using System.CodeDom;
+﻿using Fightgame.Units;
+using System.CodeDom;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq.Expressions;
@@ -10,8 +11,8 @@ namespace Fightgame
 {
     public partial class Form1 : Form
     {
-        const int matrixRowsSize = 20;
-        const int matrixColumsSize = 20;
+        const int matrixRowsSize = 25;
+        const int matrixColumsSize = 25;
         Random rand = new Random();
         Matrix matrix;
         List<Enemy> units = new List<Enemy>();
@@ -39,7 +40,9 @@ namespace Fightgame
             panelMain.Paint += new PaintEventHandler(DrowMainMatrix);
             buttonAtack.Enabled = false;
             matrix.moveMatrix(player, units);
-            addPerson(1, "slime");
+            //addPerson(10, "slime");
+            //addPerson(10, "dragon");
+            //addPerson(3, "hydra");
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
@@ -62,6 +65,15 @@ namespace Fightgame
 
         }
 
+        int nextTurnClickCount = 0;
+        void GamePlan()
+        {
+            if (nextTurnClickCount % 5 == 0)
+            {
+                addPerson(3, "slime");
+            }
+        }
+        
 
         private void addPerson(int count, string type)
         {
@@ -72,8 +84,15 @@ namespace Fightgame
                 {
                     case "slime":
                         enemy = new Slime();
-                        enemy = new Vampire(enemy);
+                        //enemy = new Vampire(enemy);
                         //enemy = new Mega(enemy);
+                        break;
+                    case "dragon":
+                        enemy = new Dragon();
+                        //enemy = new Vampire(enemy);
+                        break;
+                    case "hydra":
+                        enemy = new Hydra();
                         break;
                     default:
                         enemy = new Slime();
@@ -159,22 +178,32 @@ namespace Fightgame
         {
             foreach (var i in unit)
             {
-                int key = rand.Next(1, 5);
-                switch (toKeys(key))
+                int attemps = 0;
+                bool moved = false;
+                do
                 {
-                    case Keys.W:
-                        if (i.CordRows > 0 && matrix[i.CordRows - 1, i.CordColums] is FreeCell) i.CordRows--;
-                        break;
-                    case Keys.S:
-                        if (i.CordRows < matrix.Rows - 1 && matrix[i.CordRows + 1, i.CordColums] is FreeCell) i.CordRows++;
-                        break;
-                    case Keys.A:
-                        if (i.CordColums > 0 && matrix[i.CordRows, i.CordColums - 1] is FreeCell) i.CordColums--;
-                        break;
-                    case Keys.D:
-                        if (i.CordColums < matrix.Colums - 1 && matrix[i.CordRows, i.CordColums + 1] is FreeCell) i.CordColums++;
-                        break;
-                }
+                    int key = rand.Next(1, 5);
+                    switch (toKeys(key))
+                    {
+                        case Keys.W:
+                            if (i.CordRows > 0 && matrix[i.CordRows - 1, i.CordColums] is FreeCell) { i.CordRows--; moved = true; }
+                            break;
+                        case Keys.S:
+                            if (i.CordRows < matrix.Rows - 1 && matrix[i.CordRows + 1, i.CordColums] is FreeCell) { i.CordRows++; moved = true; }
+                            break;
+                        case Keys.A:
+                            if (i.CordColums > 0 && matrix[i.CordRows, i.CordColums - 1] is FreeCell) { i.CordColums--; moved = true; }
+                            break;
+                        case Keys.D:
+                            if (i.CordColums < matrix.Colums - 1 && matrix[i.CordRows, i.CordColums + 1] is FreeCell) { i.CordColums++; moved = true; }
+                            break;
+                        default:
+                            moved = true;
+                            break;
+                    }
+                    attemps++;
+                } while (!moved && attemps < 5);
+                
                 i.healthRegen();
                 if (i == targetSearch)
                 {
@@ -188,6 +217,17 @@ namespace Fightgame
 
         private void DrowMainMatrix(object sender, PaintEventArgs e)
         {
+            if (player.getHealth() <= 0)
+            {
+                buttonExit.Visible = true;
+
+                //listView1.Visible = false;
+                buttonEnterUp.Visible = false;
+                buttonAtack.Visible = false;
+                buttonNextTurn.Visible = false;
+
+            }
+
             refreshStatus();
             Graphics g = e.Graphics;
             matrix.moveMatrix(player, units);
@@ -221,6 +261,7 @@ namespace Fightgame
 
         private void buttonNextTurn_Click(object sender, EventArgs e)
         {
+            nextTurnClickCount++;
             checkBoxMain.Checked = false;
             checkBoxSide.Checked = false;
             List<Enemy> temp = new List<Enemy>();
@@ -240,6 +281,7 @@ namespace Fightgame
                 units.Remove(t);
             }
             Move(units);
+            GamePlan();
             panelMain.Invalidate();
         }
 
@@ -273,6 +315,11 @@ namespace Fightgame
         private void labelStatName_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

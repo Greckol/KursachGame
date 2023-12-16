@@ -76,17 +76,20 @@ namespace Fightgame
         {
             return healthMax;
         }
-        public void takedamage(int damage)
+        public int takedamage(int damage)
         {
-            if (health - damage < 0)
+            int value = (damage - getArmor());
+            if (value < 0) value = 0;
+            if (health - value < 0)
             {
                 health = 0;
                 Die();
             }
             else
             {
-                health -= damage;
+                health -= value;
             }
+            return value;
         }
 
         public string Name

@@ -35,6 +35,7 @@ namespace Fightgame
                 ProgressB.refreshExpBar(progressBarExp, player);
                 return true;
             }
+            
             return false;
         }
 
@@ -93,7 +94,7 @@ namespace Fightgame
             gold += value;
         }
 
-        private Player(string name, int cordRows, int cordColums) : base(damage: 20, rangeAtack: 10, name: name, cordRows: cordRows,
+        private Player(string name, int cordRows, int cordColums) : base(damage: 2, rangeAtack: 10, name: name, cordRows: cordRows,
             cordColums: cordColums)
         {
             exp = 0;        // если exp > expMax уровенть не повысится
@@ -133,7 +134,7 @@ namespace Fightgame
 
         public override void Die()
         {
-            MessageBox.Show("Yor Die");
+            return;
         }
 
         public void update(ListViewItem listViewItem)

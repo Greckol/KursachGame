@@ -71,5 +71,10 @@ namespace Fightgame
         {
             return enemy.getRangeAtack() + 5;
         }
+
+        public override int getSpeed()
+        {
+            return enemy.getSpeed();
+        }
     }
 }

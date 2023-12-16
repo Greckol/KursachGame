@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fightgame.Units;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Drawing;
@@ -44,19 +45,20 @@ namespace Fightgame
             }
         }
 
-        protected virtual void ColorDrow(Graphics g, Player player, int row, int colum)
+        private void ColorAreaAtackPlayer(Graphics g, Player player, int row, int colum)
         {
             bool isNeighbor = Math.Abs(player.CordRows - row) + Math.Abs(player.CordColums - colum) <= (player.getRangeAtack());   // область возле игрока
             if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
-
+        }
+        protected virtual void ColorDrow(Graphics g, Player player, int row, int colum)
+        {
+            ColorAreaAtackPlayer(g, player, row, colum);
             ColorUnits(g, row, colum);
         }
 
         protected virtual void ColorDrow(Graphics g, Player player, List<Enemy> enemys, int row, int colum)
         {
-            bool isNeighbor = Math.Abs(player.CordRows - row) + Math.Abs(player.CordColums - colum) <= (player.getRangeAtack());   // область возле игрока
-            if (isNeighbor) g.FillRectangle(Brushes.DarkRed, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
-
+            ColorAreaAtackPlayer(g, player, row, colum);
             foreach (var i in enemys)
             {
                 bool isNei = Math.Abs(i.CordRows - row) + Math.Abs(i.CordColums - colum) <= (i.getRangeAtack());
@@ -68,15 +70,28 @@ namespace Fightgame
 
         private void ColorUnits(Graphics g, int row, int colum)
         {
+            
             if (matrix[row][colum] is Player)
             {
                 g.FillRectangle(Brushes.Green, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
             }
-            if (matrix[row][colum] is Enemy enemy && enemy.GetBaseComponent() is Slime)
+            else if (matrix[row][colum] is Enemy enemy)
             {
-                g.FillRectangle(Brushes.GreenYellow, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+                if (enemy.GetBaseComponent() is Slime)
+                {
+                    g.FillRectangle(Brushes.DeepSkyBlue, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+                }
+                else if(enemy.GetBaseComponent() is Dragon)
+                {
+                    g.FillRectangle(Brushes.BlueViolet, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+                }
+                else if (enemy.GetBaseComponent() is Hydra)
+                {
+                    g.FillRectangle(Brushes.GreenYellow, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+                }
             }
             
+
         }
 
         private void TextDrow(Form f, Graphics g, int row, int colum)

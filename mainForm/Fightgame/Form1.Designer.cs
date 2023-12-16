@@ -37,6 +37,7 @@
             buttonEnterUp = new Button();
             listView2 = new ListView();
             labelStatName = new Label();
+            buttonExit = new Button();
             SuspendLayout();
             // 
             // label1
@@ -166,9 +167,9 @@
             // 
             // listView2
             // 
-            listView2.Location = new Point(1687, 126);
+            listView2.Location = new Point(1667, 126);
             listView2.Name = "listView2";
-            listView2.Size = new Size(213, 707);
+            listView2.Size = new Size(233, 743);
             listView2.TabIndex = 16;
             listView2.UseCompatibleStateImageBehavior = false;
             // 
@@ -176,17 +177,30 @@
             // 
             labelStatName.AutoSize = true;
             labelStatName.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            labelStatName.Location = new Point(1687, 87);
+            labelStatName.Location = new Point(1667, 86);
             labelStatName.Name = "labelStatName";
             labelStatName.Size = new Size(53, 25);
             labelStatName.TabIndex = 17;
             labelStatName.Text = "label";
             labelStatName.Click += labelStatName_Click;
             // 
+            // buttonExit
+            // 
+            buttonExit.BackColor = Color.Red;
+            buttonExit.Location = new Point(963, 722);
+            buttonExit.Name = "buttonExit";
+            buttonExit.Size = new Size(629, 178);
+            buttonExit.TabIndex = 18;
+            buttonExit.Text = "Exit";
+            buttonExit.UseVisualStyleBackColor = false;
+            buttonExit.Visible = false;
+            buttonExit.Click += buttonExit_Click;
+            // 
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(buttonExit);
             Controls.Add(labelStatName);
             Controls.Add(listView2);
             Controls.Add(buttonEnterUp);
@@ -205,7 +219,6 @@
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
-            WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -228,5 +241,6 @@
         private Button buttonEnterUp;
         private ListView listView2;
         private Label labelStatName;
+        private Button buttonExit;
     }
 }

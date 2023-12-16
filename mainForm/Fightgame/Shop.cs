@@ -11,11 +11,16 @@ namespace Fightgame
         public Shop(ListView listView)
         {
             dictionaryShop = new Dictionary<string, int>();
-            listView.Columns.Add("Stat", -2, HorizontalAlignment.Left);
-            listView.Columns.Add("Cost", -2, HorizontalAlignment.Left);
+            FillColumns(listView);
             listView.View = View.Details;
+            
             //fill();
+        }
 
+        protected virtual void FillColumns(ListView listView)
+        {
+            listView.Columns.Add("Stat", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Cost Gold", -2, HorizontalAlignment.Left);
         }
         //private static Shop shopM;
         /*public static Shop GetInstance(ListView listView = null)

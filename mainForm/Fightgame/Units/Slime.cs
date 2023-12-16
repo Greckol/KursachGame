@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal class Slime : Enemy
+    class Slime : Enemy
     {
         public Slime(): base(name: "Slime", damage: 1, health: 8, healthMax: 8, healthRegeneration: 1, armor: 1, rangeAtack: 1,
-            atackCount: 10, cellAtackCount: 15, dangerProcent: 10, expReward: 5)
+            atackCount: 10, cellAtackCount: 15, dangerProcent: 10, expReward: 5, speedAtack: 5)
         {}
 
         public override int getArmor()
@@ -76,6 +76,11 @@ namespace Fightgame
         public override int getRangeAtack()
         {
             return rangeAtack;
+        }
+
+        public override int getSpeed()
+        {
+            return speedAtack;
         }
     }
 }

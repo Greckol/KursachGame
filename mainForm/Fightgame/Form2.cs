@@ -10,6 +10,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Fightgame
 {
@@ -35,6 +36,7 @@ namespace Fightgame
             panel2.Hide();
             panel1.Hide();
             timer1.Interval = 40;
+            speed = enemy.getSpeed();
             //timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
             timer2.Tick += timer2_Tick;
@@ -59,6 +61,7 @@ namespace Fightgame
 
             if (player.getHealth() <= 0)
             {
+                this.Close();
                 player.Die();
             }
             if (timer2TickCount % 2 == 0)
@@ -73,8 +76,8 @@ namespace Fightgame
             panel2.Invalidate();
             if (matrixD.matrix[matrixD.CordRowPlayer][matrixD.CordColumnPlayer] == 'T')
             {
-                //player.Health -= enemy.getDamage();
-                player.takedamage(enemy.Hit());
+                int value = player.takedamage(enemy.Hit());
+                labelInfo2.Text = '-' + value.ToString();
                 ProgressB.refreshProgress(hpBarPlayer, player);
             }
             if (flag) matrixD.enemys.Clear();
@@ -92,7 +95,7 @@ namespace Fightgame
         MatrixDef matrixD;
         int timer2TickCount;
         int x = 0;
-        int speed = 5;
+        int speed;
         int mainBorderWidth = 24; // только четное
         int atackLineWidth = 5;
         SolidBrush color = new SolidBrush(Color.Red);
@@ -127,9 +130,8 @@ namespace Fightgame
 
             else if (rectTarget.Contains(rectSmall))
             {
-                int damage = player.Hit();
-                enemy.takedamage(damage);
-                labelInfo.Text = '-' + damage.ToString();
+                int value = enemy.takedamage(player.Hit());
+                labelInfo.Text = '-' + value.ToString();
                 ProgressB.refreshProgress(hpBarEnemy, enemy);
                 if (enemy.getHealth() <= 0)
                 {

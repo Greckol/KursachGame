@@ -13,6 +13,12 @@ namespace Fightgame
         {
             this.unit = unit;
         }
+        protected override void FillColumns(ListView listView)
+        {
+            listView.Columns.Add("Stat", -2, HorizontalAlignment.Left);
+            listView.Columns.Add("Value", -2, HorizontalAlignment.Left);
+        }
+
         //public const string name = "Name";
         // Player
 
@@ -24,6 +30,7 @@ namespace Fightgame
         public const string dangerProcent = "DangerProcent";
         public const string atackCount = "AtackCount";
         public const string cellAtackCount = "CellAtackCount";
+        public const string speed = "Speed";
         public const string matrixDefRows = "MatrixDefRows";
         public const string matrixDefColumns = "MatrixDefColumns";
         public const string expReward = "ExpReward";
@@ -62,6 +69,7 @@ namespace Fightgame
                 dictionaryShop.Add(dangerProcent, enemy.getDanegerProcent());
                 dictionaryShop.Add(atackCount, enemy.getAtackCount());
                 dictionaryShop.Add(cellAtackCount, enemy.getCellAtackCount());
+                dictionaryShop.Add(speed, enemy.getSpeed());
                 dictionaryShop.Add(expReward, enemy.getExpReward());
                 dictionaryShop.Add(goldReward, enemy.getGoldReward());
                 dictionaryShop.Add(matrixDefRows, enemy.getMatrixDefRows());
