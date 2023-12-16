@@ -62,13 +62,10 @@
             // 
             // panel2
             // 
-            panel2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            panel2.BackgroundImageLayout = ImageLayout.Zoom;
-            panel2.Location = new Point(817, 96);
+            panel2.Location = new Point(828, 101);
             panel2.Name = "panel2";
             panel2.Size = new Size(300, 300);
-            panel2.TabIndex = 2;
-            panel2.Paint += panel2_Paint;
+            panel2.TabIndex = 8;
             // 
             // labelInfo
             // 
@@ -109,7 +106,7 @@
             // 
             labelEnemyName.AutoSize = true;
             labelEnemyName.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            labelEnemyName.Location = new Point(817, 9);
+            labelEnemyName.Location = new Point(878, 35);
             labelEnemyName.Name = "labelEnemyName";
             labelEnemyName.Size = new Size(97, 41);
             labelEnemyName.TabIndex = 7;
@@ -121,12 +118,12 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(panel2);
             Controls.Add(labelEnemyName);
             Controls.Add(buttonEscape);
             Controls.Add(labelInfo);
             Controls.Add(hpBarEnemy);
             Controls.Add(hpBarPlayer);
-            Controls.Add(panel2);
             Controls.Add(buttonHit);
             Controls.Add(panel1);
             Name = "Form2";

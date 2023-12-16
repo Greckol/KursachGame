@@ -16,16 +16,13 @@ namespace Fightgame
         private int exp;
         private int expMax;
         private int lvl;
-        private int critChance;
         private int gold;
 
-        public int Lvl
+        public int getLvl()
         {
-            get
-            { return lvl; }
-            protected set
-            { lvl = value; }
+            return lvl;
         }
+        
         public bool atack(Enemy enemy, bool enemyAtack, ProgressBar progressBarExp, ProgressBar hpBarEnemy, ProgressBar hpBarPlayer)
         {
             Form2 form2 = new Form2(enemy, enemyAtack);
@@ -40,49 +37,69 @@ namespace Fightgame
             }
             return false;
         }
-        public int Exp
+
+        public int getExp() 
         {
-            get
+            while (exp >= expMax)
             {
-                while (exp >= expMax)
-                {
-                    exp -= expMax;
-                    expMax += Convert.ToInt32(Convert.ToDouble(expMax) * 0.5);
-                    LvlUp();
-                }
-                return exp;
+                exp -= expMax;
+                expMax += Convert.ToInt32(Convert.ToDouble(expMax) * 0.5);
+                LvlUp();
             }
-            set { exp = value; }
+            return exp;
         }
-        public int ExpMax
+        public int getExpMax()
         {
-            get
+            while (exp >= expMax)
             {
-                while (exp >= expMax)
-                {
-                    exp -= expMax;
-                    expMax += Convert.ToInt32(Convert.ToDouble(expMax) * 0.5);
-                    LvlUp();
-                }
-                return expMax;
+                exp -= expMax;
+                expMax += Convert.ToInt32(Convert.ToDouble(expMax) * 0.5);
+                LvlUp();
             }
-            set
-            {
-                expMax = value;
-            }
+            return expMax;
         }
+       
 
         public void LvlUp()
         {
-            Lvl += 1;
+            lvl += 1;
+
+            
+            damage += 2;
+            damage += Convert.ToInt32(Convert.ToDouble(damage) * 0.4);
+
+            armor += 1;
+
+            healthMax += 10;
+            health += 10;
+            health = healthMax;
+
+            if (lvl % 5 == 0)
+            {
+                critChance += 2;
+                rangeAtack += 1;
+                healthRegeneration += 1;
+            }
+
+        }
+        public void ExpUp(int value)
+        {
+            exp += value;
+            getExp(); // костыль
         }
 
-        private Player(string name, int cordRows, int cordColums) : base(damage: 5, rangeAtack: 2, name: name, cordRows: cordRows,
+        public void GoldUp(int value)
+        {
+            gold += value;
+        }
+
+        private Player(string name, int cordRows, int cordColums) : base(damage: 20, rangeAtack: 10, name: name, cordRows: cordRows,
             cordColums: cordColums)
         {
-            Exp = 0;
-            ExpMax = 10;
-            Lvl = 1;
+            exp = 0;        // если exp > expMax уровенть не повысится
+            expMax = 10;
+            lvl = 1;
+            gold = 1501;
             critChance = 5;
         }
 
@@ -97,11 +114,6 @@ namespace Fightgame
 
         public override int getDamage()
         {
-            Random random = new Random();
-            if (critChance >= random.Next(1, 101)) 
-            {
-                return damage * 2;
-            };
             return damage;
         }
 
@@ -126,15 +138,41 @@ namespace Fightgame
 
         public void update(ListViewItem listViewItem)
         {
-            if (listViewItem.Text == "Damage")
+            switch (listViewItem.Text)
             {
-                damage += 1;
+                case Shop.damage:
+                    damage += 1;
+                    break;
+                case Shop.healthMax:
+                    healthMax += 1;
+                    health += 1;
+                    break;
+                case Shop.critChance:
+                    critChance += 1;
+                    break;
+                case Shop.rangeAtack:
+                    rangeAtack += 1;
+                    break;
+                case Shop.armor:
+                    armor += 1;
+                    break;
+                case Shop.health:
+                    health = healthMax;
+                    break;
+                default:
+                    break;
             }
+            gold -= Convert.ToInt32(listViewItem.SubItems[1].Text);
         }
 
         public override int getHealthRegeneration()
         {
-            return hpRegeneration;
+            return healthRegeneration;
+        }
+
+        public override int getCritChance()
+        {
+           return critChance;
         }
     }
 }

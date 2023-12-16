@@ -8,11 +8,11 @@ namespace Fightgame
 {
     public abstract class Enemy : Unit
     {
-        public Enemy(int cordColums = 0, int cordRows = 0, int damage = 1, int health = 5, int healthMax = 5,
+        public Enemy(int cordColums = 0, int cordRows = 0, int damage = 1, int critChance = 5, int health = 5, int healthMax = 5, int healthRegeneration = 1,
             int armor = 0, int expReward = 5, int goldReward = 5, string name = "undef", int rangeAtack = 1,
-            int dangerProcent = 10, int atackCount = 5, int cellAtackCount = 5, int matrixDefRows = 6, int matrixDefColumns = 6):
-            
-            base(cordColums, cordRows, damage, health, healthMax, armor, name, rangeAtack)
+            int dangerProcent = 10, int atackCount = 5, int cellAtackCount = 5, int matrixDefRows = 6, int matrixDefColumns = 6) :
+
+            base(cordColums, cordRows, damage, critChance ,health, healthMax, armor, name, rangeAtack, healthRegeneration)
         {
             this.expReward = expReward;
             this.goldReward = goldReward;
@@ -42,7 +42,8 @@ namespace Fightgame
 
         public override void Die()
         {
-            Player.GetInstance().Exp += getExpReward();
+            Player.GetInstance().ExpUp(getExpReward());
+            Player.GetInstance().GoldUp(getGoldReward());
         }
 
         public bool tryToAtackPlayer()

@@ -12,23 +12,25 @@ namespace Fightgame
         protected int cordColums;
         protected int cordRows;
         protected int damage;
+        protected int critChance;
         protected int health;
-        protected int hpRegeneration;
+        protected int healthRegeneration;
         protected int healthMax;
         protected int armor;
         protected int rangeAtack;
         protected string name;
 
 
-        public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, int health = 5, int healthMax = 5,
-            int armor = 0, string name = "undef", int rangeAtack = 1, int hpRegeneration = 1)
+        public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, int critChance = 5, int health = 5, int healthMax = 5,
+            int armor = 0, string name = "undef", int rangeAtack = 1, int healthRegeneration = 1)
         {
             CordColums = cordColums;
             CordRows = cordRows;
             Name = name;
             this.damage = damage;
+            this.critChance = critChance;
             this.health = health;
-            this.hpRegeneration = hpRegeneration;
+            this.healthRegeneration = healthRegeneration;
             this.healthMax = healthMax;
             this.armor = armor;
             this.rangeAtack = rangeAtack;
@@ -45,7 +47,16 @@ namespace Fightgame
             set { cordRows = value; }
         }
         public abstract int getDamage();
-        
+        public int Hit()
+        {
+            Random random = new Random();
+            if (critChance >= random.Next(1, 101))
+            {
+                return getDamage() * 2;
+            };
+            return getDamage();
+        }
+        public abstract int getCritChance();
         public abstract int getArmor();
         public abstract int getRangeAtack();
         public abstract int getHealthRegeneration();

@@ -18,8 +18,8 @@ namespace Fightgame
         static public void refreshExpBar(ProgressBar expBar, Player player)
         {
             expBar.Minimum = 0;
-            expBar.Maximum = player.ExpMax;
-            expBar.Value = player.Exp;
+            expBar.Maximum = player.getExpMax();
+            expBar.Value = player.getExp();
         }
     }
 }

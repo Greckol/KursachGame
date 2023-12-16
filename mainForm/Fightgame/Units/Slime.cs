@@ -8,7 +8,7 @@ namespace Fightgame
 {
     internal class Slime : Enemy
     {
-        public Slime(): base(name: "Slime", damage: 1, health: 5, healthMax: 5, armor: 1, rangeAtack: 1,
+        public Slime(): base(name: "Slime", damage: 1, health: 8, healthMax: 8, healthRegeneration: 1, armor: 1, rangeAtack: 1,
             atackCount: 10, cellAtackCount: 15, dangerProcent: 10, expReward: 5)
         {}
 
@@ -32,8 +32,14 @@ namespace Fightgame
             return cellAtackCount;
         }
 
+        public override int getCritChance()
+        {
+            return critChance;
+        }
+
         public override int getDamage()
         {
+            
             return damage;
         }
 
@@ -54,7 +60,7 @@ namespace Fightgame
 
         public override int getHealthRegeneration()
         {
-            return hpRegeneration;
+            return healthRegeneration;
         }
 
         public override int getMatrixDefColumns()

@@ -27,6 +27,11 @@ namespace Fightgame
             return enemy.getCellAtackCount() - 5;
         }
 
+        public override int getCritChance()
+        {
+            return enemy.getCritChance();
+        }
+
         public override int getDamage()
         {
             return enemy.getDamage() * 10;

@@ -74,7 +74,7 @@ namespace Fightgame
             if (matrixD.matrix[matrixD.CordRowPlayer][matrixD.CordColumnPlayer] == 'T')
             {
                 //player.Health -= enemy.getDamage();
-                player.takedamage(enemy.getDamage());
+                player.takedamage(enemy.Hit());
                 ProgressB.refreshProgress(hpBarPlayer, player);
             }
             if (flag) matrixD.enemys.Clear();
@@ -127,12 +127,13 @@ namespace Fightgame
 
             else if (rectTarget.Contains(rectSmall))
             {
-                enemy.takedamage(player.getDamage());
-                labelInfo.Text = '-' + player.getDamage().ToString();
+                int damage = player.Hit();
+                enemy.takedamage(damage);
+                labelInfo.Text = '-' + damage.ToString();
                 ProgressB.refreshProgress(hpBarEnemy, enemy);
                 if (enemy.getHealth() <= 0)
                 {
-                    enemy.Die();
+
                     this.Close();
                     return;
                 }
@@ -190,20 +191,10 @@ namespace Fightgame
         private void buttonEscape_Click(object sender, EventArgs e)
         {
             //player.Health -= enemy.getDamage();
-            player.takedamage(enemy.getDamage());
+            player.takedamage(enemy.Hit());
             ProgressB.refreshProgress(hpBarPlayer, player);
             this.Close();
             return;
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

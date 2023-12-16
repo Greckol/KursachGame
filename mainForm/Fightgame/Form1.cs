@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.CodeDom;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -14,18 +15,26 @@ namespace Fightgame
         Random rand = new Random();
         Matrix matrix;
         List<Enemy> units = new List<Enemy>();
-        Player player = Player.GetInstance("Genry", matrixRowsSize / 2, matrixColumsSize / 2);
+        Player player;
         Shop shop;
+        Stats stats;
         public Form1()
         {
             InitializeComponent();
+            player = Player.GetInstance("Genry", matrixRowsSize / 2, matrixColumsSize / 2);
+            targetSearch = Player.GetInstance();
+            label1.Text = $"Содержимое клетки {player.Name}";
+            labelStatName.Text = player.Name;
             shop = new Shop(listView1);
-
-            
-            shop.refresh(listView1);
+            shop.fill(listView1);
+            //shop.refresh(listView1);
             listView1.SelectedIndexChanged += listView_SelectedIndexChanged;
 
-            labelLVL.Text = player.Lvl.ToString();
+            stats = new Stats(listView2, targetSearch);
+            stats.fill(listView2);
+            //stats.refresh(listView2);
+
+            labelLVL.Text = player.getLvl().ToString();
             matrix = new Matrix(matrixRowsSize, matrixColumsSize, panelMain);
             panelMain.Paint += new PaintEventHandler(DrowMainMatrix);
             buttonAtack.Enabled = false;
@@ -36,6 +45,11 @@ namespace Fightgame
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             panelMain.MouseClick += new MouseEventHandler(Form1_MouseClick);
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ProgressB.refreshExpBar(progressBarExp, player);
+            ProgressB.refreshProgress(hpBarPlayer, player);
+        }
 
         ListViewItem selectedItem;
         private void listView_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,14 +57,9 @@ namespace Fightgame
             if (listView1.SelectedItems.Count == 0)
                 return;
 
-            // Получение выбранного элемента
             selectedItem = listView1.SelectedItems[0];
+            shop.buttonEnterRefresh(selectedItem, buttonEnterUp);
 
-            // Получение ключа из текста элемента
-            //string selectedKey = selectedItem.Text;
-
-            // Действия с выбранным ключом
-            //MessageBox.Show($"Выбран ключ: {selectedKey}");
         }
 
 
@@ -78,15 +87,17 @@ namespace Fightgame
                 units.Add(enemy);
             }
         }
-        Unit targetSearch = Player.GetInstance();
+        Unit targetSearch;
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             int rowMouseClick = e.Y / matrix.CellSizeColum;
             int columnMouseClick = e.X / matrix.CellSizeRow;
             targetSearch = matrix[rowMouseClick, columnMouseClick];
             label1.Text = "Содержимое клетки: " + targetSearch.Name;
+            if (targetSearch is not FreeCell) labelStatName.Text = targetSearch.Name;
             ProgressB.refreshProgress(hpBarEnemy, targetSearch);
             refreshStatus();
+            stats.refreshStats(listView2, targetSearch);
 
         }
         void refreshStatus()
@@ -120,11 +131,9 @@ namespace Fightgame
                 e.KeyCode == Keys.A || e.KeyCode == Keys.D)
             {
                 checkBoxMain.Checked = true;
-
                 player.healthRegen();
                 ProgressB.refreshProgress(hpBarPlayer, player);
 
-                matrix.moveMatrix(player, units);
                 panelMain.Invalidate();
 
             };
@@ -166,6 +175,12 @@ namespace Fightgame
                         if (i.CordColums < matrix.Colums - 1 && matrix[i.CordRows, i.CordColums + 1] is FreeCell) i.CordColums++;
                         break;
                 }
+                i.healthRegen();
+                if (i == targetSearch)
+                {
+                    stats.refreshStats(listView2, targetSearch);
+                    ProgressB.refreshProgress(hpBarEnemy, i);
+                }
                 matrix.moveMatrix(player, units);
             }
         }
@@ -194,19 +209,15 @@ namespace Fightgame
             {
                 if (player.atack(enemy, false, progressBarExp, hpBarEnemy, hpBarPlayer))
                 {
-                    labelLVL.Text = player.Lvl.ToString();
+                    labelLVL.Text = player.getLvl().ToString();
                     units.Remove(enemy);
                 };
+                stats.refreshStats(listView2, targetSearch);
+                panelMain.Invalidate();
             }
-            buttonAtack.Enabled = false;
-            panelMain.Invalidate();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            ProgressB.refreshExpBar(progressBarExp, player);
-            ProgressB.refreshProgress(hpBarPlayer, player);
-        }
+       
 
         private void buttonNextTurn_Click(object sender, EventArgs e)
         {
@@ -219,7 +230,7 @@ namespace Fightgame
                 {
                     if (player.atack(i, true, progressBarExp, hpBarEnemy, hpBarPlayer))
                     {
-                        labelLVL.Text = player.Lvl.ToString();
+                        labelLVL.Text = player.getLvl().ToString();
                         temp.Add(i);
                     }
                 }
@@ -237,16 +248,31 @@ namespace Fightgame
             panelMain.Invalidate();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Date formDate = new Date(targetSearch);
-            formDate.Show();
-        }
+
 
         private void buttonEnterUp_Click(object sender, EventArgs e)
         {
             player.update(selectedItem);
-            shop.refreshCost(listView1 ,selectedItem);
+            if (selectedItem.Text == Shop.rangeAtack) panelMain.Invalidate();
+            shop.refreshCost(listView1, selectedItem);
+            foreach (ListViewItem i in listView1.Items)
+            {
+                if (i.Text == selectedItem.Text)
+                {
+                    selectedItem = i;
+                    break;
+                }
+            }
+            shop.buttonEnterRefresh(selectedItem, buttonEnterUp);
+
+
+            stats.refreshStats(listView2, targetSearch);
+            
+        }
+
+        private void labelStatName_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

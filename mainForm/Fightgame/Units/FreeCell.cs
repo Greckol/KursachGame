@@ -23,6 +23,11 @@ namespace Fightgame
             return armor;
         }
 
+        public override int getCritChance()
+        {
+            return critChance;
+        }
+
         public override int getDamage()
         {
             return damage;
@@ -30,7 +35,7 @@ namespace Fightgame
 
         public override int getHealthRegeneration()
         {
-            return hpRegeneration;
+            return healthRegeneration;
         }
 
         public override int getRangeAtack()
