@@ -217,7 +217,7 @@ namespace Fightgame
             }
         }
 
-       
+
 
         private void buttonNextTurn_Click(object sender, EventArgs e)
         {
@@ -267,7 +267,7 @@ namespace Fightgame
 
 
             stats.refreshStats(listView2, targetSearch);
-            
+
         }
 
         private void labelStatName_Click(object sender, EventArgs e)
