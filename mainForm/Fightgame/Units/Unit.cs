@@ -80,7 +80,7 @@ namespace Fightgame
         {
             int value = (damage - getArmor());
             if (value < 0) value = 0;
-            if (health - value < 0)
+            if (health - value <= 0)
             {
                 health = 0;
                 Die();

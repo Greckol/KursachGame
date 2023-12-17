@@ -4,82 +4,79 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fightgame.Units
+namespace Fightgame
 {
-    class Dragon: Enemy
+    class Mystery : EnemyDecorator
     {
-        public Dragon(): base(name: "Dragon", damage: 30, health: 100, healthMax: 100, healthRegeneration: 5, armor: 8, rangeAtack: 2,
-            atackCount: 20, cellAtackCount: 20, dangerProcent: 20, expReward: 50, speedAtack: 15) { }
+        public Mystery(Enemy enemy) : base(enemy, "Mystery " + enemy.Name)
+        {
+            healthMax += getHealthMax() / 2;
+            health += getHealth() / 2;
+        }
 
         public override int getArmor()
         {
-            return armor;
+            return enemy.getArmor() + 1;
         }
 
         public override int getAtackCount()
         {
-            return atackCount;
-        }
-
-        public override Enemy GetBaseComponent()
-        {
-            return this;
+            return enemy.getAtackCount() + 2;
         }
 
         public override int getCellAtackCount()
         {
-            return cellAtackCount;
+            return enemy.getCellAtackCount() - 2;
         }
 
         public override int getCritChance()
         {
-            return critChance;
+            return enemy.getCritChance() + 10;
         }
 
         public override int getDamage()
         {
-
-            return damage;
+            return enemy.getDamage() + 1;
         }
 
         public override int getDanegerProcent()
         {
-            return dangerProcent;
+            return enemy.getDanegerProcent() + 10;
         }
 
         public override int getExpReward()
         {
-            return expReward;
+            return enemy.getExpReward() * 2;
         }
 
         public override int getGoldReward()
         {
-            return goldReward;
+            return enemy.getGoldReward() * 2;
         }
 
         public override int getHealthRegeneration()
         {
-            return healthRegeneration;
+            return enemy.getHealthRegeneration() + 1;
         }
 
         public override int getMatrixDefColumns()
         {
-            return matrixDefColumns;
+            return enemy.getMatrixDefColumns() + 1;
         }
 
         public override int getMatrixDefRows()
         {
-            return matrixDefRows;
+            return enemy.getMatrixDefRows() + 1;
         }
 
         public override int getRangeAtack()
         {
-            return rangeAtack;
+            return enemy.getRangeAtack() + 1;
         }
 
         public override int getSpeed()
         {
-            return speedAtack;
+            return enemy.getSpeed() + 7;
         }
     }
 }

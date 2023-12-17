@@ -40,6 +40,8 @@
             buttonEscape = new Button();
             labelEnemyName = new Label();
             labelInfo2 = new Label();
+            labelEnemyHealth = new Label();
+            labelMyHealth = new Label();
             SuspendLayout();
             // 
             // panel1
@@ -71,9 +73,9 @@
             // labelInfo
             // 
             labelInfo.AutoSize = true;
-            labelInfo.BackColor = Color.Transparent;
+            labelInfo.BackColor = Color.FromArgb(255, 128, 128);
             labelInfo.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            labelInfo.Location = new Point(940, 414);
+            labelInfo.Location = new Point(937, 404);
             labelInfo.Name = "labelInfo";
             labelInfo.Size = new Size(0, 37);
             labelInfo.TabIndex = 0;
@@ -117,18 +119,42 @@
             // labelInfo2
             // 
             labelInfo2.AutoSize = true;
-            labelInfo2.BackColor = Color.Transparent;
+            labelInfo2.BackColor = Color.FromArgb(255, 128, 128);
             labelInfo2.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            labelInfo2.Location = new Point(940, 753);
+            labelInfo2.Location = new Point(937, 737);
             labelInfo2.Name = "labelInfo2";
             labelInfo2.Size = new Size(0, 37);
             labelInfo2.TabIndex = 9;
+            // 
+            // labelEnemyHealth
+            // 
+            labelEnemyHealth.AutoSize = true;
+            labelEnemyHealth.BackColor = Color.Silver;
+            labelEnemyHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            labelEnemyHealth.Location = new Point(469, 496);
+            labelEnemyHealth.Name = "labelEnemyHealth";
+            labelEnemyHealth.Size = new Size(78, 32);
+            labelEnemyHealth.TabIndex = 10;
+            labelEnemyHealth.Text = "label1";
+            // 
+            // labelMyHealth
+            // 
+            labelMyHealth.AutoSize = true;
+            labelMyHealth.BackColor = Color.Silver;
+            labelMyHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            labelMyHealth.Location = new Point(469, 821);
+            labelMyHealth.Name = "labelMyHealth";
+            labelMyHealth.Size = new Size(78, 32);
+            labelMyHealth.TabIndex = 11;
+            labelMyHealth.Text = "label1";
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(labelMyHealth);
+            Controls.Add(labelEnemyHealth);
             Controls.Add(labelInfo2);
             Controls.Add(panel2);
             Controls.Add(labelEnemyName);
@@ -158,5 +184,7 @@
         private Button buttonEscape;
         private Label labelEnemyName;
         private Label labelInfo2;
+        private Label labelEnemyHealth;
+        private Label labelMyHealth;
     }
 }

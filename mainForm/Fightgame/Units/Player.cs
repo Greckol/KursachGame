@@ -94,7 +94,7 @@ namespace Fightgame
             gold += value;
         }
 
-        private Player(string name, int cordRows, int cordColums) : base(damage: 2, rangeAtack: 10, name: name, cordRows: cordRows,
+        private Player(string name, int cordRows, int cordColums) : base(damage: 2, rangeAtack: 2, name: name, cordRows: cordRows,
             cordColums: cordColums)
         {
             exp = 0;        // если exp > expMax уровенть не повысится

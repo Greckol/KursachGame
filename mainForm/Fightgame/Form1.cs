@@ -5,6 +5,8 @@ using System.Drawing.Drawing2D;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Channels;
+using System.Xml.Linq;
 using static Fightgame.MatrixDef;
 
 namespace Fightgame
@@ -24,7 +26,11 @@ namespace Fightgame
             InitializeComponent();
             player = Player.GetInstance("Genry", matrixRowsSize / 2, matrixColumsSize / 2);
             targetSearch = Player.GetInstance();
-            label1.Text = $"Содержимое клетки {player.Name}";
+            ///
+            label1.Text = $"Содержимое клетки: {player.Name}";
+            ProgressB.refreshProgress(hpBarEnemy, targetSearch);
+            ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
+            //label1.Visible = true;
             labelStatName.Text = player.Name;
             shop = new Shop(listView1);
             shop.fill(listView1);
@@ -34,6 +40,7 @@ namespace Fightgame
             stats = new Stats(listView2, targetSearch);
             stats.fill(listView2);
             //stats.refresh(listView2);
+
 
             labelLVL.Text = player.getLvl().ToString();
             matrix = new Matrix(matrixRowsSize, matrixColumsSize, panelMain);
@@ -47,7 +54,10 @@ namespace Fightgame
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             panelMain.MouseClick += new MouseEventHandler(Form1_MouseClick);
+            addPerson(5, "slime");
         }
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             ProgressB.refreshExpBar(progressBarExp, player);
@@ -68,13 +78,32 @@ namespace Fightgame
         int nextTurnClickCount = 0;
         void GamePlan()
         {
-            if (nextTurnClickCount % 5 == 0)
+            int valueR = rand.Next(0, nextTurnClickCount);
+            string name;
+            if (nextTurnClickCount % 3 == 0)
             {
-                addPerson(3, "slime");
+                switch (valueR)
+                {
+                    case int n when (n >= 0 && n <= 10):
+                        name = "slime";
+                        break;
+                    case int n when (n >= 11 && n <= 50):
+                        name = "skeliton";
+                        break;
+                    case int n when (n >= 51 && n <= 150):
+                        name = "hydra";
+                        break;
+                    case int n when (n >= 151):
+                        name = "dragon";
+                        break;
+                    default:
+                        name = "slime";
+                        break;
+                }
+                int countEnemys = rand.Next(1, 3);
+                addPerson(countEnemys, name);
             }
         }
-        
-
         private void addPerson(int count, string type)
         {
             Enemy enemy;
@@ -84,20 +113,32 @@ namespace Fightgame
                 {
                     case "slime":
                         enemy = new Slime();
-                        //enemy = new Vampire(enemy);
-                        //enemy = new Mega(enemy);
                         break;
                     case "dragon":
                         enemy = new Dragon();
-                        //enemy = new Vampire(enemy);
                         break;
                     case "hydra":
                         enemy = new Hydra();
+                        break;
+                    case "skeliton":
+                        enemy = new Skeliton();
                         break;
                     default:
                         enemy = new Slime();
                         break;
                 }
+                ///
+                int buff1 = rand.Next(1, 10);
+                if (buff1 == 1)
+                {
+                    enemy = new Mystery(enemy);
+                }
+                int buff2 = rand.Next(1, 25);
+                if (buff2 == 1)
+                {
+                    enemy = new Mega(enemy);
+                }
+                ///
                 do
                 {
                     enemy.CordRows = rand.Next(0, matrix.Rows);
@@ -113,7 +154,11 @@ namespace Fightgame
             int columnMouseClick = e.X / matrix.CellSizeRow;
             targetSearch = matrix[rowMouseClick, columnMouseClick];
             label1.Text = "Содержимое клетки: " + targetSearch.Name;
-            if (targetSearch is not FreeCell) labelStatName.Text = targetSearch.Name;
+            ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
+            if (targetSearch is not FreeCell)
+            {
+                labelStatName.Text = targetSearch.Name;
+            }
             ProgressB.refreshProgress(hpBarEnemy, targetSearch);
             refreshStatus();
             stats.refreshStats(listView2, targetSearch);
@@ -203,7 +248,7 @@ namespace Fightgame
                     }
                     attemps++;
                 } while (!moved && attemps < 5);
-                
+
                 i.healthRegen();
                 if (i == targetSearch)
                 {
@@ -225,10 +270,14 @@ namespace Fightgame
                 buttonEnterUp.Visible = false;
                 buttonAtack.Visible = false;
                 buttonNextTurn.Visible = false;
+                checkBoxMain.Checked = true;
+                checkBoxMain.Visible = false;
 
             }
 
             refreshStatus();
+            ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
+
             Graphics g = e.Graphics;
             matrix.moveMatrix(player, units);
 
@@ -263,7 +312,6 @@ namespace Fightgame
         {
             nextTurnClickCount++;
             checkBoxMain.Checked = false;
-            checkBoxSide.Checked = false;
             List<Enemy> temp = new List<Enemy>();
             foreach (var i in units)
             {

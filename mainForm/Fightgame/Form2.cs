@@ -41,6 +41,7 @@ namespace Fightgame
             timer1.Tick += timer1_Tick;
             timer2.Tick += timer2_Tick;
             this.KeyDown += new KeyEventHandler(Form2_KeyDown);
+            ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, enemy);
         }
 
         protected void timer1_Tick(object sender, EventArgs e)
@@ -78,6 +79,7 @@ namespace Fightgame
             {
                 int value = player.takedamage(enemy.Hit());
                 labelInfo2.Text = '-' + value.ToString();
+                ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, enemy);
                 ProgressB.refreshProgress(hpBarPlayer, player);
             }
             if (flag) matrixD.enemys.Clear();
@@ -132,10 +134,10 @@ namespace Fightgame
             {
                 int value = enemy.takedamage(player.Hit());
                 labelInfo.Text = '-' + value.ToString();
+                ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, enemy);
                 ProgressB.refreshProgress(hpBarEnemy, enemy);
                 if (enemy.getHealth() <= 0)
                 {
-
                     this.Close();
                     return;
                 }

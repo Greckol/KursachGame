@@ -79,7 +79,11 @@ namespace Fightgame
             {
                 if (enemy.GetBaseComponent() is Slime)
                 {
-                    g.FillRectangle(Brushes.DeepSkyBlue, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+                    g.FillRectangle(Brushes.Tan, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
+                }
+                else if (enemy.GetBaseComponent() is Skeliton)
+                {
+                    g.FillRectangle(Brushes.DarkGray, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
                 }
                 else if(enemy.GetBaseComponent() is Dragon)
                 {
@@ -96,11 +100,16 @@ namespace Fightgame
 
         private void TextDrow(Form f, Graphics g, int row, int colum)
         {
-            string value = matrix[row][colum].Name[0].ToString();
+            string phrase = matrix[row][colum].Name;
+            string[] parts = phrase.Split(' ');
+            string value = parts[parts.Length - 1][0].ToString();
+            var brush = Brushes.Black;
+            if (parts.Length > 1) brush = Brushes.Red;
+
             PointF textPosition = new PointF(colum * CellSizeRow + (CellSizeRow / 4), row * CellSizeColum + (CellSizeColum / 4));
             if (matrix[row][colum] is not FreeCell)
             {
-                g.DrawString(value, f.Font, Brushes.Black, textPosition);
+                g.DrawString(value, f.Font, brush, textPosition);
             }
         }
 

@@ -30,7 +30,6 @@
             progressBarExp = new ProgressBar();
             panelMain = new BufferedPanel();
             checkBoxMain = new CheckBox();
-            checkBoxSide = new CheckBox();
             checkBoxRangeEnemys = new CheckBox();
             labelLVL = new Label();
             listView1 = new ListView();
@@ -38,6 +37,8 @@
             listView2 = new ListView();
             labelStatName = new Label();
             buttonExit = new Button();
+            labelMyHealth = new Label();
+            labelEnemyHealth = new Label();
             SuspendLayout();
             // 
             // label1
@@ -46,8 +47,9 @@
             label1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(906, 55);
             label1.Name = "label1";
-            label1.Size = new Size(0, 46);
+            label1.Size = new Size(109, 46);
             label1.TabIndex = 0;
+            label1.Text = "label1";
             // 
             // buttonAtack
             // 
@@ -80,7 +82,7 @@
             // 
             // hpBarEnemy
             // 
-            hpBarEnemy.Location = new Point(906, 126);
+            hpBarEnemy.Location = new Point(905, 126);
             hpBarEnemy.Name = "hpBarEnemy";
             hpBarEnemy.Size = new Size(753, 62);
             hpBarEnemy.Step = 100;
@@ -111,18 +113,6 @@
             checkBoxMain.TabIndex = 8;
             checkBoxMain.Text = "Main";
             checkBoxMain.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSide
-            // 
-            checkBoxSide.AutoSize = true;
-            checkBoxSide.Enabled = false;
-            checkBoxSide.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBoxSide.Location = new Point(1420, 680);
-            checkBoxSide.Name = "checkBoxSide";
-            checkBoxSide.Size = new Size(72, 32);
-            checkBoxSide.TabIndex = 9;
-            checkBoxSide.Text = "Side";
-            checkBoxSide.UseVisualStyleBackColor = true;
             // 
             // checkBoxRangeEnemys
             // 
@@ -196,10 +186,35 @@
             buttonExit.Visible = false;
             buttonExit.Click += buttonExit_Click;
             // 
+            // labelMyHealth
+            // 
+            labelMyHealth.AutoSize = true;
+            labelMyHealth.BackColor = Color.Silver;
+            labelMyHealth.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            labelMyHealth.Location = new Point(906, 513);
+            labelMyHealth.Name = "labelMyHealth";
+            labelMyHealth.Size = new Size(71, 30);
+            labelMyHealth.TabIndex = 20;
+            labelMyHealth.Text = "label2";
+            // 
+            // labelEnemyHealth
+            // 
+            labelEnemyHealth.AutoSize = true;
+            labelEnemyHealth.BackColor = Color.Silver;
+            labelEnemyHealth.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            labelEnemyHealth.Location = new Point(906, 158);
+            labelEnemyHealth.Margin = new Padding(0);
+            labelEnemyHealth.Name = "labelEnemyHealth";
+            labelEnemyHealth.Size = new Size(71, 30);
+            labelEnemyHealth.TabIndex = 21;
+            labelEnemyHealth.Text = "label2";
+            // 
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(labelEnemyHealth);
+            Controls.Add(labelMyHealth);
             Controls.Add(buttonExit);
             Controls.Add(labelStatName);
             Controls.Add(listView2);
@@ -207,7 +222,6 @@
             Controls.Add(listView1);
             Controls.Add(labelLVL);
             Controls.Add(checkBoxRangeEnemys);
-            Controls.Add(checkBoxSide);
             Controls.Add(checkBoxMain);
             Controls.Add(panelMain);
             Controls.Add(progressBarExp);
@@ -234,7 +248,6 @@
         private ProgressBar progressBarExp;
         private BufferedPanel panelMain;
         private CheckBox checkBoxMain;
-        private CheckBox checkBoxSide;
         private CheckBox checkBoxRangeEnemys;
         private Label labelLVL;
         private ListView listView1;
@@ -242,5 +255,7 @@
         private ListView listView2;
         private Label labelStatName;
         private Button buttonExit;
+        private Label labelMyHealth;
+        private Label labelEnemyHealth;
     }
 }
