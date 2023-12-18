@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace Fightgame
+﻿namespace Fightgame
 {
     public partial class Form2 : Form
     {
@@ -21,7 +7,6 @@ namespace Fightgame
         Enemy enemy;
         Player player = Player.GetInstance();
         bool autoMode;
-
         public Form2(Enemy enemy, bool enemyAtack, bool autoMode)
         {
             this.autoMode = autoMode;
@@ -63,7 +48,6 @@ namespace Fightgame
                     buttonHit.PerformClick();
                 }
             }
-
             x += speed;
             if (x >= panel1.ClientSize.Width - mainBorderWidth - atackLineWidth || x <= 0)
             {
@@ -73,7 +57,6 @@ namespace Fightgame
             panel1.Invalidate(new Rectangle(x + mainBorderWidth / 2, mainBorderWidth / 2, atackLineWidth, panel1.ClientSize.Height - mainBorderWidth - 1));
             panel1.Invalidate(new Rectangle(x + mainBorderWidth / 2 - speed, mainBorderWidth / 2, atackLineWidth, panel1.Height - mainBorderWidth - 1));
         }
-
         protected void timer2_Tick(object sender, EventArgs e)
         {
             bool flag = false;
@@ -124,7 +107,6 @@ namespace Fightgame
 
         protected void Panel1_Paint(object sender, PaintEventArgs e)
         {
-
             Graphics g = e.Graphics;
             rectTarget = new Rectangle(panel1.Width / 2, mainBorderWidth / 2, 100, panel1.Height);
             rectSmall = new Rectangle(x + mainBorderWidth / 2, mainBorderWidth / 2, atackLineWidth, panel1.ClientSize.Height - mainBorderWidth - 1);
@@ -139,7 +121,6 @@ namespace Fightgame
         }
 
         bool flag = true;
-
         bool flagAutoHit = false;
         private void buttonHit_Click(object sender, EventArgs e)
         {
@@ -224,10 +205,8 @@ namespace Fightgame
             ProgressB.refreshHpBar(hpBarPlayer, player);
             if (autoMode) buttonHit.PerformClick();
         }
-
         private void buttonEscape_Click(object sender, EventArgs e)
         {
-            //player.Health -= enemy.getDamage();
             player.takedamage(enemy.Hit());
             ProgressB.refreshHpBar(hpBarPlayer, player);
             this.Close();

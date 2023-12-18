@@ -1,30 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static Fightgame.MatrixDef;
-
-namespace Fightgame
+﻿namespace Fightgame
 {
-    internal class Player : Unit
+    public class Player : Unit
     {
         private static Player player;
-
         private Player(string name, int cordRows, int cordColums) :
             base(damage: 5, rangeAtack: 2, healthMax: 10, health: 10, 
                 name: name, cordRows: cordRows, cordColums: cordColums)
         {
-            exp = 0;        // если exp > expMax уровенть не повысится
+            exp = 0;        
             expMax = 10;
             lvl = 1;
             gold = 15;
             critChance = 5;
-
         }
-
         public static Player GetInstance(string name = "", int cordRows = 0, int cordColums = 0)
         {
             if (player == null)
@@ -33,33 +21,27 @@ namespace Fightgame
             }
             return player;
         }
-
         private int exp;
         private int expMax;
         private int lvl;
         private int gold;
-
         public int getLvl()
         {
             return lvl;
         }
-        
         public bool atack(Enemy enemy, bool enemyAtack, ProgressBar progressBarExp, ProgressBar hpBarEnemy, ProgressBar hpBarPlayer, bool autoMod)
         {
             Form2 form2 = new Form2(enemy, enemyAtack, autoMod);
             form2.ShowDialog();
             ProgressB.refreshHpBar(hpBarEnemy, enemy);
             ProgressB.refreshHpBar(hpBarPlayer, player);
-
             if (enemy.getHealth() <= 0)
             {
                 ProgressB.refreshExpBar(progressBarExp, player);
                 return true;
             }
-            
             return false;
         }
-
         public int getExp() 
         {
             while (exp >= expMax)
@@ -80,68 +62,39 @@ namespace Fightgame
             }
             return expMax;
         }
-       
-
         public void LvlUp()
         {
             lvl += 1;
-
-            
             damage += 2;
             damage += damage / 4;
-
             armor += 1;
             critChance += 1;
-
             healthMax += 10;
             healthMax += healthMax / 5;
             health = healthMax;
-
             if (lvl % 5 == 0)
             {
                 critChance += 1;
                 rangeAtack += 1;
                 healthRegeneration += 1;
             }
-
         }
         public void ExpUp(int value)
         {
             exp += value;
             getExp(); // костыль
         }
-
         public void GoldUp(int value)
         {
             gold += value;
         }
-
-        
-
-        public override int getDamage()
-        {
-            return damage;
-        }
-
-        public override int getArmor()
-        {
-            return armor;
-        }
-        public override int getRangeAtack()
-        {
-            return rangeAtack;
-        }
-
-        public int getGold()
-        {
-            return gold;
-        }
-
-        public override void Die()
-        {
-            return;
-        }
-
+        public override int getDamage() => damage;
+        public override int getArmor() => armor;
+        public override int getRangeAtack() => rangeAtack;
+        public int getGold() => gold;
+        public override int getHealthRegeneration() => healthRegeneration;
+        public override int getCritChance() => critChance;
+        public override void Die() { return; }
         public void update(ListViewItem listViewItem)
         {
             switch (listViewItem.Text)
@@ -172,16 +125,6 @@ namespace Fightgame
                     break;
             }
             gold -= Convert.ToInt32(listViewItem.SubItems[1].Text);
-        }
-
-        public override int getHealthRegeneration()
-        {
-            return healthRegeneration;
-        }
-
-        public override int getCritChance()
-        {
-           return critChance;
         }
     }
 }

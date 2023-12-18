@@ -1,14 +1,4 @@
 ﻿using Fightgame.Units;
-using System.CodeDom;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Channels;
-using System.Xml.Linq;
-using static Fightgame.MatrixDef;
-using static System.Windows.Forms.DataFormats;
 
 namespace Fightgame
 {
@@ -20,14 +10,12 @@ namespace Fightgame
         Player player;
         Shop shop;
         Stats stats;
-
         public Form1(string difficulty, int matrixRowsSize, int matrixColumsSize, string plyaerName)
         {
             InitializeComponent();
             timer1.Tick += timer1_Tick;
             player = Player.GetInstance(plyaerName, matrixRowsSize / 2, matrixColumsSize / 2);
             targetSearch = Player.GetInstance();
-            ///
             shop = new Shop(listView1);
             shop.fill(listView1);
             listView1.SelectedIndexChanged += listView_SelectedIndexChanged;
@@ -41,15 +29,12 @@ namespace Fightgame
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             panelMain.MouseClick += new MouseEventHandler(Form1_MouseClick);
             this.difficulty = difficulty;
-            startEnemys(difficulty);
         }
-
         string difficulty;
         const string slime = "slime";
         const string skeleton = "skeleton";
         const string hydra = "hydra";
         const string dragon = "dragon";
-
 
         void startEnemys(string difficulty)
         {
@@ -77,59 +62,61 @@ namespace Fightgame
                     break;
             }
         }
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
             ProgressB.refreshHpBar(hpBarPlayer, player);
             ProgressB.refreshHpBar(hpBarEnemy, targetSearch);
             ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
             ProgressB.refreshExpBar(progressBarExp, player);
-
             labelStatName.Text = player.Name;
             label1.Text = $"Содержимое клетки: {player.Name}";
             label2.Text = $"{player.Name}";
             labelLVL.Text = "LvL: " + player.getLvl().ToString();
-        }
 
+            switch (difficulty)
+            {
+                case FormMenu.easy:
+                    temp = 6;
+                    chancebuff = 30;
+                    break;
+                case FormMenu.normal:
+                    temp = 5;
+                    chancebuff = 25;
+                    break;
+                case FormMenu.hard:
+                    temp = 4;
+                    chancebuff = 20;
+                    break;
+                case FormMenu.impossible:
+                    temp = 3;
+                    chancebuff = 15;
+                    break;
+                case FormMenu.nightmare:
+                    temp = 2;
+                    chancebuff = 10;
+                    break;
+                default:
+                    temp = 5;
+                    chancebuff = 20;
+                    break;
+            }
+            startEnemys(difficulty);
+        }
         ListViewItem selectedItem;
         private void listView_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count == 0)
                 return;
-
             selectedItem = listView1.SelectedItems[0];
             shop.buttonEnterRefresh(selectedItem, buttonEnterUp);
 
         }
-
         int nextTurnClickCount = 0;
-
         int stage = 1;
+        int temp;
+        int chancebuff;
         void GamePlan()
         {
-            int temp;
-            switch (difficulty)
-            {
-                case FormMenu.easy:
-                    temp = 6;
-                    break;
-                case FormMenu.normal:
-                    temp = 5;
-                    break;
-                case FormMenu.hard:
-                    temp = 4;
-                    break;
-                case FormMenu.impossible:
-                    temp = 3;
-                    break;
-                case FormMenu.nightmare:
-                    temp = 2;
-                    break;
-                default:
-                    temp = 5;
-                    break;
-            }
 
             int valueR = rand.Next(0, stage);
             string name;
@@ -183,30 +170,6 @@ namespace Fightgame
                         enemy = new Rat();
                         break;
                 }
-                ///
-                int chancebuff;
-                switch (difficulty)
-                {
-                    case FormMenu.easy:
-                        chancebuff = 30;
-                        break;
-                    case FormMenu.normal:
-                        chancebuff = 25;
-                        break;
-                    case FormMenu.hard:
-                        chancebuff = 20;
-                        break;
-                    case FormMenu.impossible:
-                        chancebuff = 15;
-                        break;
-                    case FormMenu.nightmare:
-                        chancebuff = 10;
-                        break;
-                    default:
-                        chancebuff = 20;
-                        break;
-                }
-
                 int buff1 = rand.Next(1, chancebuff + 1);
                 if (buff1 == 1)
                 {
@@ -217,7 +180,6 @@ namespace Fightgame
                 {
                     enemy = new Mega(enemy);
                 }
-                ///
                 do
                 {
                     enemy.CordRows = rand.Next(0, matrix.Rows);
@@ -232,7 +194,6 @@ namespace Fightgame
             int rowMouseClick = e.Y / matrix.CellSizeColum;
             int columnMouseClick = e.X / matrix.CellSizeRow;
             targetSearch = matrix[rowMouseClick, columnMouseClick];
-            //label1.Text = "Содержимое клетки: " + targetSearch.Name;
             ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
             ProgressB.refreshHpBar(hpBarEnemy, targetSearch);
             refreshStatus();
@@ -251,7 +212,6 @@ namespace Fightgame
             if (isNeighbor && targetSearch is not FreeCell && targetSearch != player) buttonAtack.Enabled = true;
             else buttonAtack.Enabled = false;
         }
-
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (checkBoxMain.Checked) return;
@@ -286,7 +246,6 @@ namespace Fightgame
 
             };
         }
-
         Keys toKeys(int number)
         {
             switch (number)
@@ -342,8 +301,6 @@ namespace Fightgame
                 matrix.moveMatrix(player, units);
             }
         }
-
-
         private void DrowMainMatrix(object sender, PaintEventArgs e)
         {
             if (player.getHealth() <= 0)
@@ -374,8 +331,6 @@ namespace Fightgame
                 }
             }
         }
-
-
         private void buttonAtack_Click(object sender, EventArgs e)
         {
 
@@ -393,9 +348,6 @@ namespace Fightgame
                 panelMain.Invalidate();
             }
         }
-
-
-
         private void buttonNextTurn_Click(object sender, EventArgs e)
         {
             nextTurnClickCount++;
@@ -424,14 +376,10 @@ namespace Fightgame
             GamePlan();
             panelMain.Invalidate();
         }
-
         private void checkBoxRangeEnemys_CheckedChanged(object sender, EventArgs e)
         {
             panelMain.Invalidate();
         }
-
-
-
         private void buttonEnterUp_Click(object sender, EventArgs e)
         {
             player.update(selectedItem);
@@ -446,37 +394,28 @@ namespace Fightgame
                 }
             }
             shop.buttonEnterRefresh(selectedItem, buttonEnterUp);
-
-
             stats.refreshStats(listView2, targetSearch);
             ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
-
-
         }
-
         private void buttonExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
         private void buttonAutoMode_Click(object sender, EventArgs e)
         {
 
             if (checkBoxAutoMode.Checked)
             {
                 checkBoxAutoMode.Checked = false;
-                //buttonEnterUp.Enabled = true;
                 timer1.Enabled = false;
             }
             else
             {
                 checkBoxAutoMode.Checked = true;
-                //buttonEnterUp.Enabled = false;
                 timer1.Enabled = true;
                 timer1.Interval = 2000;
             }
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             SendKeys.Send(toKeys(rand.Next(1, 5)).ToString());
@@ -493,7 +432,5 @@ namespace Fightgame
             buttonAtack.PerformClick();
             buttonNextTurn.PerformClick();
         }
-
-
     }
 }

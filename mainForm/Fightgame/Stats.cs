@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fightgame
+﻿namespace Fightgame
 {
     public class Stats: Shop
     {
@@ -19,14 +13,10 @@ namespace Fightgame
             listView.Columns.Add("Value", -2, HorizontalAlignment.Left);
         }
 
-        //public const string name = "Name";
-        // Player
-
         public const string exp = "Exp";
         public const string expMax = "ExpMax";
         public const string lvl = "Lvl";
         public const string gold = "Gold";
-        // Enemy
         public const string dangerProcent = "DangerProcent";
         public const string atackCount = "AtackCount";
         public const string cellAtackCount = "CellAtackCount";
@@ -45,7 +35,6 @@ namespace Fightgame
         public void refreshStats(ListView listView, Unit unit)
         {
             setUnit(unit, listView);
-            //refresh(listView);
         }
         public override void fill(ListView listView)
         {
@@ -56,7 +45,6 @@ namespace Fightgame
             dictionaryShop.Add(armor, unit.getArmor());
             dictionaryShop.Add(rangeAtack, unit.getRangeAtack());
             dictionaryShop.Add(critChance, unit.getCritChance());
-            //dictionaryShop.Add(name, unit.Name);
             if (unit is Player player)
             {
                 dictionaryShop.Add(exp, player.getExp());
@@ -74,7 +62,6 @@ namespace Fightgame
                 dictionaryShop.Add(goldReward, enemy.getGoldReward());
                 dictionaryShop.Add(matrixDefRows, enemy.getMatrixDefRows());
                 dictionaryShop.Add(matrixDefColumns, enemy.getMatrixDefColumns());
-
             }
             refresh(listView);
         }

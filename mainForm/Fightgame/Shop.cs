@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fightgame
+﻿namespace Fightgame
 {
     public class Shop
     {
@@ -13,30 +7,14 @@ namespace Fightgame
             dictionaryShop = new Dictionary<string, int>();
             FillColumns(listView);
             listView.View = View.Details;
-            
-            //fill();
         }
-
         protected virtual void FillColumns(ListView listView)
         {
             listView.Columns.Add("Stat", -2, HorizontalAlignment.Left);
             listView.Columns.Add("Cost Gold", -2, HorizontalAlignment.Left);
         }
-        //private static Shop shopM;
-        /*public static Shop GetInstance(ListView listView = null)
-        {
-            if (shopM == null)
-            {
-                shopM = new Shop(listView);
-            }
-            return shopM;
-        }*/
         protected Dictionary<string, int> dictionaryShop;
-        public Dictionary<string, int> getShop()
-        {
-            return dictionaryShop;
-        }
-
+        public Dictionary<string, int> getShop() => dictionaryShop;
 
         int damageCost = 5;
         int healthCost = 5;
@@ -45,7 +23,6 @@ namespace Fightgame
         int healthRegenerationCost = 50;
         int armorCost = 15;
         int healthFullRegencCost = 100;
-
         public const string damage = "Damage";
         public const string healthFullRegen = "HealthFullRegen";
         public const string healthMax = "HealthMax";
@@ -54,9 +31,6 @@ namespace Fightgame
         public const string armor = "Armor";
         public const string rangeAtack = "RangeAtack";
         public const string critChance = "CritChance";
-
-
-
         public virtual void fill(ListView listView)
         {
             dictionaryShop.Add(healthMax, healthCost);
@@ -68,7 +42,6 @@ namespace Fightgame
             dictionaryShop.Add(healthFullRegen, healthFullRegencCost);
             refresh(listView);
         }
-
         protected void refresh(ListView listView)
         {
             listView.Items.Clear();
@@ -79,7 +52,6 @@ namespace Fightgame
                 listView.Items.Add(item);
             }
         }
-
         public void refreshCost(ListView listView, ListViewItem listViewItem)
         {
             switch (listViewItem.Text)
@@ -115,11 +87,8 @@ namespace Fightgame
                 default:
                     break;
             }
-
             refresh(listView);
         }
-
-
         public void buttonEnterRefresh(ListViewItem listViewItem, Button button)
         {
             if (Player.GetInstance().getGold() < dictionaryShop[listViewItem.Text])

@@ -1,6 +1,6 @@
 namespace Fightgame
 {
-    internal static class Program
+    public static class Program
     {
         public static bool ShouldOpenForm1 { get; set; } = false;
         public static string Difficulty { get; set; }

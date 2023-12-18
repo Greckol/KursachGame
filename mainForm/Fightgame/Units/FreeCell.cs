@@ -1,46 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fightgame
+﻿namespace Fightgame
 {
-    internal class FreeCell : Unit
+    public class FreeCell : Unit
     {
-        
-        public FreeCell(): base(name: "#", health: 0) 
-        {
-        }
-
-        public override void Die()
-        {
-            
-        }
-
-        public override int getArmor()
-        {
-            return armor;
-        }
-
-        public override int getCritChance()
-        {
-            return critChance;
-        }
-
-        public override int getDamage()
-        {
-            return damage;
-        }
-
-        public override int getHealthRegeneration()
-        {
-            return healthRegeneration;
-        }
-
-        public override int getRangeAtack()
-        {
-            return rangeAtack;
-        }
+        public FreeCell(): base(name: "#", health: 0) {}
+        public override void Die() {}
+        public override int getArmor() => armor;
+        public override int getCritChance() => critChance;
+        public override int getDamage() => damage;
+        public override int getHealthRegeneration() => healthRegeneration;
+        public override int getRangeAtack() => rangeAtack;
     }
 }

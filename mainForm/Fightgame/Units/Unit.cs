@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fightgame
+﻿namespace Fightgame
 {
     public abstract class Unit
     {
@@ -19,9 +12,8 @@ namespace Fightgame
         protected int armor;
         protected int rangeAtack;
         protected string name;
-
-
-        public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, int critChance = 5, int health = 5, int healthMax = 5,
+        public Unit(int cordColums = 0, int cordRows = 0, int damage = 1, 
+            int critChance = 5, int health = 5, int healthMax = 5,
             int armor = 0, string name = "undef", int rangeAtack = 1, int healthRegeneration = 1)
         {
             CordColums = cordColums;
@@ -91,13 +83,11 @@ namespace Fightgame
             }
             return value;
         }
-
         public string Name
         {
             get { return name; }
             protected set { name = value; }
         }
-
         public abstract void Die();
     }
 }

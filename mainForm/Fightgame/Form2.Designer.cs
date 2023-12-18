@@ -76,7 +76,6 @@
             // labelInfo
             // 
             labelInfo.Anchor = AnchorStyles.None;
-            labelInfo.AutoSize = true;
             labelInfo.BackColor = Color.FromArgb(255, 128, 128);
             labelInfo.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
             labelInfo.Location = new Point(937, 414);
@@ -87,7 +86,7 @@
             // hpBarPlayer
             // 
             hpBarPlayer.Anchor = AnchorStyles.None;
-            hpBarPlayer.Location = new Point(469, 753);
+            hpBarPlayer.Location = new Point(470, 753);
             hpBarPlayer.Name = "hpBarPlayer";
             hpBarPlayer.Size = new Size(970, 60);
             hpBarPlayer.TabIndex = 4;
@@ -117,7 +116,6 @@
             // labelEnemyName
             // 
             labelEnemyName.Anchor = AnchorStyles.None;
-            labelEnemyName.AutoSize = true;
             labelEnemyName.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
             labelEnemyName.Location = new Point(914, 42);
             labelEnemyName.Name = "labelEnemyName";
@@ -129,10 +127,9 @@
             // labelInfo2
             // 
             labelInfo2.Anchor = AnchorStyles.None;
-            labelInfo2.AutoSize = true;
             labelInfo2.BackColor = Color.FromArgb(255, 128, 128);
             labelInfo2.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            labelInfo2.Location = new Point(937, 753);
+            labelInfo2.Location = new Point(937, 713);
             labelInfo2.Name = "labelInfo2";
             labelInfo2.Size = new Size(0, 37);
             labelInfo2.TabIndex = 9;
@@ -140,7 +137,6 @@
             // labelEnemyHealth
             // 
             labelEnemyHealth.Anchor = AnchorStyles.None;
-            labelEnemyHealth.AutoSize = true;
             labelEnemyHealth.BackColor = Color.Silver;
             labelEnemyHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             labelEnemyHealth.Location = new Point(469, 496);
@@ -152,7 +148,6 @@
             // labelMyHealth
             // 
             labelMyHealth.Anchor = AnchorStyles.None;
-            labelMyHealth.AutoSize = true;
             labelMyHealth.BackColor = Color.Silver;
             labelMyHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             labelMyHealth.Location = new Point(470, 781);
@@ -184,7 +179,6 @@
             WindowState = FormWindowState.Maximized;
             Load += Form2_Load;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

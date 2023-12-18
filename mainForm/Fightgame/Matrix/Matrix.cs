@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    internal class Matrix: MatrixBase
+    public class Matrix: MatrixBase
     {
         public Matrix(int rows, int columns, Panel panel): base(rows, columns, panel)
         {

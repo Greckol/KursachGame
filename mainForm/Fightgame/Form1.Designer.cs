@@ -52,7 +52,6 @@
             // label1
             // 
             label1.Anchor = AnchorStyles.None;
-            label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(1012, 70);
             label1.Name = "label1";
@@ -122,7 +121,6 @@
             // labelLVL
             // 
             labelLVL.Anchor = AnchorStyles.None;
-            labelLVL.AutoSize = true;
             labelLVL.BackColor = Color.Transparent;
             labelLVL.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             labelLVL.ForeColor = Color.Blue;
@@ -197,7 +195,6 @@
             // labelStatName
             // 
             labelStatName.Anchor = AnchorStyles.None;
-            labelStatName.AutoSize = true;
             labelStatName.BackColor = Color.FromArgb(255, 255, 128);
             labelStatName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             labelStatName.Location = new Point(1667, 80);
@@ -223,7 +220,6 @@
             // labelMyHealth
             // 
             labelMyHealth.Anchor = AnchorStyles.None;
-            labelMyHealth.AutoSize = true;
             labelMyHealth.BackColor = Color.Silver;
             labelMyHealth.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             labelMyHealth.Location = new Point(1021, 352);
@@ -235,7 +231,6 @@
             // labelEnemyHealth
             // 
             labelEnemyHealth.Anchor = AnchorStyles.None;
-            labelEnemyHealth.AutoSize = true;
             labelEnemyHealth.BackColor = Color.Silver;
             labelEnemyHealth.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             labelEnemyHealth.Location = new Point(1021, 149);
@@ -261,7 +256,6 @@
             // checkBoxAutoMode
             // 
             checkBoxAutoMode.Anchor = AnchorStyles.None;
-            checkBoxAutoMode.AutoSize = true;
             checkBoxAutoMode.Enabled = false;
             checkBoxAutoMode.Location = new Point(1758, 929);
             checkBoxAutoMode.Name = "checkBoxAutoMode";
@@ -288,7 +282,6 @@
             // labelUpgrades
             // 
             labelUpgrades.Anchor = AnchorStyles.None;
-            labelUpgrades.AutoSize = true;
             labelUpgrades.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             labelUpgrades.Location = new Point(1261, 535);
             labelUpgrades.Name = "labelUpgrades";
@@ -299,7 +292,6 @@
             // labelStages
             // 
             labelStages.Anchor = AnchorStyles.None;
-            labelStages.AutoSize = true;
             labelStages.BackColor = Color.FromArgb(192, 255, 255);
             labelStages.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             labelStages.Location = new Point(1021, 955);
@@ -311,7 +303,6 @@
             // labelScore
             // 
             labelScore.Anchor = AnchorStyles.None;
-            labelScore.AutoSize = true;
             labelScore.BackColor = Color.FromArgb(192, 255, 255);
             labelScore.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             labelScore.Location = new Point(1519, 955);
