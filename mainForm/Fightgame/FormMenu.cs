@@ -13,14 +13,20 @@ namespace Fightgame
 {
     public partial class FormMenu : Form
     {
+        public const string easy = "easy";
+        public const string normal = "normal";
+        public const string hard = "hard";
+        public const string impossible = "impossible";
+        public const string nightmare = "nightmare";
+
         public FormMenu()
         {
             InitializeComponent();
-            comboBoxdifficulty.Items.Add("easy");
-            comboBoxdifficulty.Items.Add("normal");
-            comboBoxdifficulty.Items.Add("hard");
-            comboBoxdifficulty.Items.Add("impossible");
-            comboBoxdifficulty.Items.Add("nightmare");
+            comboBoxdifficulty.Items.Add(easy);
+            comboBoxdifficulty.Items.Add(normal);
+            comboBoxdifficulty.Items.Add(hard);
+            comboBoxdifficulty.Items.Add(impossible);
+            comboBoxdifficulty.Items.Add(nightmare);
             ///
             comboBoxMainPanelSize.Items.Add("17x17");
             comboBoxMainPanelSize.Items.Add("21x21");
@@ -36,11 +42,13 @@ namespace Fightgame
                 comboBoxMainPanelSize.SelectedItem != null &&
                 !string.IsNullOrWhiteSpace(textBoxPlayerName.Text))
             {
-                Form1 form1 = new Form1(comboBoxdifficulty.Text,
-                    int.Parse(comboBoxMainPanelSize.Text.Split('x')[0]),
-                    int.Parse(comboBoxMainPanelSize.Text.Split('x')[1]),
-                    textBoxPlayerName.Text);
-                form1.Show();
+
+                Program.ShouldOpenForm1 = true;
+                Program.Difficulty = comboBoxdifficulty.Text;
+                Program.PanelSizeWidth = int.Parse(comboBoxMainPanelSize.Text.Split('x')[0]);
+                Program.PanelSizeHeight = int.Parse(comboBoxMainPanelSize.Text.Split('x')[1]);
+                Program.PlayerName = textBoxPlayerName.Text;
+                this.Close();
             }
         }
     }

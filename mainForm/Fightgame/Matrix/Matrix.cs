@@ -81,7 +81,7 @@ namespace Fightgame
                 {
                     g.FillRectangle(Brushes.Tan, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
                 }
-                else if (enemy.GetBaseComponent() is Skeliton)
+                else if (enemy.GetBaseComponent() is Skeleton)
                 {
                     g.FillRectangle(Brushes.DarkGray, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
                 }

@@ -45,15 +45,17 @@
             timer1 = new System.Windows.Forms.Timer(components);
             label2 = new Label();
             labelUpgrades = new Label();
+            labelStages = new Label();
+            labelScore = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(1012, 70);
             label1.Name = "label1";
-            label1.Size = new Size(109, 46);
+            label1.Size = new Size(97, 41);
             label1.TabIndex = 0;
             label1.Text = "label1";
             // 
@@ -118,7 +120,6 @@
             labelLVL.Size = new Size(54, 35);
             labelLVL.TabIndex = 13;
             labelLVL.Text = "LVL";
-            labelLVL.Click += labelLVL_Click;
             // 
             // checkBoxMain
             // 
@@ -190,9 +191,9 @@
             // 
             buttonExit.BackColor = Color.Red;
             buttonExit.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonExit.Location = new Point(1021, 940);
+            buttonExit.Location = new Point(1021, 230);
             buttonExit.Name = "buttonExit";
-            buttonExit.Size = new Size(712, 60);
+            buttonExit.Size = new Size(600, 52);
             buttonExit.TabIndex = 18;
             buttonExit.Text = "Exit";
             buttonExit.UseVisualStyleBackColor = false;
@@ -251,10 +252,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(1012, 273);
             label2.Name = "label2";
-            label2.Size = new Size(183, 46);
+            label2.Size = new Size(162, 41);
             label2.TabIndex = 24;
             label2.Text = "HeroName";
             // 
@@ -268,10 +269,33 @@
             labelUpgrades.TabIndex = 25;
             labelUpgrades.Text = "Upgrades";
             // 
+            // labelStages
+            // 
+            labelStages.AutoSize = true;
+            labelStages.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            labelStages.Location = new Point(1021, 955);
+            labelStages.Name = "labelStages";
+            labelStages.Size = new Size(101, 35);
+            labelStages.TabIndex = 26;
+            labelStages.Text = "Stage: 1";
+            // 
+            // labelScore
+            // 
+            labelScore.AutoSize = true;
+            labelScore.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            labelScore.Location = new Point(1519, 955);
+            labelScore.Name = "labelScore";
+            labelScore.Size = new Size(102, 35);
+            labelScore.TabIndex = 27;
+            labelScore.Text = "Score: 0";
+            // 
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(buttonExit);
+            Controls.Add(labelScore);
+            Controls.Add(labelStages);
             Controls.Add(labelLVL);
             Controls.Add(labelUpgrades);
             Controls.Add(label2);
@@ -279,7 +303,6 @@
             Controls.Add(buttonAutoMode);
             Controls.Add(labelEnemyHealth);
             Controls.Add(labelMyHealth);
-            Controls.Add(buttonExit);
             Controls.Add(labelStatName);
             Controls.Add(listView2);
             Controls.Add(buttonEnterUp);
@@ -325,5 +348,7 @@
         private System.Windows.Forms.Timer timer1;
         private Label label2;
         private Label labelUpgrades;
+        private Label labelStages;
+        private Label labelScore;
     }
 }

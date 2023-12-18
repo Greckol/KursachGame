@@ -95,13 +95,13 @@ namespace Fightgame
             gold += value;
         }
 
-        private Player(string name, int cordRows, int cordColums) : base(damage: 5, rangeAtack: 2, healthMax: 15, health: 15, name: name, cordRows: cordRows,
+        private Player(string name, int cordRows, int cordColums) : base(damage: 5, rangeAtack: 2, healthMax: 10, health: 10, name: name, cordRows: cordRows,
             cordColums: cordColums)
         {
             exp = 0;        // если exp > expMax уровенть не повысится
             expMax = 10;
             lvl = 1;
-            gold = 1501;
+            gold = 15;
             critChance = 5;
             
         }

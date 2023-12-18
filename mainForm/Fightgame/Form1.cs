@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Channels;
 using System.Xml.Linq;
 using static Fightgame.MatrixDef;
+using static System.Windows.Forms.DataFormats;
 
 namespace Fightgame
 {
@@ -25,39 +26,68 @@ namespace Fightgame
         {
             InitializeComponent();
             timer1.Tick += timer1_Tick;
-
             player = Player.GetInstance(plyaerName, matrixRowsSize / 2, matrixColumsSize / 2);
             targetSearch = Player.GetInstance();
             ///
             label1.Text = $"Содержимое клетки: {player.Name}";
             label2.Text = $"{player.Name}";
+            labelLVL.Text = "LvL: " + player.getLvl().ToString();
+
             ProgressB.refreshProgress(hpBarEnemy, targetSearch);
             ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
-            //label1.Visible = true;
             labelStatName.Text = player.Name;
             shop = new Shop(listView1);
             shop.fill(listView1);
-            //shop.refresh(listView1);
             listView1.SelectedIndexChanged += listView_SelectedIndexChanged;
-
             stats = new Stats(listView2, targetSearch);
             stats.fill(listView2);
-            //stats.refresh(listView2);
 
-
-            labelLVL.Text = "LvL: " + player.getLvl().ToString();
             matrix = new Matrix(matrixRowsSize, matrixColumsSize, panelMain);
             panelMain.Paint += new PaintEventHandler(DrowMainMatrix);
             buttonAtack.Enabled = false;
             matrix.moveMatrix(player, units);
-            //addPerson(10, "slime");
-            //addPerson(10, "dragon");
-            //addPerson(3, "hydra");
+
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             panelMain.MouseClick += new MouseEventHandler(Form1_MouseClick);
-            addPerson(5, "slime");
+
+            this.difficulty = difficulty;
+            startEnemys(difficulty);
+        }
+
+        string difficulty;
+        const string slime = "slime";
+        const string skeleton = "skeleton";
+        const string hydra = "hydra";
+        const string dragon = "dragon";
+
+
+        void startEnemys(string difficulty)
+        {
+            switch (difficulty)
+            {
+                case FormMenu.easy:
+                    addPerson(3, slime);
+                    break;
+                case FormMenu.normal:
+                    addPerson(4, slime);
+                    break;
+                case FormMenu.hard:
+                    addPerson(5, slime);
+                    break;
+                case FormMenu.impossible:
+                    addPerson(5, slime);
+                    addPerson(1, skeleton);
+                    break;
+                case FormMenu.nightmare:
+                    addPerson(5, slime);
+                    addPerson(2, skeleton);
+                    addPerson(1, hydra);
+                    break;
+                default:
+                    break;
+            }
         }
 
 
@@ -79,32 +109,60 @@ namespace Fightgame
         }
 
         int nextTurnClickCount = 0;
+
+        int stage = 1;
         void GamePlan()
         {
-            int valueR = rand.Next(0, nextTurnClickCount);
+            int temp;
+            switch (difficulty)
+            {
+                case FormMenu.easy:
+                    temp = 6;
+                    break;
+                case FormMenu.normal:
+                    temp = 5;
+                    break;
+                case FormMenu.hard:
+                    temp = 4;
+                    break;
+                case FormMenu.impossible:
+                    temp = 3;
+                    break;
+                case FormMenu.nightmare:
+                    temp = 2;
+                    break;
+                default:
+                    temp = 5;
+                    break;
+            }
+
+            int valueR = rand.Next(0, stage);
             string name;
-            if (nextTurnClickCount % 3 == 0)
+
+            if (nextTurnClickCount % temp == 0)
             {
                 switch (valueR)
                 {
                     case int n when (n >= 0 && n <= 10):
-                        name = "slime";
+                        name = slime;
                         break;
                     case int n when (n >= 11 && n <= 50):
-                        name = "skeliton";
+                        name = skeleton;
                         break;
                     case int n when (n >= 51 && n <= 150):
-                        name = "hydra";
+                        name = hydra;
                         break;
                     case int n when (n >= 151):
-                        name = "dragon";
+                        name = dragon;
                         break;
                     default:
-                        name = "slime";
+                        name = slime;
                         break;
                 }
                 int countEnemys = rand.Next(1, 3);
                 addPerson(countEnemys, name);
+                stage++;
+                labelStages.Text = $"Stage: {stage}";
             }
         }
         private void addPerson(int count, string type)
@@ -114,29 +172,52 @@ namespace Fightgame
             {
                 switch (type)
                 {
-                    case "slime":
+                    case slime:
                         enemy = new Slime();
                         break;
-                    case "dragon":
+                    case dragon:
                         enemy = new Dragon();
                         break;
-                    case "hydra":
+                    case hydra:
                         enemy = new Hydra();
                         break;
-                    case "skeliton":
-                        enemy = new Skeliton();
+                    case skeleton:
+                        enemy = new Skeleton();
                         break;
                     default:
                         enemy = new Slime();
                         break;
                 }
                 ///
-                int buff1 = rand.Next(1, 10);
+                int chancebuff;
+                switch (difficulty)
+                {
+                    case FormMenu.easy:
+                        chancebuff = 30;
+                        break;
+                    case FormMenu.normal:
+                        chancebuff = 25;
+                        break;
+                    case FormMenu.hard:
+                        chancebuff = 20;
+                        break;
+                    case FormMenu.impossible:
+                        chancebuff = 15;
+                        break;
+                    case FormMenu.nightmare:
+                        chancebuff = 10;
+                        break;
+                    default:
+                        chancebuff = 20;
+                        break;
+                }
+
+                int buff1 = rand.Next(1, chancebuff + 1);
                 if (buff1 == 1)
                 {
                     enemy = new Mystery(enemy);
                 }
-                int buff2 = rand.Next(1, 25);
+                int buff2 = rand.Next(1, chancebuff + 1);
                 if (buff2 == 1)
                 {
                     enemy = new Mega(enemy);
@@ -318,6 +399,8 @@ namespace Fightgame
         private void buttonNextTurn_Click(object sender, EventArgs e)
         {
             nextTurnClickCount++;
+            labelScore.Text = $"Score: {nextTurnClickCount}";
+
             checkBoxMain.Checked = false;
             List<Enemy> temp = new List<Enemy>();
             foreach (var i in units)
@@ -327,7 +410,7 @@ namespace Fightgame
                     if (checkBoxAutoMode.Checked) timer1.Enabled = false;
                     if (player.atack(i, true, progressBarExp, hpBarEnemy, hpBarPlayer, checkBoxAutoMode.Checked))
                     {
-                        labelLVL.Text = "LvL: " + player.getLvl().ToString();
+                        labelLVL.Text = $"LvL: {player.getLvl()}";
                         temp.Add(i);
                     }
                     if (checkBoxAutoMode.Checked) timer1.Enabled = true;
@@ -411,9 +494,6 @@ namespace Fightgame
             buttonNextTurn.PerformClick();
         }
 
-        private void labelLVL_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
