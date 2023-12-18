@@ -75,7 +75,7 @@
             labelInfo.AutoSize = true;
             labelInfo.BackColor = Color.FromArgb(255, 128, 128);
             labelInfo.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            labelInfo.Location = new Point(937, 404);
+            labelInfo.Location = new Point(937, 414);
             labelInfo.Name = "labelInfo";
             labelInfo.Size = new Size(0, 37);
             labelInfo.TabIndex = 0;
@@ -121,7 +121,7 @@
             labelInfo2.AutoSize = true;
             labelInfo2.BackColor = Color.FromArgb(255, 128, 128);
             labelInfo2.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            labelInfo2.Location = new Point(937, 737);
+            labelInfo2.Location = new Point(937, 753);
             labelInfo2.Name = "labelInfo2";
             labelInfo2.Size = new Size(0, 37);
             labelInfo2.TabIndex = 9;
@@ -165,6 +165,7 @@
             Controls.Add(buttonHit);
             Controls.Add(panel1);
             Name = "Form2";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form2";
             Load += Form2_Load;
             ResumeLayout(false);

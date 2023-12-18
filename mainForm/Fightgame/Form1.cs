@@ -13,21 +13,24 @@ namespace Fightgame
 {
     public partial class Form1 : Form
     {
-        const int matrixRowsSize = 25;
-        const int matrixColumsSize = 25;
+        //const int matrixRowsSize = 25;
+        //const int matrixColumsSize = 25;
         Random rand = new Random();
         Matrix matrix;
         List<Enemy> units = new List<Enemy>();
         Player player;
         Shop shop;
         Stats stats;
-        public Form1()
+        public Form1(string difficulty, int matrixRowsSize, int matrixColumsSize, string plyaerName)
         {
             InitializeComponent();
-            player = Player.GetInstance("Genry", matrixRowsSize / 2, matrixColumsSize / 2);
+            timer1.Tick += timer1_Tick;
+
+            player = Player.GetInstance(plyaerName, matrixRowsSize / 2, matrixColumsSize / 2);
             targetSearch = Player.GetInstance();
             ///
             label1.Text = $"Содержимое клетки: {player.Name}";
+            label2.Text = $"{player.Name}";
             ProgressB.refreshProgress(hpBarEnemy, targetSearch);
             ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
             //label1.Visible = true;
@@ -42,7 +45,7 @@ namespace Fightgame
             //stats.refresh(listView2);
 
 
-            labelLVL.Text = player.getLvl().ToString();
+            labelLVL.Text = "LvL: " + player.getLvl().ToString();
             matrix = new Matrix(matrixRowsSize, matrixColumsSize, panelMain);
             panelMain.Paint += new PaintEventHandler(DrowMainMatrix);
             buttonAtack.Enabled = false;
@@ -153,19 +156,19 @@ namespace Fightgame
             int rowMouseClick = e.Y / matrix.CellSizeColum;
             int columnMouseClick = e.X / matrix.CellSizeRow;
             targetSearch = matrix[rowMouseClick, columnMouseClick];
-            label1.Text = "Содержимое клетки: " + targetSearch.Name;
+            //label1.Text = "Содержимое клетки: " + targetSearch.Name;
             ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
+            ProgressB.refreshProgress(hpBarEnemy, targetSearch);
+            refreshStatus();
+            stats.refreshStats(listView2, targetSearch);
+        }
+        void refreshStatus()
+        {
+            label1.Text = "Содержимое клетки: " + targetSearch.Name;
             if (targetSearch is not FreeCell)
             {
                 labelStatName.Text = targetSearch.Name;
             }
-            ProgressB.refreshProgress(hpBarEnemy, targetSearch);
-            refreshStatus();
-            stats.refreshStats(listView2, targetSearch);
-
-        }
-        void refreshStatus()
-        {
             if (targetSearch.getHealth() <= 0) targetSearch = player;
             bool isNeighbor = Math.Abs(player.CordRows - targetSearch.CordRows) +
                 Math.Abs(player.CordColums - targetSearch.CordColums) <= (player.getRangeAtack());
@@ -265,13 +268,13 @@ namespace Fightgame
             if (player.getHealth() <= 0)
             {
                 buttonExit.Visible = true;
-
-                //listView1.Visible = false;
                 buttonEnterUp.Visible = false;
                 buttonAtack.Visible = false;
+                buttonAutoMode.Visible = false;
                 buttonNextTurn.Visible = false;
                 checkBoxMain.Checked = true;
                 checkBoxMain.Visible = false;
+                timer1.Enabled = false;
 
             }
 
@@ -294,14 +297,18 @@ namespace Fightgame
 
         private void buttonAtack_Click(object sender, EventArgs e)
         {
+
             if (targetSearch is Enemy enemy)
             {
-                if (player.atack(enemy, false, progressBarExp, hpBarEnemy, hpBarPlayer))
+                if (checkBoxAutoMode.Checked) timer1.Enabled = false;
+                if (player.atack(enemy, false, progressBarExp, hpBarEnemy, hpBarPlayer, checkBoxAutoMode.Checked))
                 {
-                    labelLVL.Text = player.getLvl().ToString();
+                    labelLVL.Text = "LvL: " + player.getLvl().ToString();
                     units.Remove(enemy);
                 };
+                if (checkBoxAutoMode.Checked) timer1.Enabled = true;
                 stats.refreshStats(listView2, targetSearch);
+                ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
                 panelMain.Invalidate();
             }
         }
@@ -317,11 +324,13 @@ namespace Fightgame
             {
                 if (i.checkRangeToPlayer() && i.tryToAtackPlayer())
                 {
-                    if (player.atack(i, true, progressBarExp, hpBarEnemy, hpBarPlayer))
+                    if (checkBoxAutoMode.Checked) timer1.Enabled = false;
+                    if (player.atack(i, true, progressBarExp, hpBarEnemy, hpBarPlayer, checkBoxAutoMode.Checked))
                     {
-                        labelLVL.Text = player.getLvl().ToString();
+                        labelLVL.Text = "LvL: " + player.getLvl().ToString();
                         temp.Add(i);
                     }
+                    if (checkBoxAutoMode.Checked) timer1.Enabled = true;
                 }
             }
             foreach (var t in temp)
@@ -357,17 +366,54 @@ namespace Fightgame
 
 
             stats.refreshStats(listView2, targetSearch);
+            ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
 
-        }
-
-        private void labelStatName_Click(object sender, EventArgs e)
-        {
 
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void buttonAutoMode_Click(object sender, EventArgs e)
+        {
+
+            if (checkBoxAutoMode.Checked)
+            {
+                checkBoxAutoMode.Checked = false;
+                //buttonEnterUp.Enabled = true;
+                timer1.Enabled = false;
+            }
+            else
+            {
+                checkBoxAutoMode.Checked = true;
+                //buttonEnterUp.Enabled = false;
+                timer1.Enabled = true;
+                timer1.Interval = 2000;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            SendKeys.Send(toKeys(rand.Next(1, 5)).ToString());
+            checkBoxAutoMode.Checked = true;
+            foreach (var i in units)
+            {
+                targetSearch = i;
+                ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, targetSearch);
+                ProgressB.refreshProgress(hpBarEnemy, targetSearch);
+                refreshStatus();
+                stats.refreshStats(listView2, targetSearch);
+                if (buttonAtack.Enabled == true) break;
+            }
+            buttonAtack.PerformClick();
+            buttonNextTurn.PerformClick();
+        }
+
+        private void labelLVL_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

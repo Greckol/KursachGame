@@ -23,9 +23,9 @@ namespace Fightgame
             return lvl;
         }
         
-        public bool atack(Enemy enemy, bool enemyAtack, ProgressBar progressBarExp, ProgressBar hpBarEnemy, ProgressBar hpBarPlayer)
+        public bool atack(Enemy enemy, bool enemyAtack, ProgressBar progressBarExp, ProgressBar hpBarEnemy, ProgressBar hpBarPlayer, bool autoMod)
         {
-            Form2 form2 = new Form2(enemy, enemyAtack);
+            Form2 form2 = new Form2(enemy, enemyAtack, autoMod);
             form2.ShowDialog();
             ProgressB.refreshProgress(hpBarEnemy, enemy);
             ProgressB.refreshProgress(hpBarPlayer, player);
@@ -67,17 +67,18 @@ namespace Fightgame
 
             
             damage += 2;
-            damage += Convert.ToInt32(Convert.ToDouble(damage) * 0.4);
+            damage += damage / 4;
 
             armor += 1;
+            critChance += 1;
 
             healthMax += 10;
-            health += 10;
+            healthMax += healthMax / 5;
             health = healthMax;
 
             if (lvl % 5 == 0)
             {
-                critChance += 2;
+                critChance += 1;
                 rangeAtack += 1;
                 healthRegeneration += 1;
             }
@@ -94,7 +95,7 @@ namespace Fightgame
             gold += value;
         }
 
-        private Player(string name, int cordRows, int cordColums) : base(damage: 2, rangeAtack: 2, name: name, cordRows: cordRows,
+        private Player(string name, int cordRows, int cordColums) : base(damage: 5, rangeAtack: 2, healthMax: 15, health: 15, name: name, cordRows: cordRows,
             cordColums: cordColums)
         {
             exp = 0;        // если exp > expMax уровенть не повысится
@@ -102,6 +103,7 @@ namespace Fightgame
             lvl = 1;
             gold = 1501;
             critChance = 5;
+            
         }
 
         public static Player GetInstance(string name = "", int cordRows = 0, int cordColums = 0)
@@ -159,6 +161,9 @@ namespace Fightgame
                     break;
                 case Shop.health:
                     health = healthMax;
+                    break;
+                case Shop.healthRegeneration:
+                    healthRegeneration += 1;
                     break;
                 default:
                     break;

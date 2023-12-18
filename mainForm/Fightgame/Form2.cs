@@ -20,9 +20,11 @@ namespace Fightgame
         Rectangle rectSmall;
         Enemy enemy;
         Player player = Player.GetInstance();
+        bool autoMode;
 
-        public Form2(Enemy enemy, bool enemyAtack)
+        public Form2(Enemy enemy, bool enemyAtack, bool autoMode)
         {
+            this.autoMode = autoMode;
             this.enemy = enemy;
             InitializeComponent();
             if (enemyAtack) labelEnemyName.Text = "you are being attacked\n" + enemy.Name;
@@ -40,12 +42,28 @@ namespace Fightgame
             //timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
             timer2.Tick += timer2_Tick;
+            /*if (autoMode) */
             this.KeyDown += new KeyEventHandler(Form2_KeyDown);
             ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, enemy);
         }
 
         protected void timer1_Tick(object sender, EventArgs e)
         {
+            if (autoMode)
+            {
+                if (flagAutoHit)
+                {
+                    if (rectTarget.Contains(rectSmall))
+                    {
+                        buttonHit.PerformClick();
+                    }
+                }
+                else
+                {
+                    buttonHit.PerformClick();
+                }
+            }
+
             x += speed;
             if (x >= panel1.ClientSize.Width - mainBorderWidth - atackLineWidth || x <= 0)
             {
@@ -92,6 +110,8 @@ namespace Fightgame
                 x = 0;
                 matrixD.enemys.Clear();
                 matrixD.moveMatrix();
+                buttonHit.Enabled = true;
+                if (autoMode) buttonHit.PerformClick();
             }
         }
         MatrixDef matrixD;
@@ -119,6 +139,8 @@ namespace Fightgame
         }
 
         bool flag = true;
+
+        bool flagAutoHit = false;
         private void buttonHit_Click(object sender, EventArgs e)
         {
             if (flag)
@@ -126,6 +148,12 @@ namespace Fightgame
                 flag = false;
                 buttonEscape.Enabled = false;
                 panel1.Visible = true;
+                if (autoMode)
+                {
+                    Random random = new Random();
+                    if (1 == random.Next(1, 3)) flagAutoHit = true;
+                    else flagAutoHit = false;
+                }
                 timer1.Enabled = true;
                 return;
             }
@@ -154,6 +182,8 @@ namespace Fightgame
             timer2.Enabled = true;
             timer2.Interval = 700;
             timer2TickCount = 0;
+            buttonHit.Enabled = false;
+            this.Focus();
         }
         private void Form2_KeyDown(object sender, KeyEventArgs e)
         {
@@ -170,6 +200,8 @@ namespace Fightgame
                     break;
                 case Keys.D:
                     if (matrixD.CordColumnPlayer < matrixD.Colums - 1) matrixD.CordColumnPlayer++;
+                    break;
+                default:
                     break;
             }
             matrixD.moveMatrix();
@@ -190,6 +222,7 @@ namespace Fightgame
         {
             ProgressB.refreshProgress(hpBarEnemy, enemy);
             ProgressB.refreshProgress(hpBarPlayer, player);
+            if (autoMode) buttonHit.PerformClick();
         }
 
         private void buttonEscape_Click(object sender, EventArgs e)

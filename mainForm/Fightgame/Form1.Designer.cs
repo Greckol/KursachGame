@@ -22,6 +22,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             label1 = new Label();
             buttonAtack = new Button();
             buttonNextTurn = new Button();
@@ -29,9 +30,9 @@
             hpBarEnemy = new ProgressBar();
             progressBarExp = new ProgressBar();
             panelMain = new BufferedPanel();
+            labelLVL = new Label();
             checkBoxMain = new CheckBox();
             checkBoxRangeEnemys = new CheckBox();
-            labelLVL = new Label();
             listView1 = new ListView();
             buttonEnterUp = new Button();
             listView2 = new ListView();
@@ -39,13 +40,18 @@
             buttonExit = new Button();
             labelMyHealth = new Label();
             labelEnemyHealth = new Label();
+            buttonAutoMode = new Button();
+            checkBoxAutoMode = new CheckBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            label2 = new Label();
+            labelUpgrades = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(906, 55);
+            label1.Location = new Point(1012, 70);
             label1.Name = "label1";
             label1.Size = new Size(109, 46);
             label1.TabIndex = 0;
@@ -54,9 +60,9 @@
             // buttonAtack
             // 
             buttonAtack.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonAtack.Location = new Point(906, 579);
+            buttonAtack.Location = new Point(1021, 401);
             buttonAtack.Name = "buttonAtack";
-            buttonAtack.Size = new Size(365, 95);
+            buttonAtack.Size = new Size(238, 95);
             buttonAtack.TabIndex = 1;
             buttonAtack.Text = "Atack";
             buttonAtack.UseVisualStyleBackColor = true;
@@ -65,9 +71,9 @@
             // buttonNextTurn
             // 
             buttonNextTurn.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonNextTurn.Location = new Point(1336, 579);
+            buttonNextTurn.Location = new Point(1369, 401);
             buttonNextTurn.Name = "buttonNextTurn";
-            buttonNextTurn.Size = new Size(323, 95);
+            buttonNextTurn.Size = new Size(252, 95);
             buttonNextTurn.TabIndex = 2;
             buttonNextTurn.Text = "NextTurn";
             buttonNextTurn.UseVisualStyleBackColor = true;
@@ -75,50 +81,62 @@
             // 
             // hpBarPlayer
             // 
-            hpBarPlayer.Location = new Point(906, 485);
+            hpBarPlayer.Location = new Point(1021, 322);
             hpBarPlayer.Name = "hpBarPlayer";
-            hpBarPlayer.Size = new Size(752, 58);
+            hpBarPlayer.Size = new Size(600, 60);
             hpBarPlayer.TabIndex = 3;
             // 
             // hpBarEnemy
             // 
-            hpBarEnemy.Location = new Point(905, 126);
+            hpBarEnemy.Location = new Point(1021, 119);
             hpBarEnemy.Name = "hpBarEnemy";
-            hpBarEnemy.Size = new Size(753, 62);
+            hpBarEnemy.Size = new Size(600, 60);
             hpBarEnemy.Step = 100;
             hpBarEnemy.TabIndex = 4;
             // 
             // progressBarExp
             // 
-            progressBarExp.Location = new Point(2, 1003);
+            progressBarExp.Location = new Point(94, 1003);
             progressBarExp.Name = "progressBarExp";
-            progressBarExp.Size = new Size(1898, 29);
+            progressBarExp.Size = new Size(1707, 31);
             progressBarExp.TabIndex = 5;
             // 
             // panelMain
             // 
             panelMain.Location = new Point(0, 0);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(900, 900);
+            panelMain.Size = new Size(990, 990);
             panelMain.TabIndex = 7;
+            // 
+            // labelLVL
+            // 
+            labelLVL.AutoSize = true;
+            labelLVL.BackColor = Color.Transparent;
+            labelLVL.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            labelLVL.Location = new Point(0, 999);
+            labelLVL.Name = "labelLVL";
+            labelLVL.Size = new Size(54, 35);
+            labelLVL.TabIndex = 13;
+            labelLVL.Text = "LVL";
+            labelLVL.Click += labelLVL_Click;
             // 
             // checkBoxMain
             // 
             checkBoxMain.AutoSize = true;
             checkBoxMain.Enabled = false;
             checkBoxMain.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBoxMain.Location = new Point(1336, 680);
+            checkBoxMain.Location = new Point(1548, 502);
             checkBoxMain.Name = "checkBoxMain";
-            checkBoxMain.Size = new Size(78, 32);
+            checkBoxMain.Size = new Size(73, 32);
             checkBoxMain.TabIndex = 8;
-            checkBoxMain.Text = "Main";
+            checkBoxMain.Text = "Turn";
             checkBoxMain.UseVisualStyleBackColor = true;
             // 
             // checkBoxRangeEnemys
             // 
             checkBoxRangeEnemys.AutoSize = true;
             checkBoxRangeEnemys.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBoxRangeEnemys.Location = new Point(906, 194);
+            checkBoxRangeEnemys.Location = new Point(1021, 192);
             checkBoxRangeEnemys.Name = "checkBoxRangeEnemys";
             checkBoxRangeEnemys.Size = new Size(89, 32);
             checkBoxRangeEnemys.TabIndex = 11;
@@ -126,30 +144,24 @@
             checkBoxRangeEnemys.UseVisualStyleBackColor = true;
             checkBoxRangeEnemys.CheckedChanged += checkBoxRangeEnemys_CheckedChanged;
             // 
-            // labelLVL
-            // 
-            labelLVL.AutoSize = true;
-            labelLVL.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            labelLVL.Location = new Point(2, 965);
-            labelLVL.Name = "labelLVL";
-            labelLVL.Size = new Size(54, 35);
-            labelLVL.TabIndex = 13;
-            labelLVL.Text = "LVL";
-            // 
             // listView1
             // 
-            listView1.Location = new Point(906, 232);
+            listView1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            listView1.Location = new Point(1021, 568);
+            listView1.MultiSelect = false;
             listView1.Name = "listView1";
-            listView1.Size = new Size(239, 222);
+            listView1.Size = new Size(600, 301);
             listView1.TabIndex = 14;
             listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.Tile;
             // 
             // buttonEnterUp
             // 
             buttonEnterUp.Enabled = false;
-            buttonEnterUp.Location = new Point(1168, 232);
+            buttonEnterUp.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonEnterUp.Location = new Point(1021, 879);
             buttonEnterUp.Name = "buttonEnterUp";
-            buttonEnterUp.Size = new Size(119, 222);
+            buttonEnterUp.Size = new Size(600, 48);
             buttonEnterUp.TabIndex = 15;
             buttonEnterUp.Text = "enter";
             buttonEnterUp.UseVisualStyleBackColor = true;
@@ -157,6 +169,7 @@
             // 
             // listView2
             // 
+            listView2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             listView2.Location = new Point(1667, 126);
             listView2.Name = "listView2";
             listView2.Size = new Size(233, 743);
@@ -166,20 +179,20 @@
             // labelStatName
             // 
             labelStatName.AutoSize = true;
-            labelStatName.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            labelStatName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             labelStatName.Location = new Point(1667, 86);
             labelStatName.Name = "labelStatName";
-            labelStatName.Size = new Size(53, 25);
+            labelStatName.Size = new Size(54, 28);
             labelStatName.TabIndex = 17;
             labelStatName.Text = "label";
-            labelStatName.Click += labelStatName_Click;
             // 
             // buttonExit
             // 
             buttonExit.BackColor = Color.Red;
-            buttonExit.Location = new Point(963, 722);
+            buttonExit.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonExit.Location = new Point(1021, 940);
             buttonExit.Name = "buttonExit";
-            buttonExit.Size = new Size(629, 178);
+            buttonExit.Size = new Size(712, 60);
             buttonExit.TabIndex = 18;
             buttonExit.Text = "Exit";
             buttonExit.UseVisualStyleBackColor = false;
@@ -191,7 +204,7 @@
             labelMyHealth.AutoSize = true;
             labelMyHealth.BackColor = Color.Silver;
             labelMyHealth.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            labelMyHealth.Location = new Point(906, 513);
+            labelMyHealth.Location = new Point(1021, 352);
             labelMyHealth.Name = "labelMyHealth";
             labelMyHealth.Size = new Size(71, 30);
             labelMyHealth.TabIndex = 20;
@@ -202,17 +215,68 @@
             labelEnemyHealth.AutoSize = true;
             labelEnemyHealth.BackColor = Color.Silver;
             labelEnemyHealth.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            labelEnemyHealth.Location = new Point(906, 158);
+            labelEnemyHealth.Location = new Point(1021, 149);
             labelEnemyHealth.Margin = new Padding(0);
             labelEnemyHealth.Name = "labelEnemyHealth";
             labelEnemyHealth.Size = new Size(71, 30);
             labelEnemyHealth.TabIndex = 21;
             labelEnemyHealth.Text = "label2";
             // 
+            // buttonAutoMode
+            // 
+            buttonAutoMode.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonAutoMode.Location = new Point(1667, 879);
+            buttonAutoMode.Name = "buttonAutoMode";
+            buttonAutoMode.Size = new Size(233, 48);
+            buttonAutoMode.TabIndex = 22;
+            buttonAutoMode.Text = "AutoMode";
+            buttonAutoMode.UseVisualStyleBackColor = true;
+            buttonAutoMode.Click += buttonAutoMode_Click;
+            // 
+            // checkBoxAutoMode
+            // 
+            checkBoxAutoMode.AutoSize = true;
+            checkBoxAutoMode.Enabled = false;
+            checkBoxAutoMode.Location = new Point(1758, 929);
+            checkBoxAutoMode.Name = "checkBoxAutoMode";
+            checkBoxAutoMode.Size = new Size(142, 24);
+            checkBoxAutoMode.TabIndex = 23;
+            checkBoxAutoMode.Text = "AutoModeStatus";
+            checkBoxAutoMode.UseVisualStyleBackColor = true;
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(1012, 273);
+            label2.Name = "label2";
+            label2.Size = new Size(183, 46);
+            label2.TabIndex = 24;
+            label2.Text = "HeroName";
+            // 
+            // labelUpgrades
+            // 
+            labelUpgrades.AutoSize = true;
+            labelUpgrades.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            labelUpgrades.Location = new Point(1261, 535);
+            labelUpgrades.Name = "labelUpgrades";
+            labelUpgrades.Size = new Size(107, 30);
+            labelUpgrades.TabIndex = 25;
+            labelUpgrades.Text = "Upgrades";
+            // 
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(labelLVL);
+            Controls.Add(labelUpgrades);
+            Controls.Add(label2);
+            Controls.Add(checkBoxAutoMode);
+            Controls.Add(buttonAutoMode);
             Controls.Add(labelEnemyHealth);
             Controls.Add(labelMyHealth);
             Controls.Add(buttonExit);
@@ -220,16 +284,15 @@
             Controls.Add(listView2);
             Controls.Add(buttonEnterUp);
             Controls.Add(listView1);
-            Controls.Add(labelLVL);
             Controls.Add(checkBoxRangeEnemys);
             Controls.Add(checkBoxMain);
-            Controls.Add(panelMain);
-            Controls.Add(progressBarExp);
             Controls.Add(hpBarEnemy);
             Controls.Add(hpBarPlayer);
             Controls.Add(buttonNextTurn);
             Controls.Add(buttonAtack);
             Controls.Add(label1);
+            Controls.Add(panelMain);
+            Controls.Add(progressBarExp);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
@@ -257,5 +320,10 @@
         private Button buttonExit;
         private Label labelMyHealth;
         private Label labelEnemyHealth;
+        private Button buttonAutoMode;
+        private CheckBox checkBoxAutoMode;
+        private System.Windows.Forms.Timer timer1;
+        private Label label2;
+        private Label labelUpgrades;
     }
 }

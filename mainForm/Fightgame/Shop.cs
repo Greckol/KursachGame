@@ -44,7 +44,7 @@ namespace Fightgame
         int rangeAtackCost = 100;
         int healthRegenerationCost = 50;
         int armorCost = 15;
-        int healthFullRegencCOst = 100;
+        int healthFullRegencCost = 100;
 
         public const string damage = "Damage";
         public const string healthFullRegen = "HealthFullRegen";
@@ -65,7 +65,7 @@ namespace Fightgame
             dictionaryShop.Add(damage, damageCost);
             dictionaryShop.Add(critChance, critChanceCost);
             dictionaryShop.Add(rangeAtack, rangeAtackCost);
-            dictionaryShop.Add(healthFullRegen, healthFullRegencCOst);
+            dictionaryShop.Add(healthFullRegen, healthFullRegencCost);
             refresh(listView);
         }
 
@@ -85,30 +85,32 @@ namespace Fightgame
             switch (listViewItem.Text)
             {
                 case damage:
-                    damageCost *= 2;
+                    damageCost += damageCost / 2;
                     dictionaryShop[listViewItem.Text] = damageCost;
                     break;
                 case healthMax:
-                    healthCost *= 2;
+                    healthCost += healthCost / 2;
                     dictionaryShop[listViewItem.Text] = healthCost;
                     break;
                 case critChance:
-                    critChanceCost *= 2;
+                    critChanceCost += critChanceCost / 2;
                     dictionaryShop[listViewItem.Text] = critChanceCost;
                     break;
                 case rangeAtack:
-                    rangeAtackCost *= 2;
+                    rangeAtackCost += rangeAtackCost * 2;
                     dictionaryShop[listViewItem.Text] = rangeAtackCost;
                     break;
                 case armor:
-                    armorCost *= 2;
+                    armorCost += armorCost / 2;
                     dictionaryShop[listViewItem.Text] = armorCost;
                     break;
                 case healthRegeneration:
-                    healthRegenerationCost *= 2;
+                    healthRegenerationCost += healthRegenerationCost / 2;
                     dictionaryShop[listViewItem.Text] = healthRegenerationCost;
                     break;
                 case healthFullRegen:
+                    healthFullRegencCost += 10;
+                    dictionaryShop[listViewItem.Text] = healthFullRegencCost;
                     break;
                 default:
                     break;
