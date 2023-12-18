@@ -46,14 +46,15 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            panel1.Location = new Point(480, 153);
+            panel1.Anchor = AnchorStyles.None;
+            panel1.Location = new Point(480, 177);
             panel1.Name = "panel1";
-            panel1.Size = new Size(960, 200);
+            panel1.Size = new Size(978, 200);
             panel1.TabIndex = 0;
             // 
             // buttonHit
             // 
+            buttonHit.Anchor = AnchorStyles.None;
             buttonHit.BackColor = Color.IndianRed;
             buttonHit.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonHit.Location = new Point(469, 574);
@@ -66,6 +67,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.None;
             panel2.Location = new Point(828, 101);
             panel2.Name = "panel2";
             panel2.Size = new Size(300, 300);
@@ -83,6 +85,7 @@
             // 
             // hpBarPlayer
             // 
+            hpBarPlayer.Anchor = AnchorStyles.None;
             hpBarPlayer.Location = new Point(468, 793);
             hpBarPlayer.Name = "hpBarPlayer";
             hpBarPlayer.Size = new Size(970, 60);
@@ -90,6 +93,7 @@
             // 
             // hpBarEnemy
             // 
+            hpBarEnemy.Anchor = AnchorStyles.None;
             hpBarEnemy.Location = new Point(469, 454);
             hpBarEnemy.Name = "hpBarEnemy";
             hpBarEnemy.Size = new Size(970, 74);
@@ -97,6 +101,7 @@
             // 
             // buttonEscape
             // 
+            buttonEscape.Anchor = AnchorStyles.None;
             buttonEscape.BackColor = Color.FromArgb(192, 255, 192);
             buttonEscape.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonEscape.ForeColor = SystemColors.ControlText;
@@ -110,6 +115,7 @@
             // 
             // labelEnemyName
             // 
+            labelEnemyName.Anchor = AnchorStyles.None;
             labelEnemyName.AutoSize = true;
             labelEnemyName.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
             labelEnemyName.Location = new Point(914, 42);
@@ -156,7 +162,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1902, 1033);
+            ClientSize = new Size(1920, 1080);
             Controls.Add(labelMyHealth);
             Controls.Add(labelEnemyHealth);
             Controls.Add(labelInfo2);

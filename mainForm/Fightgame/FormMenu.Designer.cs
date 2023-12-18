@@ -39,6 +39,7 @@
             // 
             // buttonStartGame
             // 
+            buttonStartGame.Anchor = AnchorStyles.None;
             buttonStartGame.BackColor = Color.FromArgb(192, 255, 192);
             buttonStartGame.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
             buttonStartGame.Location = new Point(708, 780);
@@ -51,6 +52,7 @@
             // 
             // textBoxPlayerName
             // 
+            textBoxPlayerName.Anchor = AnchorStyles.None;
             textBoxPlayerName.BackColor = Color.Silver;
             textBoxPlayerName.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxPlayerName.ForeColor = SystemColors.WindowText;
@@ -61,7 +63,7 @@
             // 
             // labelPlayerName
             // 
-            labelPlayerName.AutoSize = true;
+            labelPlayerName.Anchor = AnchorStyles.None;
             labelPlayerName.BackColor = Color.Silver;
             labelPlayerName.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             labelPlayerName.Location = new Point(861, 451);
@@ -72,6 +74,7 @@
             // 
             // comboBoxdifficulty
             // 
+            comboBoxdifficulty.Anchor = AnchorStyles.None;
             comboBoxdifficulty.BackColor = Color.Silver;
             comboBoxdifficulty.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxdifficulty.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
@@ -84,6 +87,7 @@
             // 
             // comboBoxMainPanelSize
             // 
+            comboBoxMainPanelSize.Anchor = AnchorStyles.None;
             comboBoxMainPanelSize.BackColor = Color.Silver;
             comboBoxMainPanelSize.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxMainPanelSize.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
@@ -96,7 +100,7 @@
             // 
             // label1
             // 
-            label1.AutoSize = true;
+            label1.Anchor = AnchorStyles.None;
             label1.BackColor = Color.Silver;
             label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(883, 557);
@@ -107,7 +111,7 @@
             // 
             // label2
             // 
-            label2.AutoSize = true;
+            label2.Anchor = AnchorStyles.None;
             label2.BackColor = Color.Silver;
             label2.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(836, 672);
