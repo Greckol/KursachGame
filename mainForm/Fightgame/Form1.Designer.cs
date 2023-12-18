@@ -51,6 +51,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(1012, 70);
@@ -61,6 +62,7 @@
             // 
             // buttonAtack
             // 
+            buttonAtack.Anchor = AnchorStyles.None;
             buttonAtack.BackColor = Color.IndianRed;
             buttonAtack.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonAtack.Location = new Point(1021, 401);
@@ -73,6 +75,7 @@
             // 
             // buttonNextTurn
             // 
+            buttonNextTurn.Anchor = AnchorStyles.None;
             buttonNextTurn.BackColor = Color.FromArgb(255, 255, 192);
             buttonNextTurn.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonNextTurn.Location = new Point(1369, 401);
@@ -85,6 +88,7 @@
             // 
             // hpBarPlayer
             // 
+            hpBarPlayer.Anchor = AnchorStyles.None;
             hpBarPlayer.Location = new Point(1021, 322);
             hpBarPlayer.Name = "hpBarPlayer";
             hpBarPlayer.Size = new Size(600, 60);
@@ -92,6 +96,7 @@
             // 
             // hpBarEnemy
             // 
+            hpBarEnemy.Anchor = AnchorStyles.None;
             hpBarEnemy.Location = new Point(1021, 119);
             hpBarEnemy.Name = "hpBarEnemy";
             hpBarEnemy.Size = new Size(600, 60);
@@ -100,6 +105,7 @@
             // 
             // progressBarExp
             // 
+            progressBarExp.Anchor = AnchorStyles.None;
             progressBarExp.Location = new Point(94, 1003);
             progressBarExp.Name = "progressBarExp";
             progressBarExp.Size = new Size(1707, 31);
@@ -107,6 +113,7 @@
             // 
             // panelMain
             // 
+            panelMain.Anchor = AnchorStyles.None;
             panelMain.Location = new Point(0, 0);
             panelMain.Name = "panelMain";
             panelMain.Size = new Size(990, 990);
@@ -114,6 +121,7 @@
             // 
             // labelLVL
             // 
+            labelLVL.Anchor = AnchorStyles.None;
             labelLVL.AutoSize = true;
             labelLVL.BackColor = Color.Transparent;
             labelLVL.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
@@ -138,6 +146,7 @@
             // 
             // checkBoxRangeEnemys
             // 
+            checkBoxRangeEnemys.Anchor = AnchorStyles.None;
             checkBoxRangeEnemys.AutoSize = true;
             checkBoxRangeEnemys.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             checkBoxRangeEnemys.Location = new Point(1021, 192);
@@ -150,6 +159,7 @@
             // 
             // listView1
             // 
+            listView1.Anchor = AnchorStyles.None;
             listView1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             listView1.Location = new Point(1021, 568);
             listView1.MultiSelect = false;
@@ -161,6 +171,7 @@
             // 
             // buttonEnterUp
             // 
+            buttonEnterUp.Anchor = AnchorStyles.None;
             buttonEnterUp.BackColor = Color.FromArgb(192, 255, 192);
             buttonEnterUp.Enabled = false;
             buttonEnterUp.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -174,6 +185,7 @@
             // 
             // listView2
             // 
+            listView2.Anchor = AnchorStyles.None;
             listView2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             listView2.Location = new Point(1667, 119);
             listView2.Name = "listView2";
@@ -183,6 +195,7 @@
             // 
             // labelStatName
             // 
+            labelStatName.Anchor = AnchorStyles.None;
             labelStatName.AutoSize = true;
             labelStatName.BackColor = Color.FromArgb(255, 255, 128);
             labelStatName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -194,6 +207,7 @@
             // 
             // buttonExit
             // 
+            buttonExit.Anchor = AnchorStyles.None;
             buttonExit.BackColor = Color.Red;
             buttonExit.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
             buttonExit.Location = new Point(1021, 230);
@@ -207,6 +221,7 @@
             // 
             // labelMyHealth
             // 
+            labelMyHealth.Anchor = AnchorStyles.None;
             labelMyHealth.AutoSize = true;
             labelMyHealth.BackColor = Color.Silver;
             labelMyHealth.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
@@ -218,6 +233,7 @@
             // 
             // labelEnemyHealth
             // 
+            labelEnemyHealth.Anchor = AnchorStyles.None;
             labelEnemyHealth.AutoSize = true;
             labelEnemyHealth.BackColor = Color.Silver;
             labelEnemyHealth.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
@@ -230,6 +246,7 @@
             // 
             // buttonAutoMode
             // 
+            buttonAutoMode.Anchor = AnchorStyles.None;
             buttonAutoMode.BackColor = Color.FromArgb(255, 224, 192);
             buttonAutoMode.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
             buttonAutoMode.Location = new Point(1667, 879);
@@ -242,6 +259,7 @@
             // 
             // checkBoxAutoMode
             // 
+            checkBoxAutoMode.Anchor = AnchorStyles.None;
             checkBoxAutoMode.AutoSize = true;
             checkBoxAutoMode.Enabled = false;
             checkBoxAutoMode.Location = new Point(1758, 929);
@@ -257,6 +275,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(1012, 273);
@@ -267,6 +286,7 @@
             // 
             // labelUpgrades
             // 
+            labelUpgrades.Anchor = AnchorStyles.None;
             labelUpgrades.AutoSize = true;
             labelUpgrades.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             labelUpgrades.Location = new Point(1261, 535);
@@ -277,6 +297,7 @@
             // 
             // labelStages
             // 
+            labelStages.Anchor = AnchorStyles.None;
             labelStages.AutoSize = true;
             labelStages.BackColor = Color.FromArgb(192, 255, 255);
             labelStages.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
@@ -288,6 +309,7 @@
             // 
             // labelScore
             // 
+            labelScore.Anchor = AnchorStyles.None;
             labelScore.AutoSize = true;
             labelScore.BackColor = Color.FromArgb(192, 255, 255);
             labelScore.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);

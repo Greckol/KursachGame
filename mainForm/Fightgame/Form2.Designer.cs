@@ -47,9 +47,9 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.None;
-            panel1.Location = new Point(480, 177);
+            panel1.Location = new Point(480, 149);
             panel1.Name = "panel1";
-            panel1.Size = new Size(978, 200);
+            panel1.Size = new Size(978, 228);
             panel1.TabIndex = 0;
             // 
             // buttonHit
@@ -75,6 +75,7 @@
             // 
             // labelInfo
             // 
+            labelInfo.Anchor = AnchorStyles.None;
             labelInfo.AutoSize = true;
             labelInfo.BackColor = Color.FromArgb(255, 128, 128);
             labelInfo.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
@@ -127,6 +128,7 @@
             // 
             // labelInfo2
             // 
+            labelInfo2.Anchor = AnchorStyles.None;
             labelInfo2.AutoSize = true;
             labelInfo2.BackColor = Color.FromArgb(255, 128, 128);
             labelInfo2.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
@@ -137,6 +139,7 @@
             // 
             // labelEnemyHealth
             // 
+            labelEnemyHealth.Anchor = AnchorStyles.None;
             labelEnemyHealth.AutoSize = true;
             labelEnemyHealth.BackColor = Color.Silver;
             labelEnemyHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
@@ -148,6 +151,7 @@
             // 
             // labelMyHealth
             // 
+            labelMyHealth.Anchor = AnchorStyles.None;
             labelMyHealth.AutoSize = true;
             labelMyHealth.BackColor = Color.Silver;
             labelMyHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
