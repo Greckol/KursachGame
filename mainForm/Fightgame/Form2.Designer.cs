@@ -47,9 +47,9 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.None;
-            panel1.Location = new Point(480, 149);
+            panel1.Location = new Point(469, 149);
             panel1.Name = "panel1";
-            panel1.Size = new Size(978, 228);
+            panel1.Size = new Size(970, 228);
             panel1.TabIndex = 0;
             // 
             // buttonHit
@@ -57,7 +57,7 @@
             buttonHit.Anchor = AnchorStyles.None;
             buttonHit.BackColor = Color.IndianRed;
             buttonHit.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonHit.Location = new Point(469, 574);
+            buttonHit.Location = new Point(468, 575);
             buttonHit.Name = "buttonHit";
             buttonHit.Size = new Size(421, 144);
             buttonHit.TabIndex = 1;
@@ -87,7 +87,7 @@
             // hpBarPlayer
             // 
             hpBarPlayer.Anchor = AnchorStyles.None;
-            hpBarPlayer.Location = new Point(468, 793);
+            hpBarPlayer.Location = new Point(469, 753);
             hpBarPlayer.Name = "hpBarPlayer";
             hpBarPlayer.Size = new Size(970, 60);
             hpBarPlayer.TabIndex = 4;
@@ -106,7 +106,7 @@
             buttonEscape.BackColor = Color.FromArgb(192, 255, 192);
             buttonEscape.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonEscape.ForeColor = SystemColors.ControlText;
-            buttonEscape.Location = new Point(1015, 574);
+            buttonEscape.Location = new Point(1029, 575);
             buttonEscape.Name = "buttonEscape";
             buttonEscape.Size = new Size(409, 142);
             buttonEscape.TabIndex = 6;
@@ -155,7 +155,7 @@
             labelMyHealth.AutoSize = true;
             labelMyHealth.BackColor = Color.Silver;
             labelMyHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            labelMyHealth.Location = new Point(469, 821);
+            labelMyHealth.Location = new Point(470, 781);
             labelMyHealth.Name = "labelMyHealth";
             labelMyHealth.Size = new Size(78, 32);
             labelMyHealth.TabIndex = 11;
@@ -163,8 +163,7 @@
             // 
             // Form2
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
             ClientSize = new Size(1920, 1080);
             Controls.Add(labelMyHealth);

@@ -122,8 +122,7 @@
             // 
             // FormMenu
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.MenuImageBlack;
             ClientSize = new Size(1902, 1033);
             Controls.Add(label2);
