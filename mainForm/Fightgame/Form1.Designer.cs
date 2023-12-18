@@ -134,6 +134,7 @@
             // 
             // checkBoxMain
             // 
+            checkBoxMain.Anchor = AnchorStyles.None;
             checkBoxMain.AutoSize = true;
             checkBoxMain.Enabled = false;
             checkBoxMain.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
