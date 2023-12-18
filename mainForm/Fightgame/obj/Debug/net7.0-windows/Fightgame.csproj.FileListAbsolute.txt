@@ -17,3 +17,4 @@ D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.genruntimeconfi
 D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\ref\Fightgame.dll
 D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.Form2.resources
 D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.FormMenu.resources
+D:\Kursach\mainForm\Fightgame\obj\Debug\net7.0-windows\Fightgame.Properties.Resources.resources

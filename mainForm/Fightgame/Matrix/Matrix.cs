@@ -77,7 +77,7 @@ namespace Fightgame
             }
             else if (matrix[row][colum] is Enemy enemy)
             {
-                if (enemy.GetBaseComponent() is Slime)
+                if (enemy.GetBaseComponent() is Rat)
                 {
                     g.FillRectangle(Brushes.Tan, colum * CellSizeRow, row * CellSizeColum, CellSizeRow, CellSizeColum);
                 }

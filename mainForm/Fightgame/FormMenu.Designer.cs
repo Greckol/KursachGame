@@ -39,69 +39,80 @@
             // 
             // buttonStartGame
             // 
-            buttonStartGame.Location = new Point(697, 633);
+            buttonStartGame.BackColor = Color.FromArgb(192, 255, 192);
+            buttonStartGame.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonStartGame.Location = new Point(708, 780);
             buttonStartGame.Name = "buttonStartGame";
-            buttonStartGame.Size = new Size(491, 124);
+            buttonStartGame.Size = new Size(454, 131);
             buttonStartGame.TabIndex = 0;
-            buttonStartGame.Text = "START";
-            buttonStartGame.UseVisualStyleBackColor = true;
+            buttonStartGame.Text = "START FIGHT";
+            buttonStartGame.UseVisualStyleBackColor = false;
             buttonStartGame.Click += buttonStartGame_Click;
             // 
             // textBoxPlayerName
             // 
+            textBoxPlayerName.BackColor = Color.Silver;
             textBoxPlayerName.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxPlayerName.Location = new Point(697, 269);
+            textBoxPlayerName.ForeColor = SystemColors.WindowText;
+            textBoxPlayerName.Location = new Point(708, 495);
             textBoxPlayerName.Name = "textBoxPlayerName";
-            textBoxPlayerName.Size = new Size(491, 41);
+            textBoxPlayerName.Size = new Size(454, 41);
             textBoxPlayerName.TabIndex = 1;
             // 
             // labelPlayerName
             // 
             labelPlayerName.AutoSize = true;
-            labelPlayerName.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            labelPlayerName.Location = new Point(853, 209);
+            labelPlayerName.BackColor = Color.Silver;
+            labelPlayerName.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            labelPlayerName.Location = new Point(861, 451);
             labelPlayerName.Name = "labelPlayerName";
-            labelPlayerName.Size = new Size(185, 46);
+            labelPlayerName.Size = new Size(164, 41);
             labelPlayerName.TabIndex = 2;
             labelPlayerName.Text = "Your Name";
             // 
             // comboBoxdifficulty
             // 
+            comboBoxdifficulty.BackColor = Color.Silver;
             comboBoxdifficulty.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxdifficulty.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBoxdifficulty.ForeColor = Color.FromArgb(192, 0, 0);
             comboBoxdifficulty.FormattingEnabled = true;
-            comboBoxdifficulty.Location = new Point(697, 396);
+            comboBoxdifficulty.Location = new Point(708, 595);
             comboBoxdifficulty.Name = "comboBoxdifficulty";
-            comboBoxdifficulty.Size = new Size(491, 43);
+            comboBoxdifficulty.Size = new Size(454, 43);
             comboBoxdifficulty.TabIndex = 3;
             // 
             // comboBoxMainPanelSize
             // 
+            comboBoxMainPanelSize.BackColor = Color.Silver;
             comboBoxMainPanelSize.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxMainPanelSize.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBoxMainPanelSize.ForeColor = Color.FromArgb(192, 0, 0);
             comboBoxMainPanelSize.FormattingEnabled = true;
-            comboBoxMainPanelSize.Location = new Point(697, 527);
+            comboBoxMainPanelSize.Location = new Point(708, 712);
             comboBoxMainPanelSize.Name = "comboBoxMainPanelSize";
-            comboBoxMainPanelSize.Size = new Size(491, 43);
+            comboBoxMainPanelSize.Size = new Size(454, 43);
             comboBoxMainPanelSize.TabIndex = 4;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(866, 337);
+            label1.BackColor = Color.Silver;
+            label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(883, 557);
             label1.Name = "label1";
-            label1.Size = new Size(153, 46);
+            label1.Size = new Size(113, 35);
             label1.TabIndex = 5;
             label1.Text = "Difficulty";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(823, 467);
+            label2.BackColor = Color.Silver;
+            label2.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(836, 672);
             label2.Name = "label2";
-            label2.Size = new Size(265, 46);
+            label2.Size = new Size(214, 37);
             label2.TabIndex = 6;
             label2.Text = "Playing field size";
             // 
@@ -109,6 +120,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.MenuImageBlack;
             ClientSize = new Size(1902, 1033);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -117,9 +129,11 @@
             Controls.Add(labelPlayerName);
             Controls.Add(textBoxPlayerName);
             Controls.Add(buttonStartGame);
+            DoubleBuffered = true;
             Name = "FormMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormMenu";
+            WindowState = FormWindowState.Maximized;
             ResumeLayout(false);
             PerformLayout();
         }

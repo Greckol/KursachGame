@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Fightgame
 {
-    class Slime : Enemy
+    class Rat : Enemy
     {
-        public Slime(): base(name: "Slime", damage: 4, health: 8, healthMax: 8, healthRegeneration: 1, armor: 1, rangeAtack: 1,
+        public Rat(): base(name: "Rat", damage: 4, health: 8, healthMax: 8, healthRegeneration: 1, armor: 1, rangeAtack: 1,
             atackCount: 10, cellAtackCount: 15, dangerProcent: 10, expReward: 5, goldReward: 7, speedAtack: 5)
         {}
 

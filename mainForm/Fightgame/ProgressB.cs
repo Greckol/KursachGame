@@ -9,7 +9,7 @@ namespace Fightgame
 {
     internal class ProgressB
     {
-        static public void refreshProgress(ProgressBar progressB, Unit u)
+        static public void refreshHpBar(ProgressBar progressB, Unit u)
         {
             progressB.Minimum = 0;
             progressB.Maximum = u.getHealthMax();

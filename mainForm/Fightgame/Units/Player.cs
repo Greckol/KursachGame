@@ -13,6 +13,27 @@ namespace Fightgame
     {
         private static Player player;
 
+        private Player(string name, int cordRows, int cordColums) :
+            base(damage: 5, rangeAtack: 2, healthMax: 10, health: 10, 
+                name: name, cordRows: cordRows, cordColums: cordColums)
+        {
+            exp = 0;        // если exp > expMax уровенть не повысится
+            expMax = 10;
+            lvl = 1;
+            gold = 15;
+            critChance = 5;
+
+        }
+
+        public static Player GetInstance(string name = "", int cordRows = 0, int cordColums = 0)
+        {
+            if (player == null)
+            {
+                player = new Player(name, cordRows, cordColums);
+            }
+            return player;
+        }
+
         private int exp;
         private int expMax;
         private int lvl;
@@ -27,8 +48,8 @@ namespace Fightgame
         {
             Form2 form2 = new Form2(enemy, enemyAtack, autoMod);
             form2.ShowDialog();
-            ProgressB.refreshProgress(hpBarEnemy, enemy);
-            ProgressB.refreshProgress(hpBarPlayer, player);
+            ProgressB.refreshHpBar(hpBarEnemy, enemy);
+            ProgressB.refreshHpBar(hpBarPlayer, player);
 
             if (enemy.getHealth() <= 0)
             {
@@ -95,25 +116,7 @@ namespace Fightgame
             gold += value;
         }
 
-        private Player(string name, int cordRows, int cordColums) : base(damage: 5, rangeAtack: 2, healthMax: 10, health: 10, name: name, cordRows: cordRows,
-            cordColums: cordColums)
-        {
-            exp = 0;        // если exp > expMax уровенть не повысится
-            expMax = 10;
-            lvl = 1;
-            gold = 15;
-            critChance = 5;
-            
-        }
-
-        public static Player GetInstance(string name = "", int cordRows = 0, int cordColums = 0)
-        {
-            if (player == null)
-            {
-                player = new Player(name, cordRows, cordColums);
-            }
-            return player;
-        }
+        
 
         public override int getDamage()
         {

@@ -61,24 +61,26 @@
             // 
             // buttonAtack
             // 
+            buttonAtack.BackColor = Color.IndianRed;
             buttonAtack.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonAtack.Location = new Point(1021, 401);
             buttonAtack.Name = "buttonAtack";
             buttonAtack.Size = new Size(238, 95);
             buttonAtack.TabIndex = 1;
             buttonAtack.Text = "Atack";
-            buttonAtack.UseVisualStyleBackColor = true;
+            buttonAtack.UseVisualStyleBackColor = false;
             buttonAtack.Click += buttonAtack_Click;
             // 
             // buttonNextTurn
             // 
+            buttonNextTurn.BackColor = Color.FromArgb(255, 255, 192);
             buttonNextTurn.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonNextTurn.Location = new Point(1369, 401);
             buttonNextTurn.Name = "buttonNextTurn";
             buttonNextTurn.Size = new Size(252, 95);
             buttonNextTurn.TabIndex = 2;
             buttonNextTurn.Text = "NextTurn";
-            buttonNextTurn.UseVisualStyleBackColor = true;
+            buttonNextTurn.UseVisualStyleBackColor = false;
             buttonNextTurn.Click += buttonNextTurn_Click;
             // 
             // hpBarPlayer
@@ -115,6 +117,7 @@
             labelLVL.AutoSize = true;
             labelLVL.BackColor = Color.Transparent;
             labelLVL.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            labelLVL.ForeColor = Color.Blue;
             labelLVL.Location = new Point(0, 999);
             labelLVL.Name = "labelLVL";
             labelLVL.Size = new Size(54, 35);
@@ -158,6 +161,7 @@
             // 
             // buttonEnterUp
             // 
+            buttonEnterUp.BackColor = Color.FromArgb(192, 255, 192);
             buttonEnterUp.Enabled = false;
             buttonEnterUp.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             buttonEnterUp.Location = new Point(1021, 879);
@@ -165,23 +169,24 @@
             buttonEnterUp.Size = new Size(600, 48);
             buttonEnterUp.TabIndex = 15;
             buttonEnterUp.Text = "enter";
-            buttonEnterUp.UseVisualStyleBackColor = true;
+            buttonEnterUp.UseVisualStyleBackColor = false;
             buttonEnterUp.Click += buttonEnterUp_Click;
             // 
             // listView2
             // 
             listView2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            listView2.Location = new Point(1667, 126);
+            listView2.Location = new Point(1667, 119);
             listView2.Name = "listView2";
-            listView2.Size = new Size(233, 743);
+            listView2.Size = new Size(233, 750);
             listView2.TabIndex = 16;
             listView2.UseCompatibleStateImageBehavior = false;
             // 
             // labelStatName
             // 
             labelStatName.AutoSize = true;
+            labelStatName.BackColor = Color.FromArgb(255, 255, 128);
             labelStatName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            labelStatName.Location = new Point(1667, 86);
+            labelStatName.Location = new Point(1667, 80);
             labelStatName.Name = "labelStatName";
             labelStatName.Size = new Size(54, 28);
             labelStatName.TabIndex = 17;
@@ -225,13 +230,14 @@
             // 
             // buttonAutoMode
             // 
+            buttonAutoMode.BackColor = Color.FromArgb(255, 224, 192);
             buttonAutoMode.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
             buttonAutoMode.Location = new Point(1667, 879);
             buttonAutoMode.Name = "buttonAutoMode";
             buttonAutoMode.Size = new Size(233, 48);
             buttonAutoMode.TabIndex = 22;
             buttonAutoMode.Text = "AutoMode";
-            buttonAutoMode.UseVisualStyleBackColor = true;
+            buttonAutoMode.UseVisualStyleBackColor = false;
             buttonAutoMode.Click += buttonAutoMode_Click;
             // 
             // checkBoxAutoMode
@@ -272,6 +278,7 @@
             // labelStages
             // 
             labelStages.AutoSize = true;
+            labelStages.BackColor = Color.FromArgb(192, 255, 255);
             labelStages.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             labelStages.Location = new Point(1021, 955);
             labelStages.Name = "labelStages";
@@ -282,6 +289,7 @@
             // labelScore
             // 
             labelScore.AutoSize = true;
+            labelScore.BackColor = Color.FromArgb(192, 255, 255);
             labelScore.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             labelScore.Location = new Point(1519, 955);
             labelScore.Name = "labelScore";
@@ -292,6 +300,7 @@
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.White;
             ClientSize = new Size(1902, 1033);
             Controls.Add(buttonExit);
             Controls.Add(labelScore);
@@ -316,9 +325,11 @@
             Controls.Add(label1);
             Controls.Add(panelMain);
             Controls.Add(progressBarExp);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();

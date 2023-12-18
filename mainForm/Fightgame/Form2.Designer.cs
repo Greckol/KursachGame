@@ -54,13 +54,14 @@
             // 
             // buttonHit
             // 
+            buttonHit.BackColor = Color.IndianRed;
             buttonHit.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             buttonHit.Location = new Point(469, 574);
             buttonHit.Name = "buttonHit";
             buttonHit.Size = new Size(421, 144);
             buttonHit.TabIndex = 1;
             buttonHit.Text = "Hit";
-            buttonHit.UseVisualStyleBackColor = true;
+            buttonHit.UseVisualStyleBackColor = false;
             buttonHit.Click += buttonHit_Click;
             // 
             // panel2
@@ -96,22 +97,24 @@
             // 
             // buttonEscape
             // 
+            buttonEscape.BackColor = Color.FromArgb(192, 255, 192);
             buttonEscape.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonEscape.ForeColor = SystemColors.ControlText;
             buttonEscape.Location = new Point(1015, 574);
             buttonEscape.Name = "buttonEscape";
             buttonEscape.Size = new Size(409, 142);
             buttonEscape.TabIndex = 6;
             buttonEscape.Text = "Escape";
-            buttonEscape.UseVisualStyleBackColor = true;
+            buttonEscape.UseVisualStyleBackColor = false;
             buttonEscape.Click += buttonEscape_Click;
             // 
             // labelEnemyName
             // 
             labelEnemyName.AutoSize = true;
-            labelEnemyName.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            labelEnemyName.Location = new Point(878, 35);
+            labelEnemyName.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            labelEnemyName.Location = new Point(914, 42);
             labelEnemyName.Name = "labelEnemyName";
-            labelEnemyName.Size = new Size(97, 41);
+            labelEnemyName.Size = new Size(109, 46);
             labelEnemyName.TabIndex = 7;
             labelEnemyName.Text = "label1";
             labelEnemyName.TextAlign = ContentAlignment.TopCenter;
@@ -152,6 +155,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1902, 1033);
             Controls.Add(labelMyHealth);
             Controls.Add(labelEnemyHealth);
@@ -164,9 +168,11 @@
             Controls.Add(hpBarPlayer);
             Controls.Add(buttonHit);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form2";
+            WindowState = FormWindowState.Maximized;
             Load += Form2_Load;
             ResumeLayout(false);
             PerformLayout();

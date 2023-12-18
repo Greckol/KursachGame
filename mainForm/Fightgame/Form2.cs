@@ -27,11 +27,11 @@ namespace Fightgame
             this.autoMode = autoMode;
             this.enemy = enemy;
             InitializeComponent();
-            if (enemyAtack) labelEnemyName.Text = "you are being attacked\n" + enemy.Name;
+            if (enemyAtack) labelEnemyName.Text = "You are being attacked\n" + enemy.Name;
             else labelEnemyName.Text = enemy.Name;
             this.ControlBox = false;
             this.KeyPreview = true;
-            this.DoubleBuffered = true;
+            //this.DoubleBuffered = true;
             matrixD = new MatrixDef(enemy.getMatrixDefRows(), enemy.getMatrixDefColumns(), panel2);
             panel1.Paint += new PaintEventHandler(Panel1_Paint);
             panel2.Paint += new PaintEventHandler(matrixVisuble);
@@ -98,7 +98,7 @@ namespace Fightgame
                 int value = player.takedamage(enemy.Hit());
                 labelInfo2.Text = '-' + value.ToString();
                 ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, enemy);
-                ProgressB.refreshProgress(hpBarPlayer, player);
+                ProgressB.refreshHpBar(hpBarPlayer, player);
             }
             if (flag) matrixD.enemys.Clear();
             timer2TickCount++;
@@ -163,7 +163,7 @@ namespace Fightgame
                 int value = enemy.takedamage(player.Hit());
                 labelInfo.Text = '-' + value.ToString();
                 ProgressB.refreshLabelHealth(labelMyHealth, labelEnemyHealth, enemy);
-                ProgressB.refreshProgress(hpBarEnemy, enemy);
+                ProgressB.refreshHpBar(hpBarEnemy, enemy);
                 if (enemy.getHealth() <= 0)
                 {
                     this.Close();
@@ -220,8 +220,8 @@ namespace Fightgame
         }
         private void Form2_Load(object sender, EventArgs e)
         {
-            ProgressB.refreshProgress(hpBarEnemy, enemy);
-            ProgressB.refreshProgress(hpBarPlayer, player);
+            ProgressB.refreshHpBar(hpBarEnemy, enemy);
+            ProgressB.refreshHpBar(hpBarPlayer, player);
             if (autoMode) buttonHit.PerformClick();
         }
 
@@ -229,7 +229,7 @@ namespace Fightgame
         {
             //player.Health -= enemy.getDamage();
             player.takedamage(enemy.Hit());
-            ProgressB.refreshProgress(hpBarPlayer, player);
+            ProgressB.refreshHpBar(hpBarPlayer, player);
             this.Close();
             return;
         }
